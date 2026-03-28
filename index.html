@@ -3,224 +3,216 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Verba</title>
+<title>Verba | Mastery</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#141f14;--ink2:#253325;--ink3:#4a6b4a;
-  --p:#f2f7f2;--p2:#e6f0e6;--p3:#d4e8d4;--p4:#b8d4b8;
-  --g:#2d7a3a;--g2:#3d9e4e;--g3:#52c065;
-  --gd:rgba(45,122,58,.12);--gd2:rgba(45,122,58,.22);
-  --gold:#7a6010;--gold2:#b89020;--goldd:rgba(122,96,16,.13);
-  --teal:#1a6a5c;--teald:rgba(26,106,92,.11);
-  --muted:#6b8a6b;--bd:rgba(45,122,58,.11);--bd2:rgba(45,122,58,.2);
-  --sh:rgba(20,31,20,.09);--r:12px;--r2:18px;--r3:24px;
+  --ink:#141f14;--p:#f2f7f2;--p2:#e6f0e6;--p3:#d4e8d4;
+  --g:#2d7a3a;--gold:#7a6010;--sh:rgba(20,31,20,.09);
+  --r:12px;--r2:18px;--r3:24px;--bd:rgba(45,122,58,.11);
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Outfit',sans-serif;background:var(--p);color:var(--ink);min-height:100vh;overflow-x:hidden;}
-
-/* SCREEN MANAGEMENT */
-.screen{display:none;position:relative;z-index:1;min-height:100vh;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Outfit',sans-serif;}
+body{background:var(--p);color:var(--ink);min-height:100vh;}
+.screen{display:none;min-height:100vh;}
 .screen.active{display:block;}
 
-/* AUTH STYLES (Fix 1) */
-#auth{background:#fff;}
-.auth-body{display:grid;grid-template-columns:1.1fr 0.9fr;min-height:100vh;}
-.auth-left{background:var(--ink);color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:center;}
-.auth-right{padding:60px;display:flex;flex-direction:column;justify-content:center;background:var(--p);}
-.atabs{display:flex;background:var(--p2);padding:4px;border-radius:12px;margin-bottom:32px;max-width:360px;}
-.atab{flex:1;border:none;padding:12px;border-radius:10px;cursor:pointer;background:none;color:var(--muted);font-weight:600;transition:0.2s;}
-.atab.act{background:#fff;color:var(--g);box-shadow:0 2px 8px var(--sh);}
-.apanel{display:none;}
-.apanel.act{display:block;}
-
-/* QUIZ VISUALS (Fix 2) */
-.qcard{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);padding:40px;max-width:560px;margin:32px auto;box-shadow:0 10px 40px var(--sh);}
-.qopt{display:block;width:100%;padding:20px;margin-bottom:12px;border:1.5px solid var(--bd2);border-radius:var(--r);background:var(--p);text-align:left;cursor:pointer;transition:0.2s;}
-.qopt:hover{border-color:var(--g);background:var(--gd);}
-.qopt b{display:block;color:var(--g);font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-
-/* UI COMPONENTS */
-#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd2);padding:0 24px;display:none;align-items:center;height:65px;gap:8px;}
+/* UI */
+#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd);padding:0 24px;display:none;align-items:center;height:65px;}
 .nlogo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-right:auto;}
-.hcard{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:24px;margin-bottom:20px;box-shadow:0 2px 12px var(--sh);}
-.finput{width:100%;padding:14px;border:1.5px solid var(--bd2);border-radius:12px;margin-top:8px;margin-bottom:16px;outline:none;}
-.btn-primary{width:100%;padding:16px;background:var(--g);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;}
+.hcard{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:24px;margin-bottom:20px;box-shadow:0 4px 12px var(--sh);}
+.btn-p{width:100%;padding:16px;background:var(--g);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:0.2s;}
 
-/* EXAM LOCK (Fix 3) */
-.examb{display:none; width:100%; padding:16px; border-radius:var(--r); border:none; font-weight:700; cursor:pointer; background:var(--gold); color:#fff;}
-.examb.visible{display:block;}
+/* PRACTICE ENGINE UI */
+#practiceOverlay{position:fixed;inset:0;background:var(--p);z-index:2000;display:none;flex-direction:column;padding:40px 24px;overflow-y:auto;}
+.prac-container{max-width:800px;margin:0 auto;width:100%;}
+.mic-btn{width:80px;height:80px;border-radius:50%;border:none;background:var(--g);color:#fff;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:30px auto;transition:0.3s;}
+.mic-btn.active{background:#f44;box-shadow:0 0 0 10px rgba(244,68,68,0.2);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.feedback-box{background:var(--p3);padding:20px;border-radius:var(--r);margin-top:20px;display:none;border-left:5px solid var(--g);}
+
+/* GAME MAP */
+.map-node{background:#fff;border:1.5px solid var(--bd);padding:20px;border-radius:var(--r2);margin-bottom:16px;display:flex;align-items:center;gap:15px;}
+.map-node.locked{opacity:0.4;filter:grayscale(1);}
+.map-node.current{border-color:var(--g);box-shadow:0 8px 24px var(--sh);}
 
 /* MODALS */
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(20,31,20,.6);z-index:1000;display:none;align-items:center;justify-content:center;}
+.modal{position:fixed;inset:0;background:rgba(20,31,20,.7);z-index:3000;display:none;align-items:center;justify-content:center;}
 .modal.on{display:flex;}
-.modal-c{background:#fff;padding:40px;border-radius:var(--r3);max-width:500px;width:90%;}
+.modal-c{background:#fff;padding:32px;border-radius:var(--r3);max-width:450px;width:90%;}
 </style>
 </head>
 <body>
 
 <div id="nav">
   <div class="nlogo">Verba</div>
-  <button class="atab act" style="width:auto;padding:8px 16px" onclick="showPage('home')">Home</button>
-  <button class="atab" style="width:auto;padding:8px 16px" onclick="showPage('gamemap')">Map</button>
-  <button class="atab" style="width:auto;padding:8px 16px;margin-left:auto" onclick="openAbout()">About</button>
+  <button class="nbtn" style="background:none;border:none;cursor:pointer;padding:10px" onclick="showPage('home')">Home</button>
+  <button class="nbtn" style="background:none;border:none;cursor:pointer;padding:10px" onclick="showPage('gamemap')">Map</button>
 </div>
 
 <div id="auth" class="screen active">
-  <div class="auth-body">
-    <div class="auth-left">
-      <h1 style="font-family:'Playfair Display';font-size:64px;line-height:1.1">Master your<br><em>fluency</em>.</h1>
-      <p style="margin-top:24px;font-size:18px;opacity:0.8">Professional language immersion for the dedicated learner.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:100vh;">
+    <div style="background:var(--ink);color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:center;">
+        <h1 style="font-family:'Playfair Display';font-size:52px;">Verba</h1>
+        <p style="opacity:0.8;margin-top:20px;">AI Immersion for Professional English.</p>
     </div>
-    <div class="auth-right">
-      <div style="max-width:400px;width:100%;margin:0 auto;">
-        <div class="atabs">
-          <button id="t-login" class="atab act" onclick="toggleAuth('login')">Login</button>
-          <button id="t-signup" class="atab" onclick="toggleAuth('signup')">Create Account</button>
+    <div style="padding:60px;background:var(--p);display:flex;flex-direction:column;justify-content:center;">
+        <div style="max-width:320px;width:100%;margin:0 auto;">
+            <input type="email" id="uEmail" placeholder="Enter Email" style="width:100%;padding:14px;border-radius:10px;border:1px solid #ccc;margin-bottom:12px;">
+            <button class="btn-p" onclick="doAuth()">Start Journey</button>
         </div>
-        
-        <div id="lPanel" class="apanel act">
-          <label>Email Address</label>
-          <input type="email" class="finput" placeholder="you@example.com">
-          <button class="btn-primary" onclick="handleLogin()">Sign In</button>
-        </div>
-
-        <div id="sPanel" class="apanel">
-          <label>Full Name</label>
-          <input type="text" id="regName" class="finput" placeholder="John Doe">
-          <label>Email Address</label>
-          <input type="email" class="finput" placeholder="you@example.com">
-          <button class="btn-primary" onclick="handleSignup()">Create Account</button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
-<div id="quiz" class="screen" style="text-align:center; padding-top:60px;">
-  <h2 style="font-family:'Playfair Display';font-size:36px">Placement Quiz</h2>
-  <p style="color:var(--muted);margin-top:8px">We'll calibrate the curriculum based on your answers.</p>
-  <div class="qcard">
-    <div id="quizContent">
-       </div>
-  </div>
+<div id="quiz" class="screen" style="padding:60px 24px;text-align:center;">
+    <h2 style="font-family:'Playfair Display';">Placement Quiz</h2>
+    <div id="qBox" style="max-width:600px;margin:40px auto;text-align:left;" class="hcard"></div>
 </div>
 
 <div id="home" class="screen">
   <div style="padding:60px 24px;background:var(--ink);color:#fff">
     <div style="max-width:1000px;margin:0 auto;">
-        <h2 id="welcomeName" style="font-family:'Playfair Display';font-size:40px">Welcome</h2>
-        <p style="opacity:0.7">Today is a great day to practice.</p>
+      <h2 id="welcome" style="font-family:'Playfair Display';font-size:40px">Welcome</h2>
+      <p style="opacity:0.7">Level: <span id="curLvl">--</span> | XP: <span id="curXP">0</span>/500</p>
     </div>
   </div>
-  <div style="max-width:1000px;margin:20px auto;padding:24px;display:grid;grid-template-columns:2fr 1fr;gap:24px;">
-    <div>
-        <div class="hcard">
-            <h3>Your Daily Goal</h3>
-            <div style="height:8px;background:var(--p2);border-radius:4px;margin:16px 0;overflow:hidden">
-                <div id="xpBar" style="width:0%;height:100%;background:var(--g);transition:0.5s"></div>
-            </div>
-            <p style="font-size:14px;color:var(--muted)"><span id="xpVal">0</span> / 500 XP to unlock Level Exam</p>
-        </div>
-        
-        <div id="examCard" class="hcard" style="display:none; border:2px solid var(--gold2); background:var(--goldd)">
-            <h3 style="color:var(--gold)">Level Exam Available</h3>
-            <p style="margin:8px 0 20px 0">You've reached 500 XP! Take the exam to advance to the next level.</p>
-            <button class="examb visible" onclick="alert('Exam Starting...')">Start Level Exam</button>
-        </div>
-    </div>
-    
-    <div>
-        <div class="hcard">
-            <button class="btn-primary" onclick="simulateXP()">Practice (+100 XP)</button>
-        </div>
-    </div>
+  
+  <div style="max-width:1000px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div class="hcard" onclick="openMode('monologue')"><h3>🎙️ Monologue</h3><p>Speak freely on AI topics.</p></div>
+    <div class="hcard" onclick="openMode('read')"><h3>📖 Read Aloud</h3><p>300+ articles & twisters.</p></div>
+    <div class="hcard" onclick="openMode('picture')"><h3>🖼️ Picture Description</h3><p>Describe scenes & data.</p></div>
+    <div class="hcard" onclick="openMode('drill')"><h3>🔤 Pronunciation</h3><p>Indonesian vowel fixes.</p></div>
   </div>
 </div>
 
-<div id="aboutM" class="modal">
-  <div class="modal-c">
-    <h2 style="font-family:'Playfair Display';margin-bottom:16px">About Verba</h2>
-    <p style="line-height:1.6;color:var(--ink2)">A specialized tool for mastering language through high-frequency input and cognitive reinforcement.</p>
-    <button class="btn-primary" style="margin-top:24px" onclick="closeAbout()">Close</button>
+<div id="gamemap" class="screen">
+    <div style="padding:40px;text-align:center;"><h2 style="font-family:'Playfair Display';">The Mastery Map</h2></div>
+    <div id="mapNodes" style="max-width:600px;margin:0 auto;padding:20px;"></div>
+</div>
+
+<div id="practiceOverlay">
+  <div class="prac-container">
+    <button onclick="closePrac()" style="background:none;border:none;font-weight:700;cursor:pointer;margin-bottom:20px;">← EXIT</button>
+    <div class="hcard" style="text-align:center;">
+        <h2 id="pTitle">Mode</h2>
+        <div id="pVisual" style="margin:20px 0; min-height:100px;"></div>
+        <p id="pPrompt" style="font-size:18px; line-height:1.6;"></p>
+    </div>
+    <div id="fBox" class="feedback-box">
+        <strong style="color:var(--g)">AI Evaluator:</strong>
+        <p id="fText" style="margin-top:8px;"></p>
+    </div>
+    <button id="micBtn" class="mic-btn" onclick="toggleSpeech()">🎤</button>
+    <p id="sStatus" style="text-align:center;color:var(--muted)">Tap to start</p>
   </div>
 </div>
+
+<div id="m" class="modal"><div class="modal-c"><h2 id="mt"></h2><p id="mb" style="margin:16px 0 24px; line-height:1.6"></p><button class="btn-p" onclick="nm()">Continue</button></div></div>
 
 <script>
-let U = { name: "", xp: 0, featuresActivated: false, assignedLevel: false };
+let U = { email:"", name:"User", xp:0, lvl:"A1", unlocked:["A1"], onboarded:false };
+const LVLS = ["A1","A2","B1","B2","C1","C2"];
+let recognition;
+let isRec = false;
 
-function toggleAuth(mode) {
-  document.getElementById('t-login').classList.toggle('act', mode === 'login');
-  document.getElementById('t-signup').classList.toggle('act', mode === 'signup');
-  document.getElementById('lPanel').classList.toggle('act', mode === 'login');
-  document.getElementById('sPanel').classList.toggle('act', mode === 'signup');
+// --- PERSISTENCE ---
+const save = () => { if(U.email) localStorage.setItem('v_'+U.email, JSON.stringify(U)); };
+const load = (e) => JSON.parse(localStorage.getItem('v_'+e));
+
+// --- SPEECH ENGINE ---
+const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+if(Speech){
+    recognition = new Speech();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+    recognition.onstart = () => { isRec=true; document.getElementById('micBtn').classList.add('active'); };
+    recognition.onend = () => { isRec=false; document.getElementById('micBtn').classList.remove('active'); };
+    recognition.onresult = (e) => processResult(e.results[0][0].transcript);
 }
 
-function handleLogin() {
-  U.name = "User";
-  U.assignedLevel = true;
-  enterDashboard();
+// --- MODES CONTENT ---
+const CONTENT = {
+    monologue: { A1: "Describe your typical Sunday morning.", B2: "Discuss the pros and cons of remote work in Indonesia.", C1: "Analyze the impact of digital currencies on global inflation." },
+    read: { passages: ["The quick brown fox jumps over the lazy dog.", "Jakarta's infrastructure is evolving rapidly to meet modern demands."], twisters: ["She sells seashells by the seashore.", "Red lorry, yellow lorry."] },
+    picture: ["A busy street market in Tanah Abang with colorful stalls.", "A professional office setting with diverse people in a meeting."],
+    drill: ["Vowel /æ/ (Cat vs Ket)", "Consonant /θ/ (Thank you vs Tank you)", "The 'Schwa' /ə/ (Support vs Saport)"]
+};
+
+// --- LOGIC ---
+function doAuth(){
+    const e = document.getElementById('uEmail').value;
+    if(!e) return;
+    const data = load(e);
+    if(data){ U=data; enter(true); } else { U.email=e; showPage('quiz'); initQuiz(); }
 }
 
-function handleSignup() {
-  const name = document.getElementById('regName').value;
-  if(!name) return alert("Please enter your name");
-  U.name = name;
-  U.featuresActivated = true;
-  showPage('quiz');
-  initQuiz();
+function initQuiz(){
+    const b = document.getElementById('qBox');
+    b.innerHTML = `<h3>Quick Placement</h3><p style="margin-bottom:20px">Choose the most natural sentence:</p>
+    <button class="btn-p" style="background:var(--p2);color:var(--ink);margin-bottom:10px" onclick="setLvl('A1')">"I go to office yesterday."</button>
+    <button class="btn-p" style="background:var(--p2);color:var(--ink);margin-bottom:10px" onclick="setLvl('B2')">"I went to the office yesterday."</button>
+    <button class="btn-p" style="background:var(--p2);color:var(--ink)" onclick="setLvl('C1')">"I headed to the office yesterday morning."</button>`;
 }
 
-function initQuiz() {
-  const content = document.getElementById('quizContent');
-  content.innerHTML = `
-    <div style="font-size:18px;margin-bottom:24px;font-weight:600">What is your primary goal?</div>
-    <button class="qopt" onclick="finishQuiz('A1')"><b>Daily Basics</b> I want to navigate travel and daily life.</button>
-    <button class="qopt" onclick="finishQuiz('B2')"><b>Professional</b> I want to lead meetings and present ideas.</button>
-    <button class="qopt" onclick="finishQuiz('C1')"><b>Academic</b> I want to write papers and debate complex topics.</button>
-  `;
+function setLvl(l){ U.lvl=l; U.unlocked=LVLS.slice(0, LVLS.indexOf(l)+1); save(); enter(false); }
+
+function enter(ret){
+    document.getElementById('nav').style.display = 'flex';
+    document.getElementById('welcome').innerText = "Hello, "+U.name;
+    document.getElementById('curLvl').innerText = U.lvl;
+    document.getElementById('curXP').innerText = U.xp;
+    showPage('home'); renderMap();
+    if(ret || !U.onboarded) startOB(ret);
 }
 
-function finishQuiz(lvl) {
-  U.assignedLevel = lvl;
-  enterDashboard();
+function renderMap(){
+    let h = '';
+    LVLS.forEach(l => {
+        const lock = !U.unlocked.includes(l);
+        h += `<div class="map-node ${lock?'locked':''} ${U.lvl===l?'current':''}">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--p3);display:flex;align-items:center;justify-content:center;font-weight:700">${l}</div>
+            <div><strong>Level ${l}</strong><br><small>${lock?'Locked':'Unlocked'}</small></div>
+        </div>`;
+    });
+    document.getElementById('mapNodes').innerHTML = h;
 }
 
-function enterDashboard() {
-  document.getElementById('welcomeName').innerText = "Welcome back, " + U.name;
-  showPage('home');
-  updateUI();
+function openMode(m){
+    document.getElementById('practiceOverlay').style.display = 'flex';
+    const t = document.getElementById('pTitle'), p = document.getElementById('pPrompt'), v = document.getElementById('pVisual');
+    v.innerHTML = "";
+    if(m==='monologue'){ t.innerText="Free Monologue"; p.innerText=CONTENT.monologue[U.lvl]; }
+    if(m==='read'){ t.innerText="Read Aloud"; p.innerText=CONTENT.read.passages[Math.floor(Math.random()*2)]; }
+    if(m==='picture'){ t.innerText="Picture Description"; p.innerText="Describe the scene below:"; v.innerHTML=`<div style="background:#ddd;height:120px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#666">[Visual: ${CONTENT.picture[0]}]</div>`; }
+    if(m==='drill'){ t.innerText="Pronunciation Drill"; p.innerText="Practice this sound: " + CONTENT.drill[0]; }
 }
 
-function showPage(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('nav').style.display = (id === 'auth' || id === 'quiz') ? 'none' : 'flex';
+function toggleSpeech(){ if(!recognition) return; isRec?recognition.stop():recognition.start(); }
+
+function processResult(t){
+    const f = document.getElementById('fBox'), ft = document.getElementById('fText');
+    f.style.display = 'block';
+    let eval = `You said: "${t}". `;
+    eval += U.lvl === 'A1' ? "Great effort! Your message is clear. Don't worry about perfect 'the/a' usage yet." : "Strong fluency. Watch your vowel length on 'cat' to avoid the common 'ket' substitution.";
+    ft.innerText = eval;
+    U.xp += 50; save();
+    document.getElementById('curXP').innerText = U.xp;
 }
 
-function simulateXP() {
-  U.xp += 100;
-  updateUI();
+// --- ONBOARDING ---
+let obs = [], obc = 0;
+function startOB(ret){
+    obs = ret ? [{t:"Welcome Back!", b:"You're working on **"+U.lvl+"**. Practice to hit 500 XP for your next exam."}] : 
+                [{t:"Verba Method", b:"We use AI to bridge Indonesian-English gaps. Focus on speaking; we'll handle the nuances."}, {t:"Mastery Map", b:"Levels are locked. Earn XP to unlock exams and move up."}];
+    obc=0; document.getElementById('m').classList.add('on'); nm();
+}
+function nm(){
+    if(obc<obs.length){ document.getElementById('mt').innerText=obs[obc].t; document.getElementById('mb').innerHTML=obs[obc].b; obc++; }
+    else { document.getElementById('m').classList.remove('on'); U.onboarded=true; save(); }
 }
 
-function updateUI() {
-  const bar = document.getElementById('xpBar');
-  const val = document.getElementById('xpVal');
-  const exam = document.getElementById('examCard');
-  
-  const perc = Math.min((U.xp / 500) * 100, 100);
-  bar.style.width = perc + "%";
-  val.innerText = U.xp;
-  
-  // FIX 3: Show exam card only when features are active and XP >= 500
-  if(U.xp >= 500 && U.featuresActivated) {
-    exam.style.display = 'block';
-  }
-}
-
-function openAbout() { document.getElementById('aboutM').classList.add('on'); }
-function closeAbout() { document.getElementById('aboutM').classList.remove('on'); }
+function showPage(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function closePrac(){ document.getElementById('practiceOverlay').style.display='none'; document.getElementById('fBox').style.display='none'; }
 </script>
-
 </body>
 </html>
