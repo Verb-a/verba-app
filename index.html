@@ -411,115 +411,136 @@ input[type=password]{letter-spacing:.1em;}
     <div class="nav-avatar" id="navAvatar"></div>
     <div class="nav-name" id="navName"></div>
     <button class="nav-logout" onclick="logout()">Log out</button>
-  </div>
-</nav>
-
 <!-- ═══ AUTH SCREEN ═══ -->
-<div id="auth" class="screen active">
-  <div class="auth-wrap">
-    <div class="auth-logo">
-      <div class="auth-logo-mark">Verba</div>
-      <div class="auth-logo-tag">verba — Latin. "words; speech; language."</div>
+<div id="auth" class="screen active" style="min-height:100vh;display:flex;flex-direction:column;">
+  <!-- Auth Nav -->
+  <div style="padding:0 32px;height:60px;display:flex;align-items:center;border-bottom:1px solid var(--border2);background:rgba(242,247,242,.96);">
+    <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);display:flex;align-items:baseline;gap:2px;">Verba<div style="width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;margin-bottom:2px;margin-left:1px;"></div></div>
+  </div>
+  <!-- Two-column layout -->
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 60px);">
+    <!-- LEFT: Feature showcase -->
+    <div style="background:var(--ink);padding:56px 48px;display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--g3);margin-bottom:14px;">English Speaking Practice</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,42px);font-weight:700;color:var(--parch);line-height:1.15;letter-spacing:-1px;margin-bottom:16px;">Your words.<br>Your voice.<br><em style="color:var(--g3);">Out loud.</em></div>
+      <p style="font-size:14px;color:rgba(242,247,242,.6);line-height:1.8;margin-bottom:40px;max-width:360px;">A warm, judgement-free space built for Indonesian learners. Real AI feedback. No server. No tracking.</p>
+      <!-- Feature list -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(82,192,101,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎙️</div>
+          <div><div style="font-size:14px;font-weight:600;color:var(--parch);margin-bottom:2px;">Free Monologue</div><div style="font-size:12px;color:rgba(242,247,242,.5);">Get a topic, speak freely, get scored</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(82,192,101,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📖</div>
+          <div><div style="font-size:14px;font-weight:600;color:var(--parch);margin-bottom:2px;">Read Aloud</div><div style="font-size:12px;color:rgba(242,247,242,.5);">Passages + tongue twisters, pronunciation feedback</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(82,192,101,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🖼️</div>
+          <div><div style="font-size:14px;font-weight:600;color:var(--parch);margin-bottom:2px;">Picture Description</div><div style="font-size:12px;color:rgba(242,247,242,.5);">Describe scenes and charts in detail</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(82,192,101,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🔤</div>
+          <div><div style="font-size:14px;font-weight:600;color:var(--parch);margin-bottom:2px;">Pronunciation Drill</div><div style="font-size:12px;color:rgba(242,247,242,.5);">/v/, /θ/, vowel length — Indonesian-specific tips</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(184,144,32,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📝</div>
+          <div><div style="font-size:14px;font-weight:600;color:var(--parch);margin-bottom:2px;">Level Exams</div><div style="font-size:12px;color:rgba(242,247,242,.5);">Pass an AI-graded exam to unlock the next level</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(82,192,101,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🔒</div>
+          <div><div style="font-size:14px;font-weight:600;color:var(--parch);margin-bottom:2px;">Privacy first</div><div style="font-size:12px;color:rgba(242,247,242,.5);">Everything stays in your browser. Zero servers.</div></div>
+        </div>
+      </div>
     </div>
-    <div class="auth-card">
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('login')">Sign in</button>
-        <button class="auth-tab" onclick="switchAuthTab('register')">Create account</button>
-      </div>
-      <!-- LOGIN -->
-      <div class="auth-tab-panel active" id="panel-login">
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input class="form-input" id="login-user" type="text" placeholder="Your username" autocomplete="username" autocapitalize="none">
+    <!-- RIGHT: Auth form -->
+    <div style="padding:56px 48px;display:flex;flex-direction:column;justify-content:center;background:#fff;">
+      <div style="max-width:380px;width:100%;margin:0 auto;">
+        <div class="auth-tabs" style="margin-bottom:28px;">
+          <button class="auth-tab active" onclick="switchAuthTab('login')">Sign in</button>
+          <button class="auth-tab" onclick="switchAuthTab('register')">Create account</button>
         </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <div class="pw-wrap">
-            <input class="form-input" id="login-pw" type="password" placeholder="••••••••" autocomplete="current-password">
-            <button class="pw-toggle" onclick="togglePw('login-pw',this)" type="button">👁</button>
-          </div>
-        </div>
-        <div class="form-error" id="login-err">Incorrect username or password.</div>
-        <button class="btn btn-g" style="width:100%;justify-content:center;margin-top:4px" onclick="doLogin()">Sign in →</button>
-        <div class="auth-footer"><span class="auth-link" onclick="switchAuthTab('forgot')">Forgot password?</span></div>
-      </div>
-      <!-- REGISTER -->
-      <div class="auth-tab-panel" id="panel-register">
-        <div class="form-group">
-          <label class="form-label">Your name</label>
-          <input class="form-input" id="reg-name" type="text" placeholder="e.g. Rina, Budi, Anisa" autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input class="form-input" id="reg-user" type="text" placeholder="Choose a username" autocomplete="username" autocapitalize="none">
-          <div class="form-error" id="reg-user-err">Username already taken.</div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <div class="pw-wrap">
-            <input class="form-input" id="reg-pw" type="password" placeholder="At least 6 characters" autocomplete="new-password" oninput="checkPwStrength(this.value)">
-            <button class="pw-toggle" onclick="togglePw('reg-pw',this)" type="button">👁</button>
-          </div>
-          <div class="strength-bar"><div class="strength-fill" id="strengthFill" style="width:0%"></div></div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Security question (for password recovery)</label>
-          <select class="form-input" id="reg-sq" style="cursor:pointer">
-            <option value="">Choose a question…</option>
-            <option value="pet">What was your first pet's name?</option>
-            <option value="school">What primary school did you attend?</option>
-            <option value="city">What city were you born in?</option>
-            <option value="food">What is your favourite food?</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Your answer</label>
-          <input class="form-input" id="reg-sa" type="text" placeholder="Answer (not case sensitive)" autocapitalize="none">
-        </div>
-        <div class="form-error" id="reg-err">Please fill in all fields.</div>
-        <button class="btn btn-g" style="width:100%;justify-content:center;margin-top:4px" onclick="doRegister()">Create account →</button>
-        <div class="auth-footer">Your data is stored in this browser only. No server.</div>
-      </div>
-      <!-- FORGOT -->
-      <div class="auth-tab-panel" id="panel-forgot">
-        <p style="font-size:14px;color:var(--ink3);margin-bottom:18px;line-height:1.65">Answer your security question to reset your password.</p>
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input class="form-input" id="fp-user" type="text" placeholder="Your username" autocapitalize="none">
-        </div>
-        <div id="fp-question-wrap" style="display:none">
+        <!-- LOGIN -->
+        <div class="auth-tab-panel active" id="panel-login">
           <div class="form-group">
-            <label class="form-label" id="fp-q-label">Security question</label>
-            <input class="form-input" id="fp-answer" type="text" placeholder="Your answer" autocapitalize="none">
+            <label class="form-label">Username</label>
+            <input class="form-input" id="login-user" type="text" placeholder="Your username" autocomplete="username" autocapitalize="none" spellcheck="false">
           </div>
           <div class="form-group">
-            <label class="form-label">New password</label>
-            <input class="form-input" id="fp-newpw" type="password" placeholder="New password">
+            <label class="form-label">Password</label>
+            <div class="pw-wrap">
+              <input class="form-input" id="login-pw" type="password" placeholder="••••••••" autocomplete="current-password">
+              <button class="pw-toggle" onclick="togglePw('login-pw',this)" type="button">👁</button>
+            </div>
           </div>
-          <div class="form-error" id="fp-err">Incorrect answer.</div>
-          <button class="btn btn-g" style="width:100%;justify-content:center" onclick="doResetPw()">Reset password →</button>
+          <div class="form-error" id="login-err">Incorrect username or password.</div>
+          <button class="btn btn-g" style="width:100%;justify-content:center;margin-top:8px;font-size:15px;padding:13px;" onclick="doLogin()">Sign in →</button>
+          <div class="auth-footer" style="margin-top:14px;"><span class="auth-link" onclick="switchAuthTab('forgot')">Forgot password?</span></div>
         </div>
-        <div id="fp-find-wrap">
-          <button class="btn btn-ink" style="width:100%;justify-content:center" onclick="findFpUser()">Find my account →</button>
+        <!-- REGISTER -->
+        <div class="auth-tab-panel" id="panel-register">
+          <div class="form-group">
+            <label class="form-label">Your name</label>
+            <input class="form-input" id="reg-name" type="text" placeholder="e.g. Rina, Budi, Anisa" autocomplete="name" autocapitalize="words">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input class="form-input" id="reg-user" type="text" placeholder="Choose a username" autocomplete="username" autocapitalize="none" spellcheck="false">
+            <div class="form-error" id="reg-user-err">Username already taken.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password <span style="font-size:11px;color:var(--muted);font-weight:400;">(min. 6 characters)</span></label>
+            <div class="pw-wrap">
+              <input class="form-input" id="reg-pw" type="password" placeholder="••••••••" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+              <button class="pw-toggle" onclick="togglePw('reg-pw',this)" type="button">👁</button>
+            </div>
+            <div class="strength-bar"><div class="strength-fill" id="strengthFill" style="width:0%"></div></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Security question</label>
+            <select class="form-input" id="reg-sq" style="cursor:pointer">
+              <option value="">Choose a question…</option>
+              <option value="pet">What was your first pet's name?</option>
+              <option value="school">What primary school did you attend?</option>
+              <option value="city">What city were you born in?</option>
+              <option value="food">What is your favourite food?</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your answer <span style="font-size:11px;color:var(--muted);font-weight:400;">(not case sensitive)</span></label>
+            <input class="form-input" id="reg-sa" type="text" placeholder="Your answer" autocapitalize="none" spellcheck="false">
+          </div>
+          <div class="form-error" id="reg-err">Please fill in all fields.</div>
+          <button class="btn btn-g" style="width:100%;justify-content:center;margin-top:8px;font-size:15px;padding:13px;" onclick="doRegister()">Create account →</button>
+          <div class="auth-footer" style="margin-top:12px;font-size:11px;">Your data is stored in this browser only. No server.</div>
         </div>
-        <div class="auth-footer"><span class="auth-link" onclick="switchAuthTab('login')">← Back to sign in</span></div>
+        <!-- FORGOT -->
+        <div class="auth-tab-panel" id="panel-forgot">
+          <p style="font-size:13px;color:var(--ink3);margin-bottom:18px;line-height:1.65;">Enter your username to retrieve your security question.</p>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input class="form-input" id="fp-user" type="text" placeholder="Your username" autocapitalize="none" spellcheck="false">
+          </div>
+          <div id="fp-question-wrap" style="display:none">
+            <div class="form-group">
+              <label class="form-label" id="fp-q-label">Security question</label>
+              <input class="form-input" id="fp-answer" type="text" placeholder="Your answer" autocapitalize="none" spellcheck="false">
+            </div>
+            <div class="form-group">
+              <label class="form-label">New password</label>
+              <input class="form-input" id="fp-newpw" type="password" placeholder="New password">
+            </div>
+            <div class="form-error" id="fp-err">Incorrect answer.</div>
+            <button class="btn btn-g" style="width:100%;justify-content:center;" onclick="doResetPw()">Reset password →</button>
+          </div>
+          <div id="fp-find-wrap">
+            <button class="btn btn-ink" style="width:100%;justify-content:center;" onclick="findFpUser()">Find my account →</button>
+          </div>
+          <div class="auth-footer" style="margin-top:14px;"><span class="auth-link" onclick="switchAuthTab('login')">← Back to sign in</span></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- ═══ HOME ═══ -->
-<div id="home" class="screen">
-  <div class="home-banner">
-    <div class="home-banner-inner">
-      <div class="home-greeting">
-        <div class="home-greeting-name" id="homeGreeting">Welcome back!</div>
-        <div class="home-greeting-sub" id="homeGreetingSub">Keep going — every session counts.</div>
-      </div>
-      <div class="home-stats" id="homeStats"></div>
-    </div>
-  </div>
-  <div class="home-body">
     <div class="home-section-card">
       <div class="home-section-hd"><span class="home-section-icon">📍</span><span class="home-section-title">Current level</span></div>
       <div class="home-section-body">
@@ -629,641 +650,701 @@ input[type=password]{letter-spacing:.1em;}
 </div>
 
 <script>
-// ════════════════════════════════════════════════
-//  CONSTANTS
-// ════════════════════════════════════════════════
-const LEVELS_ORDER=['A1','A2','B1','B2','C1'];
-const LEVEL_INFO={
+'use strict';
+// ══════════════════════════════════════════════
+//  CONSTANTS & CONFIG
+// ══════════════════════════════════════════════
+const LEVELS_ORDER = ['A1','A2','B1','B2','C1'];
+const LEVEL_INFO = {
   A1:{name:'Beginner',     desc:'Simple words and short sentences. Every effort is celebrated.'},
   A2:{name:'Elementary',   desc:'Basic communication about familiar everyday topics.'},
   B1:{name:'Intermediate', desc:'Everyday topics with growing detail and personal opinion.'},
   B2:{name:'Upper-Int.',   desc:'Complex ideas, nuanced opinions, structured discussion.'},
   C1:{name:'Advanced',     desc:'Sophisticated language, abstract concepts, professional register.'},
 };
-const MODES=[
+const MODES = [
   {id:'monologue',icon:'🎙️',label:'Free Monologue'},
   {id:'readAloud',icon:'📖',label:'Read Aloud'},
   {id:'picture',  icon:'🖼️',label:'Picture Description'},
   {id:'pron',     icon:'🔤',label:'Pronunciation Drill'},
 ];
-const XP_PER_SESSION=20;
-const XP_TO_EXAM=60;
-const SQ_LABELS={pet:"What was your first pet's name?",school:"What primary school did you attend?",city:"What city were you born in?",food:"What is your favourite food?"};
+const XP_PER_SESSION = 20;
+const XP_TO_EXAM = 60;
+const SQ_LABELS = {
+  pet:"What was your first pet's name?",
+  school:"What primary school did you attend?",
+  city:"What city were you born in?",
+  food:"What is your favourite food?"
+};
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+const hasSpeechAPI = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+const useIOSFallback = isIOS || !hasSpeechAPI;
 
-// iOS Safari detection
-const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||
-  (navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-const hasSpeechRecog=!!(window.SpeechRecognition||window.webkitSpeechRecognition);
-const useIOSFallback=isIOS||!hasSpeechRecog;
+// ══════════════════════════════════════════════
+//  RUNTIME STATE
+// ══════════════════════════════════════════════
+let currentUser = null;
+let currentLevel = null;
+let currentMode = 'monologue';
+let isRecording = false;
+let recognition = null;
+let transcript = '';
+let timerInt = null;
+let secs = 0;
+let currentPromptData = null;
+let examLevel = null;
+let examTasks = [];
+let examTaskIdx = 0;
+let examScores = [];
+let examTaskTranscript = '';
+let examRec = false;
+let examRecObj = null;
+let examTimerInt = null;
+let examSecs = 0;
+let qIdx = 0;
+let qScore = 0;
+let qAnswered = false;
+let qSet = [];
+let examPassResult = {};
 
-// ════════════════════════════════════════════════
-//  STATE
-// ════════════════════════════════════════════════
-let currentUser=null; // { username, name, pwHash, sq, saHash, assignedLevel, unlockedLevels, xp, completedLevels, activity }
-let currentLevel=null,currentMode='monologue';
-let isRecording=false,recognition=null,transcript='';
-let timerInt=null,secs=0;
-let currentPromptData=null;
-let examLevel=null,examTasks=[],examTaskIdx=0,examScores=[];
-let examTaskTranscript='',examRec=false,examRecObj=null,examTimerInt=null,examSecs=0;
-let qIdx=0,qScore=0,qAnswered=false,qSet=[];
-let examPassResult={};
-
-// ════════════════════════════════════════════════
-//  CRYPTO HELPERS
-// ════════════════════════════════════════════════
-async function hashStr(s){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s.toLowerCase().trim()));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+// ══════════════════════════════════════════════
+//  CRYPTO
+// ══════════════════════════════════════════════
+async function hashStr(s) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s.toLowerCase().trim()));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 //  USER STORAGE
-// ════════════════════════════════════════════════
-function getAllUsers(){return JSON.parse(localStorage.getItem('verba_users')||'{}');}
-function saveAllUsers(u){localStorage.setItem('verba_users',JSON.stringify(u));}
-function saveCurrentUser(){
-  const all=getAllUsers();
-  all[currentUser.username]=currentUser;
+// ══════════════════════════════════════════════
+function getAllUsers() { return JSON.parse(localStorage.getItem('verba_users') || '{}'); }
+function saveAllUsers(u) { localStorage.setItem('verba_users', JSON.stringify(u)); }
+function getUser(un) { return getAllUsers()[un.toLowerCase()] || null; }
+function saveCurrentUser() {
+  const all = getAllUsers();
+  all[currentUser.username] = currentUser;
   saveAllUsers(all);
 }
-function getUser(un){return getAllUsers()[un]||null;}
 
-// ════════════════════════════════════════════════
-//  AUTH
-// ════════════════════════════════════════════════
-function switchAuthTab(tab){
-  document.querySelectorAll('.auth-tab').forEach((t,i)=>{
-    const tabs=['login','register','forgot'];
-    t.classList.toggle('active',tabs[i]===tab);
-  });
-  document.querySelectorAll('.auth-tab-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
-  hideErr(['login-err','reg-err','reg-user-err','fp-err']);
-}
-function hideErr(ids){ids.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('show');});}
-function togglePw(id,btn){
-  const el=document.getElementById(id);
-  el.type=el.type==='password'?'text':'password';
-  btn.textContent=el.type==='password'?'👁':'🙈';
-}
-function checkPwStrength(v){
-  const fill=document.getElementById('strengthFill');
-  let score=0;if(v.length>=6)score++;if(v.length>=10)score++;if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
-  const pct=Math.min(100,score*20);
-  const cols=['#e2b0b0','#c8a84b','#c8a84b','#2d7a3a','#2d7a3a'];
-  fill.style.width=pct+'%';fill.style.background=cols[Math.max(0,score-1)]||'#e2b0b0';
-}
-async function doLogin(){
-  const un=document.getElementById('login-user').value.trim().toLowerCase();
-  const pw=document.getElementById('login-pw').value;
-  const err=document.getElementById('login-err');
-  if(!un||!pw){err.classList.add('show');return;}
-  const user=getUser(un);
-  if(!user){err.classList.add('show');return;}
-  const hash=await hashStr(pw);
-  if(hash!==user.pwHash){err.classList.add('show');return;}
-  err.classList.remove('show');
-  currentUser=user;
-  afterAuth();
-}
-async function doRegister(){
-  const name=document.getElementById('reg-name').value.trim();
-  const un=document.getElementById('reg-user').value.trim().toLowerCase();
-  const pw=document.getElementById('reg-pw').value;
-  const sq=document.getElementById('reg-sq').value;
-  const sa=document.getElementById('reg-sa').value.trim();
-  const err=document.getElementById('reg-err');
-  const userErr=document.getElementById('reg-user-err');
-  if(!name||!un||!pw||!sq||!sa){err.classList.add('show');return;}
-  if(pw.length<6){showToast('Password must be at least 6 characters');return;}
-  const all=getAllUsers();
-  if(all[un]){userErr.classList.add('show');return;}
-  const pwHash=await hashStr(pw);
-  const saHash=await hashStr(sa);
-  const user={username:un,name,pwHash,sq,saHash,assignedLevel:null,unlockedLevels:[],xp:{},completedLevels:[],activity:[]};
-  all[un]=user;saveAllUsers(all);
-  currentUser=user;
-  afterAuth();
-}
-function afterAuth(){
-  document.getElementById('auth').classList.remove('active');
-  document.getElementById('mainNav').style.display='flex';
-  updateNav();
-  if(!currentUser.assignedLevel){showPage('quiz');initQuiz();}
-  else{goHome();}
-}
-function logout(){
-  currentUser=null;
-  document.getElementById('mainNav').style.display='none';
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('auth').classList.add('active');
-  document.getElementById('login-user').value='';
-  document.getElementById('login-pw').value='';
-  switchAuthTab('login');
-}
-async function findFpUser(){
-  const un=document.getElementById('fp-user').value.trim().toLowerCase();
-  const user=getUser(un);
-  if(!user){showToast('Username not found');return;}
-  document.getElementById('fp-q-label').textContent=SQ_LABELS[user.sq]||'Security question';
-  document.getElementById('fp-question-wrap').style.display='block';
-  document.getElementById('fp-find-wrap').style.display='none';
-}
-async function doResetPw(){
-  const un=document.getElementById('fp-user').value.trim().toLowerCase();
-  const ans=document.getElementById('fp-answer').value.trim();
-  const newpw=document.getElementById('fp-newpw').value;
-  const err=document.getElementById('fp-err');
-  const user=getUser(un);
-  if(!user){err.classList.add('show');return;}
-  const ansHash=await hashStr(ans);
-  if(ansHash!==user.saHash){err.classList.add('show');return;}
-  if(newpw.length<6){showToast('Password must be at least 6 characters');return;}
-  user.pwHash=await hashStr(newpw);
-  const all=getAllUsers();all[un]=user;saveAllUsers(all);
-  showToast('Password reset! You can now sign in.');
-  switchAuthTab('login');
-}
-function updateNav(){
-  if(!currentUser)return;
-  document.getElementById('navAvatar').textContent=currentUser.name.charAt(0).toUpperCase();
-  document.getElementById('navName').textContent=currentUser.name;
-}
-
-// ════════════════════════════════════════════════
-//  NAVIGATION
-// ════════════════════════════════════════════════
-function showPage(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const el=document.getElementById(id);
+// ══════════════════════════════════════════════
+//  UI HELPERS
+// ══════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); s.classList.remove('anim'); });
+  const el = document.getElementById(id);
+  if (!el) return;
   el.classList.add('active');
-  requestAnimationFrame(()=>el.classList.add('anim'));
-  document.querySelectorAll('.nbtn[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(id==='gamemap')renderMap();
-  if(id==='home')renderHome();
-}
-function goHome(){showPage('home');}
-function openAbout(){document.getElementById('aboutModal').classList.add('open');}
-function closeAbout(){document.getElementById('aboutModal').classList.remove('open');}
-function showToast(msg,dur=2800){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),dur);
+  requestAnimationFrame(() => el.classList.add('anim'));
+  document.querySelectorAll('.nbtn[data-page]').forEach(b => b.classList.toggle('active', b.dataset.page === id));
+  window.scrollTo({top:0, behavior:'smooth'});
+  if (id === 'gamemap') renderMap();
+  if (id === 'home') renderHome();
 }
 
-// ════════════════════════════════════════════════
-//  HOME SCREEN
-// ════════════════════════════════════════════════
-function renderHome(){
-  if(!currentUser)return;
-  const lvl=currentUser.assignedLevel||'A1';
-  const info=LEVEL_INFO[lvl];
-  const xp=currentUser.xp[lvl]||0;
-  const totalSessions=currentUser.activity?.length||0;
-  const avgScore=currentUser.activity?.length?Math.round(currentUser.activity.slice(-10).reduce((a,b)=>a+(b.score||0),0)/Math.min(10,currentUser.activity.length)):0;
+function showToast(msg, dur=2800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), dur);
+}
 
-  // Greeting
-  const hour=new Date().getHours();
-  const greet=hour<12?'Good morning':'hour<17?Good afternoon':'Good evening';
-  document.getElementById('homeGreeting').textContent=`${hour<12?'Good morning':hour<17?'Good afternoon':'Good evening'}, ${currentUser.name}!`;
-  const streak=currentUser.streak||0;
-  document.getElementById('homeGreetingSub').textContent=streak>1?`${streak}-day streak! Keep it going.`:'Keep going — every session counts.';
+function openAbout() { document.getElementById('aboutModal').classList.add('open'); }
+function closeAbout() { document.getElementById('aboutModal').classList.remove('open'); }
+function goHome() { showPage('home'); }
 
-  // Stats
-  document.getElementById('homeStats').innerHTML=`
+// ══════════════════════════════════════════════
+//  AUTH HELPERS
+// ══════════════════════════════════════════════
+function switchAuthTab(tab) {
+  const tabs = ['login','register','forgot'];
+  document.querySelectorAll('.auth-tab').forEach((t, i) => t.classList.toggle('active', tabs[i] === tab));
+  document.querySelectorAll('.auth-tab-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('panel-' + tab);
+  if (panel) panel.classList.add('active');
+  ['login-err','reg-err','reg-user-err','fp-err'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('show');
+  });
+}
+
+function togglePw(id, btn) {
+  const el = document.getElementById(id);
+  el.type = el.type === 'password' ? 'text' : 'password';
+  btn.textContent = el.type === 'password' ? '👁' : '🙈';
+}
+
+function checkPwStrength(v) {
+  const fill = document.getElementById('strengthFill');
+  if (!fill) return;
+  let score = 0;
+  if (v.length >= 6) score++;
+  if (v.length >= 10) score++;
+  if (/[A-Z]/.test(v)) score++;
+  if (/[0-9]/.test(v)) score++;
+  if (/[^A-Za-z0-9]/.test(v)) score++;
+  fill.style.width = Math.min(100, score * 20) + '%';
+  fill.style.background = score < 2 ? '#c89a3a' : score < 4 ? '#c8a84b' : '#2d7a3a';
+}
+
+// ══════════════════════════════════════════════
+//  AUTH ACTIONS
+// ══════════════════════════════════════════════
+async function doLogin() {
+  const un = (document.getElementById('login-user').value || '').trim().toLowerCase();
+  const pw = document.getElementById('login-pw').value || '';
+  const errEl = document.getElementById('login-err');
+  errEl.classList.remove('show');
+  if (!un || !pw) { errEl.textContent = 'Please enter your username and password.'; errEl.classList.add('show'); return; }
+  const user = getUser(un);
+  if (!user) { errEl.textContent = 'Username not found.'; errEl.classList.add('show'); return; }
+  const hash = await hashStr(pw);
+  if (hash !== user.pwHash) { errEl.textContent = 'Incorrect password.'; errEl.classList.add('show'); return; }
+  currentUser = user;
+  sessionStorage.setItem('verba_session', currentUser.username);
+  enterApp();
+}
+
+async function doRegister() {
+  const name = (document.getElementById('reg-name').value || '').trim();
+  const un = (document.getElementById('reg-user').value || '').trim().toLowerCase();
+  const pw = document.getElementById('reg-pw').value || '';
+  const sq = document.getElementById('reg-sq').value || '';
+  const sa = (document.getElementById('reg-sa').value || '').trim();
+  const errEl = document.getElementById('reg-err');
+  const userErrEl = document.getElementById('reg-user-err');
+  errEl.classList.remove('show');
+  userErrEl.classList.remove('show');
+  if (!name || !un || !pw || !sq || !sa) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return; }
+  if (un.length < 3) { userErrEl.textContent = 'Username must be at least 3 characters.'; userErrEl.classList.add('show'); return; }
+  if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('show'); return; }
+  const all = getAllUsers();
+  if (all[un]) { userErrEl.textContent = 'Username already taken.'; userErrEl.classList.add('show'); return; }
+  const pwHash = await hashStr(pw);
+  const saHash = await hashStr(sa);
+  currentUser = { username:un, name, pwHash, sq, saHash, assignedLevel:null, unlockedLevels:[], xp:{}, completedLevels:[], activity:[] };
+  all[un] = currentUser;
+  saveAllUsers(all);
+  sessionStorage.setItem('verba_session', currentUser.username);
+  enterApp();
+}
+
+async function findFpUser() {
+  const un = (document.getElementById('fp-user').value || '').trim().toLowerCase();
+  const user = getUser(un);
+  if (!user) { showToast('Username not found'); return; }
+  const qLabel = document.getElementById('fp-q-label');
+  if (qLabel) qLabel.textContent = SQ_LABELS[user.sq] || 'Security question:';
+  document.getElementById('fp-question-wrap').style.display = 'block';
+  document.getElementById('fp-find-wrap').style.display = 'none';
+}
+
+async function doResetPw() {
+  const un = (document.getElementById('fp-user').value || '').trim().toLowerCase();
+  const ans = (document.getElementById('fp-answer').value || '').trim();
+  const newpw = document.getElementById('fp-newpw').value || '';
+  const errEl = document.getElementById('fp-err');
+  errEl.classList.remove('show');
+  const user = getUser(un);
+  if (!user) { errEl.textContent = 'Username not found.'; errEl.classList.add('show'); return; }
+  const ansHash = await hashStr(ans);
+  if (ansHash !== user.saHash) { errEl.textContent = 'Incorrect answer. Try again.'; errEl.classList.add('show'); return; }
+  if (newpw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('show'); return; }
+  user.pwHash = await hashStr(newpw);
+  const all = getAllUsers(); all[un] = user; saveAllUsers(all);
+  showToast('Password reset successfully! You can now sign in.');
+  switchAuthTab('login');
+  document.getElementById('fp-question-wrap').style.display = 'none';
+  document.getElementById('fp-find-wrap').style.display = 'block';
+}
+
+function enterApp() {
+  // Hide auth, show nav
+  document.getElementById('auth').classList.remove('active');
+  document.getElementById('mainNav').style.display = 'flex';
+  updateNav();
+  // New user → placement quiz; returning user → home
+  if (!currentUser.assignedLevel) {
+    showPage('quiz');
+    initQuiz();
+  } else {
+    goHome();
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('verba_session');
+  currentUser = null;
+  document.getElementById('mainNav').style.display = 'none';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('auth').classList.add('active');
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pw').value = '';
+  document.getElementById('fp-question-wrap').style.display = 'none';
+  document.getElementById('fp-find-wrap').style.display = 'block';
+  switchAuthTab('login');
+}
+
+function updateNav() {
+  if (!currentUser) return;
+  document.getElementById('navAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+  document.getElementById('navName').textContent = currentUser.name;
+}
+
+// ══════════════════════════════════════════════
+//  HOME
+// ══════════════════════════════════════════════
+function renderHome() {
+  if (!currentUser) return;
+  const lvl = currentUser.assignedLevel || 'A1';
+  const info = LEVEL_INFO[lvl];
+  const xp = currentUser.xp[lvl] || 0;
+  const totalSessions = currentUser.activity ? currentUser.activity.length : 0;
+  const recentActs = currentUser.activity ? currentUser.activity.slice(-10) : [];
+  const avgScore = recentActs.length ? Math.round(recentActs.reduce((a,b) => a + (b.score||0), 0) / recentActs.length) : 0;
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('homeGreeting').textContent = `${greet}, ${currentUser.name}!`;
+  document.getElementById('homeGreetingSub').textContent = totalSessions > 0 ? `${totalSessions} session${totalSessions!==1?'s':''} completed · Keep going!` : 'Welcome! Take the practice to get started.';
+  document.getElementById('homeStats').innerHTML = `
     <div class="home-stat"><div class="home-stat-n">${totalSessions}</div><div class="home-stat-l">Sessions</div></div>
     <div class="home-stat"><div class="home-stat-n">${avgScore||'—'}</div><div class="home-stat-l">Avg score</div></div>
-    <div class="home-stat"><div class="home-stat-n">${currentUser.completedLevels?.length||0}</div><div class="home-stat-l">Levels done</div></div>`;
-
-  // Current level
-  const xpPct=Math.min(100,Math.round(xp/XP_TO_EXAM*100));
-  const isCompleted=currentUser.completedLevels?.includes(lvl);
-  document.getElementById('homeLevelDisplay').innerHTML=`
+    <div class="home-stat"><div class="home-stat-n">${currentUser.completedLevels ? currentUser.completedLevels.length : 0}</div><div class="home-stat-l">Levels done</div></div>`;
+  const xpPct = Math.min(100, Math.round(xp / XP_TO_EXAM * 100));
+  const isDone = currentUser.completedLevels && currentUser.completedLevels.includes(lvl);
+  document.getElementById('homeLevelDisplay').innerHTML = `
     <div class="cld-badge">${lvl}</div>
     <div class="cld-name">${info.name}</div>
     <div class="cld-xp-row"><span class="cld-xp-label">XP</span><div class="xp-track"><div class="xp-fill" style="width:${xpPct}%"></div></div><span class="cld-xp-num">${xp}/${XP_TO_EXAM}</span></div>
-    ${isCompleted?'<p style="font-size:12px;color:var(--g);font-weight:600;margin-top:6px">✓ Level completed</p>':''}`;
-
-  // Quick modes
-  document.getElementById('quickModes').innerHTML=MODES.map(m=>`
-    <div class="qm-btn" onclick="openPractice('${lvl}','${m.id}')">
-      <div class="qm-ico">${m.icon}</div><div class="qm-label">${m.label}</div>
-    </div>`).join('');
-
-  // Progress mini
-  document.getElementById('progressMini').innerHTML=LEVELS_ORDER.map(code=>{
-    const lxp=currentUser.xp[code]||0;
-    const isUnlocked=currentUser.unlockedLevels?.includes(code);
-    const isDone=currentUser.completedLevels?.includes(code);
-    const pct=isDone?100:isUnlocked?Math.min(100,Math.round(lxp/XP_TO_EXAM*100)):0;
-    const statusText=isDone?'Done':code===lvl?'Active':isUnlocked?'Unlocked':'Locked';
-    return `<div class="pm-row">
-      <div class="pm-lv" style="color:${isUnlocked?'var(--g)':'var(--muted)'}">${code}</div>
-      <div class="pm-bar"><div class="pm-fill" style="width:${pct}%;background:${isDone?'var(--g2)':code===lvl?'var(--g)':'var(--parch4)'}"></div></div>
-      <div class="pm-status">${statusText}</div>
-    </div>`;}).join('');
-
-  // Recent activity
-  const acts=currentUser.activity?.slice(-5).reverse()||[];
-  document.getElementById('recentActivity').innerHTML=acts.length?acts.map(a=>`
-    <div class="ra-item"><span class="ra-icon">${MODES.find(m=>m.id===a.mode)?.icon||'📝'}</span>
-      <span class="ra-text">${a.level} ${MODES.find(m=>m.id===a.mode)?.label||a.mode}</span>
-      <span class="ra-score">${a.score}/100</span></div>`).join(''):
-    '<p style="font-size:13px;color:var(--muted);text-align:center;padding:8px 0">No activity yet — start practising!</p>';
-}
-function openCurrentLevel(){
-  const lvl=currentUser?.assignedLevel||'A1';
-  openPractice(lvl,'monologue');
+    ${isDone ? '<p style="font-size:12px;color:var(--g);font-weight:600;margin-top:6px">✓ Level completed</p>' : ''}`;
+  document.getElementById('quickModes').innerHTML = MODES.map(m =>
+    `<div class="qm-btn" onclick="openPractice('${lvl}','${m.id}')"><div class="qm-ico">${m.icon}</div><div class="qm-label">${m.label}</div></div>`
+  ).join('');
+  document.getElementById('progressMini').innerHTML = LEVELS_ORDER.map(code => {
+    const lxp = currentUser.xp ? (currentUser.xp[code] || 0) : 0;
+    const isUnlocked = currentUser.unlockedLevels && currentUser.unlockedLevels.includes(code);
+    const isDoneL = currentUser.completedLevels && currentUser.completedLevels.includes(code);
+    const pct = isDoneL ? 100 : isUnlocked ? Math.min(100, Math.round(lxp/XP_TO_EXAM*100)) : 0;
+    const statusText = isDoneL ? 'Done' : code === lvl ? 'Active' : isUnlocked ? 'Open' : '🔒';
+    return `<div class="pm-row"><div class="pm-lv" style="color:${isUnlocked?'var(--g)':'var(--muted)'}">${code}</div><div class="pm-bar"><div class="pm-fill" style="width:${pct}%;background:${isDoneL?'var(--g2)':code===lvl?'var(--g)':'var(--parch4)'}"></div></div><div class="pm-status">${statusText}</div></div>`;
+  }).join('');
+  const acts = currentUser.activity ? currentUser.activity.slice(-5).reverse() : [];
+  document.getElementById('recentActivity').innerHTML = acts.length ? acts.map(a => {
+    const m = MODES.find(m => m.id === a.mode);
+    return `<div class="ra-item"><span class="ra-icon">${m ? m.icon : '📝'}</span><span class="ra-text">${a.level} ${m ? m.label : a.mode}</span><span class="ra-score">${a.score}/100</span></div>`;
+  }).join('') : '<p style="font-size:13px;color:var(--muted);text-align:center;padding:8px 0">No activity yet — start practising!</p>';
 }
 
-// ════════════════════════════════════════════════
-//  QUIZ — 12-question randomised CEFR bank
-// ════════════════════════════════════════════════
-const QUIZ_BANK=[
-  // A1/A2 — elementary
-  {type:'Grammar',lvl:'A1',q:'Choose the correct sentence.',opts:['I am student.','I am a student.','I are a student.','I is a student.'],ans:1,ex:'We need the article "a" before singular nouns. "I am" uses the correct first-person verb.'},
-  {type:'Grammar',lvl:'A1',q:'Which verb is correct? "She ___ coffee every morning."',opts:['drink','drinks','drinking','drank'],ans:1,ex:'Third-person singular in simple present takes -s: "drinks".'},
-  {type:'Vocabulary',lvl:'A1',q:'What does "big" mean?',opts:['Small','Fast','Large','Quiet'],ans:2,ex:'"Big" means large in size.'},
-  {type:'Grammar',lvl:'A1',q:'"There ___ two books on the table." Choose the correct word.',opts:['is','am','are','be'],ans:2,ex:'Use "are" with plural nouns: "There are two books."'},
-  {type:'Vocabulary',lvl:'A2',q:'Which word means the opposite of "happy"?',opts:['Joyful','Excited','Sad','Tired'],ans:2,ex:'"Sad" is the antonym of "happy".'},
-  {type:'Grammar',lvl:'A2',q:'Choose the correct question: "___ do you go to work?"',opts:['What time','Which time','How time','Who time'],ans:0,ex:'"What time" is the correct phrase to ask about time.'},
-  {type:'Vocabulary',lvl:'A2',q:'What does "frequently" mean?',opts:['Sometimes','Never','Often','Always'],ans:2,ex:'"Frequently" means something happens often or many times.'},
-  {type:'Grammar',lvl:'A2',q:'"I ___ to the market yesterday." Choose the correct form.',opts:['go','goes','went','going'],ans:2,ex:'"Yesterday" signals past tense: "went" is the past form of "go".'},
-  // B1 — intermediate
-  {type:'Grammar',lvl:'B1',q:'Which sentence is correct?',opts:['If I will study, I will pass.','If I studied, I will pass.','If I study, I will pass.','If I study, I would pass.'],ans:2,ex:'First conditional: "If + present simple, will + base verb" for real future possibilities.'},
-  {type:'Vocabulary',lvl:'B1',q:'Choose the word closest in meaning to "anxious".',opts:['Happy','Nervous','Tired','Confident'],ans:1,ex:'"Anxious" means worried or nervous about what might happen.'},
-  {type:'Grammar',lvl:'B1',q:'"She has been working here ___ 2019." Choose the correct preposition.',opts:['for','since','from','during'],ans:1,ex:'Use "since" with a specific point in time: "since 2019".'},
-  {type:'Vocabulary',lvl:'B1',q:'What does "persuade" mean?',opts:['To force someone','To convince someone','To stop someone','To confuse someone'],ans:1,ex:'"Persuade" means to convince someone to do or believe something through reasoning.'},
-  {type:'Grammar',lvl:'B1',q:'Choose the passive sentence.',opts:['The chef cooked the meal.','The meal was cooked by the chef.','The chef is cooking the meal.','The meal cooks itself.'],ans:1,ex:'Passive voice: subject + "was/were" + past participle + "by" + agent.'},
-  {type:'Vocabulary',lvl:'B1',q:'Which word means "to make something worse"?',opts:['Improve','Maintain','Exacerbate','Resolve'],ans:2,ex:'"Exacerbate" means to make a bad situation worse.'},
-  // B2 — upper-intermediate
-  {type:'Grammar',lvl:'B2',q:'"By the time she arrived, he ___ already ___ dinner."',opts:['has/eaten','had/eaten','was/eaten','have/eaten'],ans:1,ex:'Past perfect: "had + past participle" for an action completed before another past action.'},
-  {type:'Vocabulary',lvl:'B2',q:'What does "ambiguous" mean?',opts:['Very clear','Open to more than one interpretation','Impossible to understand','Extremely detailed'],ans:1,ex:'"Ambiguous" describes something that can be understood in more than one way.'},
-  {type:'Grammar',lvl:'B2',q:'Choose the correct reported speech: She said, "I am tired."',opts:['She said she is tired.','She said she was tired.','She said she were tired.','She said she be tired.'],ans:1,ex:'In reported speech, the present tense "am" shifts back to "was".'},
-  {type:'Vocabulary',lvl:'B2',q:'Which word best means "to say something is less important than it really is"?',opts:['Overstate','Understate','Clarify','Emphasise'],ans:1,ex:'"Understate" means to represent something as less significant than it is.'},
-  {type:'Grammar',lvl:'B2',q:'"I wish I ___ more time yesterday." Choose the correct form.',opts:['had','have','would have','having'],ans:0,ex:'"Wish + past perfect" expresses regret about the past: "I wish I had had more time."'},
-  // C1 — advanced
-  {type:'Vocabulary',lvl:'C1',q:'What does "perspicacious" mean?',opts:['Stubborn','Having a ready insight into things','Extremely tired','Unnecessarily verbose'],ans:1,ex:'"Perspicacious" means having a ready insight into things; shrewd and perceptive.'},
-  {type:'Grammar',lvl:'C1',q:'Identify the grammatically correct sentence.',opts:['Scarcely had she left when it began to rain.','Scarcely she had left when it began to rain.','Scarcely had she left when it has begun to rain.','Scarcely has she left when it began to rain.'],ans:0,ex:'Negative inversion with "scarcely": "Scarcely had + subject + past participle..."'},
-  {type:'Vocabulary',lvl:'C1',q:'Which word means "seemingly valid but actually wrong"?',opts:['Plausible','Specious','Genuine','Cogent'],ans:1,ex:'"Specious" describes something that appears correct at first glance but is actually false or misleading.'},
-  {type:'Grammar',lvl:'C1',q:'"___ the complexity of the issue, no single solution exists." Choose the best phrase.',opts:['Despite of','Given','Although','Because'],ans:1,ex:'"Given" introduces a concessive idea as a preposition here: "Given the complexity..." is the formal, correct phrasing.'},
-  {type:'Vocabulary',lvl:'C1',q:'What does "equivocate" mean?',opts:['To be decisive','To use vague language to avoid commitment','To exaggerate','To apologise sincerely'],ans:1,ex:'"Equivocate" means to use ambiguous language so as to conceal the truth or avoid committing oneself.'},
+function openCurrentLevel() {
+  openPractice(currentUser.assignedLevel || 'A1', 'monologue');
+}
+
+// ══════════════════════════════════════════════
+//  QUIZ — 12-question randomised bank
+// ══════════════════════════════════════════════
+const QUIZ_BANK = [
+  {type:'Grammar',    q:'Choose the correct sentence.',opts:['I am student.','I am a student.','I are a student.','I is a student.'],ans:1,ex:'We use "a" before singular nouns. "I am" is the correct first-person form.'},
+  {type:'Grammar',    q:'Which verb is correct? "She ___ coffee every morning."',opts:['drink','drinks','drinking','drank'],ans:1,ex:'Third-person singular in simple present takes -s: "she drinks".'},
+  {type:'Vocabulary', q:'What does "big" mean?',opts:['Small','Fast','Large','Quiet'],ans:2,ex:'"Big" means large in size.'},
+  {type:'Grammar',    q:'"There ___ two books on the table."',opts:['is','am','are','be'],ans:2,ex:'Use "are" with plural nouns.'},
+  {type:'Vocabulary', q:'Which word is the opposite of "happy"?',opts:['Joyful','Excited','Sad','Tired'],ans:2,ex:'"Sad" is the antonym of "happy".'},
+  {type:'Grammar',    q:'Choose the correct question: "___ do you go to work?"',opts:['What time','Which time','How time','Who time'],ans:0,ex:'"What time" is the standard phrase to ask about time.'},
+  {type:'Vocabulary', q:'What does "frequently" mean?',opts:['Sometimes','Never','Often','Always'],ans:2,ex:'"Frequently" means something happens often or many times.'},
+  {type:'Grammar',    q:'"I ___ to the market yesterday."',opts:['go','goes','went','going'],ans:2,ex:'"Yesterday" signals past tense: "went" is the past form of "go".'},
+  {type:'Grammar',    q:'Which sentence is correct?',opts:['If I will study, I will pass.','If I studied, I will pass.','If I study, I will pass.','If I study, I would pass.'],ans:2,ex:'First conditional: "If + present simple, will + base verb".'},
+  {type:'Vocabulary', q:'Choose the word closest in meaning to "anxious".',opts:['Happy','Nervous','Tired','Confident'],ans:1,ex:'"Anxious" means worried or nervous.'},
+  {type:'Grammar',    q:'"She has been working here ___ 2019."',opts:['for','since','from','during'],ans:1,ex:'Use "since" with a specific point in time.'},
+  {type:'Vocabulary', q:'What does "persuade" mean?',opts:['To force someone','To convince someone','To stop someone','To confuse someone'],ans:1,ex:'"Persuade" means to convince someone through reasoning.'},
+  {type:'Grammar',    q:'Choose the passive sentence.',opts:['The chef cooked the meal.','The meal was cooked by the chef.','The chef is cooking the meal.','The meal cooked.'],ans:1,ex:'Passive voice: "was/were + past participle + by + agent".'},
+  {type:'Vocabulary', q:'Which word means "to make something worse"?',opts:['Improve','Maintain','Exacerbate','Resolve'],ans:2,ex:'"Exacerbate" means to make a bad situation worse.'},
+  {type:'Grammar',    q:'"By the time she arrived, he ___ already ___ dinner."',opts:['has/eaten','had/eaten','was/eaten','have/eaten'],ans:1,ex:'Past perfect: "had + past participle" for an action completed before another past action.'},
+  {type:'Vocabulary', q:'What does "ambiguous" mean?',opts:['Very clear','Open to more than one interpretation','Impossible','Extremely detailed'],ans:1,ex:'"Ambiguous" = can be understood in more than one way.'},
+  {type:'Grammar',    q:'Choose the correct reported speech: She said, "I am tired."',opts:['She said she is tired.','She said she was tired.','She said she were tired.','She said she be tired.'],ans:1,ex:'In reported speech, present "am" shifts to "was".'},
+  {type:'Vocabulary', q:'What does "understate" mean?',opts:['Exaggerate','Represent as less significant than it is','Clarify fully','Emphasise strongly'],ans:1,ex:'"Understate" = represent something as less significant than it really is.'},
+  {type:'Grammar',    q:'"I wish I ___ more time yesterday."',opts:['had','have','would have','having'],ans:0,ex:'"Wish + past perfect" expresses regret: "I wish I had had more time."'},
+  {type:'Vocabulary', q:'What does "perspicacious" mean?',opts:['Stubborn','Having ready insight; shrewd','Extremely tired','Unnecessarily verbose'],ans:1,ex:'"Perspicacious" = having a ready insight into things; perceptive.'},
+  {type:'Grammar',    q:'Identify the correct sentence using negative inversion.',opts:['Scarcely had she left when it began to rain.','Scarcely she had left when it began to rain.','Scarcely had she left when it has begun.','Scarcely has she left when it began.'],ans:0,ex:'Negative inversion: "Scarcely had + subject + past participle..."'},
+  {type:'Vocabulary', q:'Which word means "seemingly valid but actually wrong"?',opts:['Plausible','Specious','Genuine','Cogent'],ans:1,ex:'"Specious" = appears correct but is actually false or misleading.'},
+  {type:'Grammar',    q:'"___ the complexity of the issue, no single solution exists."',opts:['Despite of','Given','Although','Because'],ans:1,ex:'"Given" introduces a concessive preposition phrase correctly here.'},
+  {type:'Vocabulary', q:'What does "equivocate" mean?',opts:['To be decisive','To use vague language to avoid commitment','To exaggerate','To apologise'],ans:1,ex:'"Equivocate" = use ambiguous language to avoid committing oneself.'},
 ];
-const LEVEL_RESULT={
-  A1:{range:[0,3],desc:"You're building your foundation — and that's a great place to start. Simple, encouraging prompts await you."},
-  A2:{range:[4,6],desc:'You have basic English and are growing. Prompts cover everyday topics with space to develop.'},
-  B1:{range:[7,8],desc:"You're communicating well. We'll push you to express opinions and argue ideas."},
-  B2:{range:[9,10],desc:'Strong English. Complex arguments, persuasion, and discussion are your territory now.'},
-  C1:{range:[11,12],desc:'Advanced level. Precision, sophisticated register, and abstract concepts are your challenge.'},
+
+const LEVEL_RESULT = {
+  A1:{range:[0,3],  desc:"You're building your foundation — a great place to start. Clear, simple prompts await you."},
+  A2:{range:[4,6],  desc:'You have basic English and are growing. Everyday topics with space to develop.'},
+  B1:{range:[7,8],  desc:"You communicate well. We'll push you to express opinions and argue ideas in detail."},
+  B2:{range:[9,10], desc:'Strong English. Complex arguments, persuasion, and discussion are your territory.'},
+  C1:{range:[11,12],desc:'Advanced level. Precision, sophisticated register, and nuanced thought are your challenge.'},
 };
 
-function initQuiz(){
-  // Pick 12 random questions from bank
-  qSet=[...QUIZ_BANK].sort(()=>Math.random()-.5).slice(0,12);
-  qIdx=0;qScore=0;
-  document.getElementById('quizResult').classList.remove('show');
-  document.getElementById('quizCard').style.display='block';
+function initQuiz() {
+  // Shuffle bank and take 12
+  qSet = [...QUIZ_BANK].sort(() => Math.random() - 0.5).slice(0, 12);
+  qIdx = 0; qScore = 0;
+  const result = document.getElementById('quizResult');
+  if (result) result.classList.remove('show');
+  const card = document.getElementById('quizCard');
+  if (card) card.style.display = 'block';
   renderQ();
 }
-function renderQ(){
-  const q=qSet[qIdx];
-  document.getElementById('qNum').textContent=`Question ${qIdx+1} of 12`;
-  document.getElementById('qType').textContent=q.type;
-  document.getElementById('qText').textContent=q.q;
-  document.getElementById('quizBar').style.width=(qIdx/12*100)+'%';
-  document.getElementById('quizProgLabel').textContent=`${qIdx} of 12`;
-  const fb=document.getElementById('qFb');fb.className='qfb';fb.textContent='';
-  document.getElementById('quizNxt').className='qnxt';
-  document.getElementById('quizNxt').textContent=qIdx<11?'Next →':'See my result →';
-  qAnswered=false;
-  document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>
-    `<button class="qopt" onclick="answerQ(${i})">${o}</button>`).join('');
+
+function renderQ() {
+  const q = qSet[qIdx];
+  if (!q) return;
+  const numEl = document.getElementById('qNum');
+  const typeEl = document.getElementById('qType');
+  const textEl = document.getElementById('qText');
+  const barEl = document.getElementById('quizBar');
+  const progEl = document.getElementById('quizProgLabel');
+  const fbEl = document.getElementById('qFb');
+  const nxtEl = document.getElementById('quizNxt');
+  const optsEl = document.getElementById('qOpts');
+  if (numEl) numEl.textContent = `Question ${qIdx + 1} of 12`;
+  if (typeEl) typeEl.textContent = q.type;
+  if (textEl) textEl.textContent = q.q;
+  if (barEl) barEl.style.width = (qIdx / 12 * 100) + '%';
+  if (progEl) progEl.textContent = `${qIdx} of 12`;
+  if (fbEl) { fbEl.className = 'qfb'; fbEl.textContent = ''; }
+  if (nxtEl) { nxtEl.className = 'qnxt'; nxtEl.textContent = qIdx < 11 ? 'Next →' : 'See my result →'; }
+  qAnswered = false;
+  if (optsEl) {
+    optsEl.innerHTML = q.opts.map((o, i) =>
+      `<button class="qopt" onclick="answerQ(${i})">${o}</button>`
+    ).join('');
+  }
 }
-function answerQ(i){
-  if(qAnswered)return;qAnswered=true;
-  const q=qSet[qIdx];
-  document.querySelectorAll('.qopt').forEach((b,j)=>{
-    if(j===q.ans)b.classList.add('correct');
-    else if(j===i)b.classList.add('wrong');
-    b.disabled=true;
+
+function answerQ(i) {
+  if (qAnswered) return;
+  qAnswered = true;
+  const q = qSet[qIdx];
+  document.querySelectorAll('.qopt').forEach((b, j) => {
+    if (j === q.ans) b.classList.add('correct');
+    else if (j === i) b.classList.add('wrong');
+    b.disabled = true;
   });
-  if(i===q.ans)qScore++;
-  const fb=document.getElementById('qFb');
-  fb.className='qfb show '+(i===q.ans?'good':'bad');
-  fb.textContent=(i===q.ans?'✓ Correct. ':'✗ Not quite. ')+q.ex;
-  document.getElementById('quizNxt').classList.add('show');
+  if (i === q.ans) qScore++;
+  const fb = document.getElementById('qFb');
+  if (fb) {
+    fb.className = 'qfb show ' + (i === q.ans ? 'good' : 'bad');
+    fb.textContent = (i === q.ans ? '✓ Correct. ' : '✗ Not quite. ') + q.ex;
+  }
+  const nxt = document.getElementById('quizNxt');
+  if (nxt) nxt.classList.add('show');
 }
-function nextQ(){qIdx++;if(qIdx>=12){showQuizResult();return;}renderQ();}
-function showQuizResult(){
-  document.getElementById('quizBar').style.width='100%';
-  document.getElementById('quizProgLabel').textContent='12 of 12';
-  document.getElementById('quizCard').style.display='none';
-  document.getElementById('quizResult').classList.add('show');
-  let lvl='A1';
-  for(const[l,d]of Object.entries(LEVEL_RESULT)){if(qScore>=d.range[0]&&qScore<=d.range[1]){lvl=l;break;}}
-  if(qScore>=11)lvl='C1';
-  currentUser.assignedLevel=lvl;
-  if(!currentUser.unlockedLevels.includes(lvl))currentUser.unlockedLevels=[lvl];
-  if(!currentUser.xp[lvl])currentUser.xp[lvl]=0;
+
+function nextQ() {
+  qIdx++;
+  if (qIdx >= 12) { showQuizResult(); return; }
+  renderQ();
+}
+
+function showQuizResult() {
+  const bar = document.getElementById('quizBar');
+  const prog = document.getElementById('quizProgLabel');
+  const card = document.getElementById('quizCard');
+  const result = document.getElementById('quizResult');
+  if (bar) bar.style.width = '100%';
+  if (prog) prog.textContent = '12 of 12';
+  if (card) card.style.display = 'none';
+  if (result) result.classList.add('show');
+  let lvl = 'A1';
+  for (const [l, d] of Object.entries(LEVEL_RESULT)) {
+    if (qScore >= d.range[0] && qScore <= d.range[1]) { lvl = l; break; }
+  }
+  if (qScore >= 11) lvl = 'C1';
+  currentUser.assignedLevel = lvl;
+  currentUser.unlockedLevels = [lvl];
+  if (!currentUser.xp) currentUser.xp = {};
+  if (!currentUser.xp[lvl]) currentUser.xp[lvl] = 0;
   saveCurrentUser();
-  document.getElementById('qrBadge').textContent=lvl;document.getElementById('qrBadge').style.color='var(--g)';
-  document.getElementById('qrName').textContent=LEVEL_INFO[lvl].name;
-  document.getElementById('qrDesc').textContent=LEVEL_RESULT[lvl]?.desc||'';
-  document.getElementById('qrScore').textContent=Math.round(qScore/12*100)+'%';
-  document.getElementById('qrCorrect').textContent=qScore+'/12';
+  const badge = document.getElementById('qrBadge');
+  const name = document.getElementById('qrName');
+  const desc = document.getElementById('qrDesc');
+  const score = document.getElementById('qrScore');
+  const correct = document.getElementById('qrCorrect');
+  if (badge) { badge.textContent = lvl; badge.style.color = 'var(--g)'; }
+  if (name) name.textContent = LEVEL_INFO[lvl].name;
+  if (desc) desc.textContent = LEVEL_RESULT[lvl] ? LEVEL_RESULT[lvl].desc : '';
+  if (score) score.textContent = Math.round(qScore / 12 * 100) + '%';
+  if (correct) correct.textContent = qScore + '/12';
 }
-function afterQuiz(){goHome();}
 
-// ════════════════════════════════════════════════
+function afterQuiz() {
+  showPage('gamemap');
+}
+
+// ══════════════════════════════════════════════
 //  GAME MAP
-// ════════════════════════════════════════════════
-function renderMap(){
-  if(!currentUser)return;
-  const currentLvl=currentUser.assignedLevel||'A1';
-  document.getElementById('mapSub').textContent=`${currentUser.name} · Level ${currentLvl} · ${currentUser.completedLevels?.length||0} completed`;
-  const path=document.getElementById('mapPath');path.innerHTML='';
-  LEVELS_ORDER.forEach((code,i)=>{
-    const isUnlocked=currentUser.unlockedLevels?.includes(code);
-    const isDone=currentUser.completedLevels?.includes(code);
-    const isCurrent=currentLvl===code&&!isDone;
-    const xp=currentUser.xp[code]||0;
-    const xpPct=isDone?100:isUnlocked?Math.min(100,Math.round(xp/XP_TO_EXAM*100)):0;
-    const examReady=isUnlocked&&!isDone&&xp>=XP_TO_EXAM;
-
-    let nodeCls=isDone?'done-node':isCurrent?'current-node':'locked-node';
-    let iconCls=isDone?'mni-done':isCurrent?'mni-current':'mni-locked';
-    let codeCls=isDone||isCurrent?'c-current':'c-locked';
-    let nameCls=isDone||isCurrent?'c-current':'c-locked';
-    let iconContent=isDone?'✓':isUnlocked?code:'🔒';
-    let pill=isDone?'<span class="map-pill mp-done">✓ Done</span>':
-             isCurrent?'<span class="map-pill mp-current">Current</span>':
-             examReady?'<span class="map-pill mp-exam">Exam ready!</span>':
-             '<span class="map-pill mp-locked">🔒 Locked</span>';
-
-    path.innerHTML+=`
+// ══════════════════════════════════════════════
+function renderMap() {
+  if (!currentUser) return;
+  const currentLvl = currentUser.assignedLevel || 'A1';
+  const mapTitle = document.getElementById('mapTitle');
+  const mapSub = document.getElementById('mapSub');
+  const mapPath = document.getElementById('mapPath');
+  if (mapTitle) mapTitle.textContent = `${currentUser.name}'s Learning Path`;
+  if (mapSub) mapSub.textContent = `Level ${currentLvl} · ${currentUser.completedLevels ? currentUser.completedLevels.length : 0} of 5 completed`;
+  if (!mapPath) return;
+  mapPath.innerHTML = '';
+  LEVELS_ORDER.forEach((code, i) => {
+    const isUnlocked = currentUser.unlockedLevels && currentUser.unlockedLevels.includes(code);
+    const isDone = currentUser.completedLevels && currentUser.completedLevels.includes(code);
+    const isCurrent = currentLvl === code && !isDone;
+    const xp = currentUser.xp ? (currentUser.xp[code] || 0) : 0;
+    const xpPct = isDone ? 100 : isUnlocked ? Math.min(100, Math.round(xp / XP_TO_EXAM * 100)) : 0;
+    const examReady = isUnlocked && !isDone && xp >= XP_TO_EXAM;
+    const nodeCls = isDone ? 'done-node' : isCurrent ? 'current-node' : 'locked-node';
+    const iconCls = isDone ? 'mni-done' : isCurrent ? 'mni-current' : 'mni-locked';
+    const codeCls = (isDone || isCurrent) ? 'c-current' : 'c-locked';
+    const nameCls = (isDone || isCurrent) ? 'c-current' : 'c-locked';
+    const iconContent = isDone ? '✓' : isUnlocked ? code : '🔒';
+    const pill = isDone ? '<span class="map-pill mp-done">✓ Done</span>' :
+                 isCurrent ? '<span class="map-pill mp-current">Current</span>' :
+                 examReady ? '<span class="map-pill mp-exam">Exam ready!</span>' :
+                 '<span class="map-pill mp-locked">🔒 Locked</span>';
+    const xpBarHtml = isUnlocked && !isDone ? `<div class="mni-xp-bar"><div class="mni-xp-fill" style="width:${xpPct}%"></div></div><div class="mni-xp-text">${xp}/${XP_TO_EXAM} XP${examReady ? ' · Exam ready!' : ''}</div>` : '';
+    mapPath.innerHTML += `
       <div class="map-node ${nodeCls}" onclick="handleMapClick('${code}')">
         <div class="map-node-icon ${iconCls}">${iconContent}</div>
         <div class="map-node-info">
           <div class="mni-code ${codeCls}">${code} · ${LEVEL_INFO[code].name}</div>
-          <div class="mni-name ${nameCls}">${isUnlocked?LEVEL_INFO[code].desc:'Complete current level exam to unlock'}</div>
-          ${isUnlocked&&!isDone?`<div class="mni-xp-bar"><div class="mni-xp-fill" style="width:${xpPct}%"></div></div>
-          <div class="mni-xp-text">${xp}/${XP_TO_EXAM} XP${examReady?' · Exam ready!':''}</div>`:''}
+          <div class="mni-name ${nameCls}">${isUnlocked ? LEVEL_INFO[code].desc : 'Complete current level exam to unlock'}</div>
+          ${xpBarHtml}
         </div>
         <div class="map-node-status">${pill}</div>
       </div>
-      ${i<LEVELS_ORDER.length-1?`<div class="map-connector ${isDone?'done-connector':'locked-connector'}"></div>`:''}`;
+      ${i < LEVELS_ORDER.length - 1 ? `<div class="map-connector ${isDone ? 'done-connector' : 'locked-connector'}"></div>` : ''}`;
   });
 }
-function handleMapClick(code){
-  const isUnlocked=currentUser.unlockedLevels?.includes(code);
-  if(!isUnlocked){showToast('🔒 Complete your current level exam to unlock this level');return;}
-  openPractice(code,'monologue');
+
+function handleMapClick(code) {
+  const isUnlocked = currentUser.unlockedLevels && currentUser.unlockedLevels.includes(code);
+  if (!isUnlocked) { showToast('🔒 Complete your current level exam to unlock this level'); return; }
+  openPractice(code, 'monologue');
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 //  CONTENT POOLS
-// ════════════════════════════════════════════════
-
-// MONOLOGUE TOPICS (40+ per level)
-const TOPICS={
-  A1:['Tell me about your family.','What is your favourite food?','Describe your bedroom.','What animals do you like?','What do you do every morning?','Talk about your best friend.','What colour do you like?','Describe the weather today.','What do you eat for breakfast?','Where do you live?','What sports do you play?','Do you have a pet? Tell me about it.','What is your favourite day of the week?','Describe a picture of your family.','What do you like to drink?','Talk about your school or work.','What music do you listen to?','Tell me about your mother.','What do you do at night?','Describe something red in the room.','What games do you play?','Do you like to cook? What do you make?','Talk about your city.','What clothes do you wear?','Describe your teacher.','What is your favourite holiday?','What do you do on Sunday?','Describe a fruit you like.','What do you see outside your window?','Tell me about your shoes.'],
-  A2:['What do you usually do on weekends?','Describe your hometown.','Talk about a hobby you enjoy.','What was your favourite subject at school?','Describe a typical day in your life.','Talk about your last birthday.','What do you like to do on holiday?','Describe a restaurant you like.','What is your job or dream job?','Talk about a movie you watched recently.','Describe the place where you live.','What do you like about Indonesia?','Talk about a friend you have known for a long time.','What do you do when you feel sick?','Describe a market or shop you visit.','What do you cook at home?','Talk about your morning routine.','Describe a trip you took by bus or train.','What do you watch on TV or YouTube?','Talk about a celebration you attended.'],
-  B1:['What are the advantages of living in a big city?','Talk about a person who inspires you and why.','Describe a memorable trip.','What do you think about social media?','Describe a challenge you have overcome.','Talk about an important tradition in your family.','Should students learn English at primary school? Why?','Describe your ideal weekend.','What are the most important qualities in a friend?','Talk about a book or film that changed how you think.','What do you think is the biggest problem in Indonesia right now?','Describe the education system in Indonesia.','What would you do if you won the lottery?','Is it better to live alone or with family? Discuss.','Talk about a skill you would like to learn.','What are the pros and cons of working from home?','Describe a time when you helped someone.','What is more important — wealth or happiness?','Talk about a local food that foreigners should try.','How has technology changed the way you communicate?'],
-  B2:['Should social media be regulated by the government? Give your view.','Discuss the pros and cons of remote work in Indonesia.','How does culture shape personal identity?','What responsibility do individuals have toward the environment?','Discuss the role of education in reducing inequality.','Is it ethical to use artificial intelligence in hiring decisions?','How has the rise of ride-hailing apps affected traditional transport?','Should Indonesian cities invest more in public transport? Why?','Discuss the impact of tourism on local communities.','How important is it for Indonesians to speak English in today\'s world?','Argue for or against making university education free.','What are the long-term effects of deforestation in Indonesia?','How does social media influence political opinion?','Is globalisation good or bad for developing countries?','Discuss the gender pay gap and its causes.','What makes a good leader in a business context?','How has the pandemic permanently changed work culture?','Should animals be used in medical research? Debate both sides.','What are the benefits and risks of influencer marketing?','Discuss how Indonesia balances development with environmental protection.'],
-  C1:['Discuss the ethical implications of AI in the workplace.','To what extent does cultural heritage shape individual identity in a globalised world?','Analyse the trade-offs between economic development and environmental sustainability.','Critically evaluate the role of international aid in post-conflict states.','Is mass surveillance ever justified in a democratic society?','Discuss Rawls\'s veil of ignorance as a framework for policy decisions.','How do cognitive biases distort our perception of risk?','Critically examine the concept of "meritocracy" and its limitations.','Evaluate the claim that social media has degraded the quality of public discourse.','What are the philosophical implications of strong artificial general intelligence?','Discuss the tension between national sovereignty and global governance.','Analyse the socioeconomic factors that perpetuate intergenerational poverty.','Is there an ethical distinction between lying and withholding the truth?','Evaluate the role of language in constructing social reality.','How does diaspora culture negotiate identity between origin and host country?','Critically examine the concept of informed consent in the digital age.','Discuss the argument that universal basic income would undermine the incentive to work.','How does institutional corruption resist reform even when political will exists?','Evaluate the extent to which individual lifestyle choices can address climate change.','Analyse the paradox of tolerance as articulated by Karl Popper.'],
+// ══════════════════════════════════════════════
+const TOPICS = {
+  A1:['Tell me about your family.','What is your favourite food?','Describe your bedroom.','What animals do you like?','What do you do every morning?','Talk about your best friend.','What colour do you like and why?','Describe the weather today.','What do you eat for breakfast?','Where do you live?','What sports do you play?','Do you have a pet? Tell me about it.','What is your favourite day of the week?','Describe your school or workplace.','What music do you listen to?','Tell me about your mother or father.','What do you do in the evening?','Describe something in the room right now.','What games do you play?','Do you like to cook? What do you make?','Talk about your city or village.','What clothes do you like to wear?','Describe a fruit you like.','What do you see outside your window?','Tell me about your favourite book or story.','What time do you wake up?','Tell me about a holiday you like.','Do you like rain or sunshine? Why?','What is in your bag right now?','Describe your favourite place to sit.'],
+  A2:['What do you usually do on weekends?','Describe your hometown.','Talk about a hobby you enjoy.','What was your favourite subject at school?','Describe a typical day in your life.','Talk about your last birthday.','What do you like to do on holiday?','Describe a restaurant you like.','What is your job or dream job?','Talk about a movie you watched recently.','Describe the place where you live.','What do you like about living in Indonesia?','Talk about a friend you have known a long time.','What do you do when you feel sick?','Describe a market or shop you visit often.','What do you cook at home?','Talk about your morning routine.','Describe a trip you took recently.','What do you watch on TV or online?','Talk about a celebration you attended.','What kind of transport do you usually use?','Describe your ideal home.','Talk about something you do every week.','What is your neighbourhood like?','Describe a teacher you remember.','Talk about a skill you are learning.','What do you do to relax?','Describe a traditional food from your region.','Talk about your experience learning English.','What makes you happy?'],
+  B1:['What are the advantages of living in a big city?','Talk about a person who inspires you and why.','Describe a memorable trip.','What do you think about social media?','Describe a challenge you have overcome.','Talk about an important tradition in your family.','Should students learn English at primary school?','Describe your ideal weekend.','What are the most important qualities in a friend?','Talk about a book or film that changed how you think.','What do you think is the biggest problem in Indonesia?','Describe the education system in Indonesia.','What would you do if you won the lottery?','Is it better to live alone or with family?','Talk about a skill you would like to learn.','What are the pros and cons of working from home?','Describe a time when you helped someone.','What is more important — wealth or happiness?','Talk about a local food that foreigners should try.','How has technology changed communication?','Describe a place in Indonesia that tourists should visit.','What is the best way to learn a language?','Talk about a time you failed at something — what did you learn?','Should young people travel before starting a career?','Describe the differences between city life and village life.','What are the biggest changes in Indonesia in the last 10 years?','Talk about the importance of family in Indonesian culture.','How do you deal with stress?','Is social media a good or bad influence on teenagers?','Describe a goal you are working towards.'],
+  B2:['Should social media be regulated by government?','Discuss the pros and cons of remote work in Indonesia.','How does culture shape personal identity?','What responsibility do individuals have toward the environment?','Discuss the role of education in reducing inequality.','Is it ethical to use AI in hiring decisions?','How has ride-hailing changed traditional transport in Indonesia?','Should Indonesian cities invest more in public transport?','Discuss the impact of tourism on local communities.','How important is English for Indonesians in today\'s world?','Argue for or against free university education.','What are the long-term effects of deforestation in Indonesia?','How does social media influence political opinion?','Is globalisation good or bad for developing countries?','Discuss the gender pay gap and its causes.','What makes a good leader in a business context?','How has the pandemic permanently changed work culture?','Should animals be used in medical research?','What are the benefits and risks of influencer marketing?','Discuss how Indonesia balances development and conservation.','What is the most pressing human rights issue today?','Evaluate the claim that money is the root of all evil.','How does media literacy affect democratic participation?','Discuss the ethics of fast fashion.','How should countries balance national security and privacy rights?','What is the social responsibility of large corporations?','Discuss the role of religion in public life.','Is multiculturalism a strength or a source of tension?','How does childhood poverty shape adult outcomes?','Evaluate the statement: "Hard work always leads to success."'],
+  C1:['Discuss the ethical implications of AI in the workplace.','To what extent does cultural heritage shape identity in a globalised world?','Analyse trade-offs between economic development and environmental sustainability.','Evaluate the role of international aid in post-conflict states.','Is mass surveillance ever justified in a democratic society?','Discuss Rawls\'s veil of ignorance as a policy framework.','How do cognitive biases distort risk perception?','Critically examine the concept of "meritocracy".','Evaluate whether social media has degraded public discourse.','What are the philosophical implications of strong AGI?','Discuss the tension between national sovereignty and global governance.','Analyse factors that perpetuate intergenerational poverty.','Is there an ethical distinction between lying and withholding the truth?','Evaluate the role of language in constructing social reality.','How does diaspora culture negotiate identity?','Discuss the concept of informed consent in the digital age.','Evaluate the argument that UBI undermines the incentive to work.','How does institutional corruption resist reform?','Evaluate the extent to which individual choices can address climate change.','Analyse the paradox of tolerance as articulated by Karl Popper.','Critically evaluate the claim that history is written by the victors.','To what extent is free will compatible with determinism?','Discuss the philosophical tension between justice and mercy.','Evaluate the ethics of genetic engineering in humans.','What are the limits of freedom of expression in a pluralist democracy?','Discuss whether economic inequality is inevitable in a market economy.','Evaluate the role of civil disobedience in democratic societies.','How has postmodernism challenged the concept of objective truth?','Critically examine the relationship between power and knowledge.','Discuss whether technological progress inevitably improves human wellbeing.'],
 };
 
-// READ ALOUD PASSAGES (15+ per level including tongue twisters)
-const PASSAGES={
+const PASSAGES = {
   A1:[
     {text:'The cat sits on the mat.\nThe dog is big and brown.\nI like cats and dogs very much.\nThey are my good friends.',focus:'Short vowel sounds: /æ/ in "cat" and "mat"'},
-    {text:'My name is Budi. I am twelve years old.\nI live in Jakarta with my family.\nI go to school every day.\nMy favourite subject is English.',focus:'Clear word stress on each key word'},
-    {text:'The sun is hot today.\nWe can see birds in the sky.\nThe flowers are red and yellow.\nChildren play in the park.',focus:'/θ/ in "the" — put your tongue between your teeth'},
-    {text:'She sells seashells by the seashore.',focus:'Tongue twister: /s/ and /ʃ/ — "s" vs "sh" distinction'},
-    {text:'Red lorry, yellow lorry, red lorry, yellow lorry.',focus:'Tongue twister: /l/ and /r/ contrast — Indonesian challenge!'},
-    {text:'I have a big house.\nThe house is white and green.\nThere are three rooms in my house.\nI love my home very much.',focus:'Falling intonation at end of statements'},
+    {text:'My name is Budi. I am twelve years old.\nI live in Jakarta with my family.\nI go to school every day.\nMy favourite subject is English.',focus:'Clear word stress on key words'},
+    {text:'The sun is hot today.\nWe can see birds in the sky.\nThe flowers are red and yellow.\nChildren play in the park.',focus:'/ð/ in "the" — tongue between teeth'},
+    {text:'She sells seashells by the seashore.',focus:'Tongue twister: /s/ vs /ʃ/ — "s" and "sh"'},
+    {text:'Red lorry, yellow lorry, red lorry, yellow lorry.',focus:'Tongue twister: /l/ vs /r/ — Indonesian challenge!'},
   ],
   A2:[
-    {text:'Every morning, Maria wakes up at six o\'clock. She drinks a glass of water and then eats breakfast. After that, she walks to the market to buy fresh vegetables. In the evening, she cooks dinner for her family.',focus:'/s/ in "eats", "walks", "drinks" — third person -s'},
-    {text:'Jakarta is the capital city of Indonesia. It is a very busy city with millions of people. There are tall buildings, busy roads, and beautiful parks. Many people come here to find work and a better life.',focus:'Word stress on multi-syllable words: "Jakarta", "Indonesia", "million"'},
-    {text:'How much wood would a woodchuck chuck\nif a woodchuck could chuck wood?\nA woodchuck would chuck as much wood\nas a woodchuck could chuck.',focus:'Tongue twister: /w/ and /ʊ/ sounds — fluency and rhythm'},
-    {text:'Peter Piper picked a peck of pickled peppers.\nA peck of pickled peppers Peter Piper picked.\nIf Peter Piper picked a peck of pickled peppers,\nwhere\'s the peck of pickled peppers Peter Piper picked?',focus:'Tongue twister: /p/ and /ɪ/ sounds — speed and clarity'},
-    {text:'On weekends, I like to visit my grandparents. They live in a small village outside the city. We always have lunch together and talk about the week. It is my favourite time of the month.',focus:'Linking words: "on weekends", "outside the city", "together"'},
+    {text:'Every morning, Maria wakes up at six o\'clock. She drinks a glass of water and eats breakfast. After that, she walks to the market to buy fresh vegetables. In the evening, she cooks dinner for her family.',focus:'/s/ in third-person verbs: "wakes", "drinks", "walks"'},
+    {text:'Jakarta is the capital city of Indonesia. It is a very busy city with millions of people. There are tall buildings, busy roads, and beautiful parks. Many people come here to find work.',focus:'Stress on multi-syllable words: "Jakarta", "Indonesia"'},
+    {text:'How much wood would a woodchuck chuck\nif a woodchuck could chuck wood?\nA woodchuck would chuck as much wood\nas a woodchuck could chuck.',focus:'Tongue twister: /w/ and /ʊ/ — fluency and rhythm'},
+    {text:'Peter Piper picked a peck of pickled peppers.\nA peck of pickled peppers Peter Piper picked.',focus:'Tongue twister: /p/ and /ɪ/ — speed and clarity'},
   ],
   B1:[
-    {text:'Climate change is one of the most serious challenges of our time. Rising temperatures around the world are causing more floods, droughts, and storms. Scientists agree that we must act now to reduce carbon emissions before it is too late.',focus:'Sentence stress and rhythm in complex sentences'},
-    {text:'Whether the weather is fine, or whether the weather is not,\nwhether the weather is cold, or whether the weather is hot,\nwe\'ll weather the weather, whatever the weather,\nwhether we like it or not.',focus:'Tongue twister: /w/ + /ð/ "weather/whether" contrast'},
-    {text:'I scream, you scream, we all scream for ice cream.\nUpon the slippery slope she slid,\nand slowly slid she down the slide.',focus:'Tongue twister: /sk/, /sl/, /str/ clusters — common in English'},
-    {text:'Technology has transformed the way we communicate. People now send messages instantly to anyone, anywhere in the world. While this has many advantages, it also means we spend less time on face-to-face conversations.',focus:'/ʃ/ in "transformation", "communication" — -tion endings'},
-    {text:'A good education opens many doors. Students who work hard and stay curious often achieve great things. However, intelligence alone is not enough — determination and resilience matter just as much.',focus:'Word stress: "edu-CA-tion", "de-ter-mi-NA-tion", "re-SIL-ience"'},
-    {text:'The sixth sick sheikh\'s sixth sheep\'s sick.',focus:"Tongue twister: considered world's hardest — /s/, /ʃ/, /ɪ/, /iː/"},
+    {text:'Climate change is one of the most serious challenges of our time. Rising temperatures around the world are causing more floods, droughts, and storms. Scientists agree that we must act now to reduce carbon emissions before it is too late.',focus:'Stress and rhythm in long sentences'},
+    {text:'Whether the weather is fine, or whether the weather is not,\nwhether the weather is cold, or whether the weather is hot,\nwe\'ll weather the weather, whatever the weather,\nwhether we like it or not.',focus:'Tongue twister: /w/ + /ð/ "weather/whether"'},
+    {text:'Technology has transformed the way we communicate. People now send messages instantly to anyone, anywhere in the world. While this has many advantages, it also means we spend less time in face-to-face conversations.',focus:'/ʃ/ in "-tion" endings: "communication", "transformation"'},
+    {text:'The sixth sick sheikh\'s sixth sheep\'s sick.',focus:'Tongue twister: considered the hardest in English — /s/, /ʃ/, /ɪ/, /iː/'},
   ],
   B2:[
-    {text:'Sustainable development refers to economic growth that meets the needs of the present without compromising the ability of future generations to meet their own needs. Achieving this delicate balance requires unprecedented cooperation between governments, corporations, and civil society worldwide.',focus:'Academic register: noun phrases and passive voice'},
-    {text:'Urbanisation — the movement of populations from rural areas to cities — has accelerated dramatically in recent decades. While cities offer economic opportunities and modern infrastructure, rapid growth also creates challenges such as congestion, pollution, and housing inequality.',focus:'Dash phrases, parenthetical clauses, and complex linking'},
-    {text:'Betty Botter bought some butter, but she said the butter\'s bitter.\nIf I put it in my batter, it will make my batter bitter.\nBut a bit of better butter, that would make my batter better.',focus:'Tongue twister (advanced): /b/, /ʌ/, /ɪ/ vowel contrast'},
-    {text:'Imagine an imaginary menagerie manager managing an imaginary menagerie.',focus:'Tongue twister: /ɪ/, /æ/, /eɪ/ and consonant cluster /ndʒ/'},
-    {text:'The central paradox of modern democracy is that citizens are simultaneously sovereign and subject — they authorise the state to govern them, yet remain bound by its decisions even when they disagree. This tension is at the heart of political philosophy.',focus:'Long, complex sentences: sustained breath control and pacing'},
+    {text:'Sustainable development refers to economic growth that meets the needs of the present without compromising the ability of future generations to meet their own needs. Achieving this balance requires unprecedented cooperation between governments, corporations, and civil society worldwide.',focus:'Academic register: passive voice and noun phrases'},
+    {text:'Urbanisation — the movement of populations from rural areas to cities — has accelerated dramatically in recent decades. While cities offer economic opportunities and modern infrastructure, rapid growth also creates challenges such as congestion, pollution, and housing inequality.',focus:'Parenthetical clauses and complex linking'},
+    {text:'Betty Botter bought some butter, but she said the butter\'s bitter.\nIf I put it in my batter, it will make my batter bitter.\nBut a bit of better butter, that would make my batter better.',focus:'Tongue twister: /b/, /ʌ/, /ɪ/ vowel contrast'},
   ],
   C1:[
-    {text:'The philosophical tradition known as existentialism holds that individuals create meaning through their choices and actions rather than deriving it from any pre-existing essence or divine purpose. Proponents such as Sartre and de Beauvoir argued that with radical freedom comes radical responsibility — a burden that most people prefer to evade.',focus:'Philosophical register: subordinate clauses, precise diction'},
-    {text:'Geopolitical realignments in the Indo-Pacific are reshaping the architecture of multilateral diplomacy. As emerging economies consolidate their influence within international institutions, established frameworks of global governance face mounting pressure to adapt to a more multipolar world order.',focus:'Political register: noun stacking, complex preposition phrases'},
-    {text:'Amidst the mists and coldest frosts,\nwith stoutest wrists and loudest boasts,\nhe thrusts his fists against the posts\nand still insists he sees the ghosts.',focus:'Tongue twister (C1): /θ/, /ð/, consonant clusters, unstressed syllables'},
-    {text:'To sit in solemn silence in a dull, dark dock\nin a pestilential prison with a life-long lock,\nawaiting the sensation of a short, sharp shock\nfrom a cheap and chippy chopper on a big black block.',focus:"Tongue twister (C1): from Gilbert & Sullivan — /s/, /ʃ/, /tʃ/ and rhythm"},
-    {text:'The iterative refinement of hypotheses through empirical observation constitutes the epistemological foundation of the scientific method — a process that, while extraordinarily productive, remains intrinsically provisional and subject to paradigmatic revision.',focus:'Academic register: multi-clause nominalisations, hedging language'},
+    {text:'The philosophical tradition known as existentialism holds that individuals create meaning through their choices and actions rather than deriving it from any pre-existing essence or divine purpose. Proponents such as Sartre and de Beauvoir argued that with radical freedom comes radical responsibility — a burden that most people prefer to evade.',focus:'Philosophical register: sustained complex clause structure'},
+    {text:'Geopolitical realignments in the Indo-Pacific are reshaping the architecture of multilateral diplomacy. As emerging economies consolidate influence within international institutions, established frameworks of global governance face mounting pressure to adapt to a more multipolar world order.',focus:'Political register: noun stacking and complex preposition phrases'},
+    {text:'Amidst the mists and coldest frosts,\nwith stoutest wrists and loudest boasts,\nhe thrusts his fists against the posts\nand still insists he sees the ghosts.',focus:'Tongue twister: /θ/, /ð/, consonant clusters — C1 level'},
   ],
 };
 
-// PICTURE DESCRIPTIONS — SVG-generated scenes (30+ total)
-const PICTURES={
+const PICTURES = {
   A1:[
-    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#87CEEB"/><rect y="180" width="400" height="60" fill="#4a7c4a"/><circle cx="70" cy="60" r="40" fill="#FFD700"/><rect x="150" y="90" width="80" height="80" fill="#e8a87c"/><rect x="170" y="140" width="40" height="30" fill="#8B4513"/><polygon points="150,90 190,50 230,90" fill="#c0392b"/><rect x="320" y="80" width="20" height="100" fill="#8B4513"/><circle cx="330" cy="70" r="30" fill="#2d7a3a"/><path d="M0 200 Q100 170 200 195 Q300 170 400 190" fill="none" stroke="#3a9e4e" stroke-width="3"/></svg>`,caption:'A sunny day with a house, a tree, and a garden.',hint:'Describe what you see: the sky, house, tree, and garden.'},
-    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#1a5276"/><rect y="160" width="400" height="80" fill="#f5cba7"/><circle cx="100" cy="200" r="20" fill="#e8d5b7"/><circle cx="250" cy="195" r="25" fill="#d5b896"/><path d="M80 160 Q200 140 320 160" fill="#5d9fde" stroke="#3a7dbf" stroke-width="2"/><circle cx="60" cy="80" r="15" fill="white" opacity=".8"/><circle cx="100" cy="70" r="20" fill="white" opacity=".8"/><circle cx="300" cy="90" r="18" fill="white" opacity=".8"/><circle cx="340" cy="75" r="22" fill="white" opacity=".8"/></svg>`,caption:'A beach with sand, sea, and clouds in the sky.',hint:'Describe the sea, sand, people, and sky.'},
-    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#f9f3e8"/><rect x="30" y="60" width="160" height="150" fill="#d4a96a"/><rect x="90" y="130" width="50" height="80" fill="#8B4513"/><rect x="50" y="80" width="50" height="40" fill="#87CEEB" stroke="#555" stroke-width="2"/><rect x="140" y="80" width="30" height="30" fill="#87CEEB" stroke="#555" stroke-width="2"/><polygon points="30,60 110,10 190,60" fill="#c0392b"/><rect x="250" y="100" width="120" height="100" fill="#2d7a3a"/><rect x="270" y="120" width="30" height="40" fill="#8B4513"/><text x="200" y="220" font-size="11" fill="#666" text-anchor="middle">A street with houses and a park</text></svg>`,caption:'A street scene with houses and a green park.',hint:'Say what you see: buildings, doors, windows, trees.'},
+    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#87CEEB"/><rect y="180" width="400" height="60" fill="#4a7c4a"/><circle cx="70" cy="60" r="40" fill="#FFD700"/><rect x="150" y="90" width="80" height="80" fill="#e8a87c"/><rect x="170" y="140" width="40" height="30" fill="#8B4513"/><polygon points="150,90 190,50 230,90" fill="#c47a52"/><rect x="320" y="80" width="20" height="100" fill="#8B4513"/><circle cx="330" cy="70" r="30" fill="#2d7a3a"/></svg>`,caption:'A sunny day with a house, garden, and tree.',hint:'Describe the sky, house, tree, and garden. Use simple sentences.'},
+    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="150" fill="#1a7ab8"/><rect y="150" width="400" height="90" fill="#e8d5b0"/><circle cx="60" cy="195" r="18" fill="#d4b896"/><circle cx="200" cy="190" r="22" fill="#c8a87a"/><circle cx="340" cy="200" r="15" fill="#dac09a"/><path d="M0 150 Q100 135 200 148 Q300 135 400 148" fill="#2a8fd4" opacity=".5"/><circle cx="50" cy="70" r="14" fill="white" opacity=".8"/><circle cx="90" cy="58" r="18" fill="white" opacity=".8"/><circle cx="310" cy="80" r="20" fill="white" opacity=".8"/></svg>`,caption:'A beach with sand, sea, people, and clouds.',hint:'Say what you see — water, sand, people, sky.'},
   ],
   A2:[
-    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#fef9f0"/><rect x="20" y="30" width="80" height="180" fill="#e8c89a" rx="4"/><rect x="120" y="50" width="80" height="160" fill="#d4a96a" rx="4"/><rect x="220" y="20" width="80" height="190" fill="#c89a5a" rx="4"/><rect x="320" y="40" width="60" height="170" fill="#b8834a" rx="4"/><rect x="0" y="210" width="400" height="30" fill="#8B6914"/><circle cx="200" cy="15" r="12" fill="#FFD700"/><rect x="30" y="60" width="30" height="20" fill="#87CEEB" opacity=".7"/><rect x="50" y="100" width="25" height="30" fill="#87CEEB" opacity=".7"/><text x="200" y="228" font-size="10" fill="#888" text-anchor="middle">A traditional market with stalls</text></svg>`,caption:'A traditional Indonesian market with colourful stalls.',hint:'Describe the stalls, what is being sold, and the atmosphere.'},
-    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="120" fill="#87CEEB"/><rect y="120" width="400" height="120" fill="#e8d5b7"/><circle cx="340" cy="50" r="35" fill="#FFE066"/><rect x="60" y="70" width="120" height="100" rx="5" fill="#e8a87c"/><rect x="130" y="130" width="50" height="40" fill="#8B4513"/><polygon points="60,70 120,30 180,70" fill="#c0392b"/><rect x="250" y="80" width="100" height="90" rx="5" fill="#b8d4b8"/><rect x="270" y="130" width="30" height="40" fill="#6b4a2a"/><polygon points="250,80 300,45 350,80" fill="#2d7a3a"/><path d="M0 220 Q100 200 200 215 Q300 200 400 210" fill="#4a7c4a" stroke="none"/></svg>`,caption:'A neighbourhood with houses, trees, and a sunny sky.',hint:'Describe the houses, the sky, and what is happening outside.'},
+    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#fef9f0"/><rect x="20" y="30" width="70" height="180" fill="#e8c89a" rx="3"/><rect x="110" y="50" width="70" height="160" fill="#d4a96a" rx="3"/><rect x="200" y="20" width="70" height="190" fill="#c89a5a" rx="3"/><rect x="290" y="40" width="90" height="170" fill="#b8834a" rx="3"/><rect x="0" y="210" width="400" height="30" fill="#8B6914"/><circle cx="200" cy="14" r="11" fill="#FFD700"/><rect x="28" y="55" width="28" height="18" fill="#87CEEB" opacity=".6"/><rect x="118" y="70" width="24" height="18" fill="#87CEEB" opacity=".6"/></svg>`,caption:'A traditional market with colourful stalls and goods.',hint:'Describe the stalls, what is being sold, and the atmosphere.'},
+    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#d4e8d4"/><rect x="40" y="100" width="100" height="120" fill="#e8a87c" rx="4"/><polygon points="40,100 90,55 140,100" fill="#c47a52"/><rect x="65" y="150" width="50" height="70" fill="#8B4513"/><rect x="60" y="115" width="30" height="25" fill="#87CEEB"/><rect x="100" y="115" width="30" height="25" fill="#87CEEB"/><rect x="220" y="80" width="120" height="120" fill="#b8d4b8" rx="4"/><polygon points="220,80 280,40 340,80" fill="#2d7a3a"/><rect x="250" y="140" width="60" height="60" fill="#6b4a2a"/><rect x="0" y="200" width="400" height="40" fill="#4a7c4a"/></svg>`,caption:'A neighbourhood with houses, trees, and open roads.',hint:'Describe the houses, the sky, and the neighbourhood feeling.'},
   ],
   B1:[
-    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="180" fill="#1a2a4a"/><rect y="180" width="400" height="80" fill="#2d3a2d"/><rect x="30" y="50" width="60" height="130" fill="#2a3f5a"/><rect x="110" y="30" width="80" height="150" fill="#1e2e4a"/><rect x="210" y="60" width="50" height="120" fill="#253550"/><rect x="280" y="20" width="90" height="160" fill="#1a2840"/><rect x="40" y="70" width="15" height="10" fill="#FFDD44" opacity=".9"/><rect x="65" y="70" width="15" height="10" fill="#FFDD44" opacity=".9"/><rect x="40" y="100" width="15" height="10" fill="#FFDD44" opacity=".6"/><rect x="120" y="50" width="20" height="15" fill="#FFDD44"/><rect x="155" y="50" width="20" height="15" fill="#FFDD44" opacity=".5"/><rect x="120" y="90" width="20" height="15" fill="#FFDD44"/><rect x="290" y="40" width="25" height="18" fill="#FFDD44"/><rect x="330" y="40" width="25" height="18" fill="#FFDD44" opacity=".7"/><ellipse cx="100" cy="195" rx="60" ry="6" fill="#c89a3a" opacity=".4"/><ellipse cx="300" cy="195" rx="50" ry="5" fill="#c89a3a" opacity=".3"/><rect x="0" y="190" width="400" height="4" fill="#3a3a3a"/><rect x="50" y="180" width="8" height="20" fill="#555"/><rect x="150" y="180" width="8" height="20" fill="#555"/><rect x="250" y="180" width="8" height="20" fill="#555"/><rect x="350" y="180" width="8" height="20" fill="#555"/><text x="200" y="252" font-size="10" fill="#888" text-anchor="middle">A city skyline at night</text></svg>`,caption:'A city skyline at night with lit-up buildings.',hint:'Describe the buildings, lights, mood, and what the city feels like at night.'},
-    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#d4e8d4"/><rect x="0" y="140" width="400" height="100" fill="#4a7c4a"/><ellipse cx="80" cy="130" rx="50" ry="60" fill="#2d6a2d"/><ellipse cx="90" cy="110" rx="35" ry="45" fill="#3a8a3a"/><ellipse cx="250" cy="120" rx="60" ry="70" fill="#256a25"/><ellipse cx="260" cy="100" rx="45" ry="55" fill="#3a9a3a"/><ellipse cx="350" cy="135" rx="40" ry="50" fill="#2a7a2a"/><path d="M180 200 Q185 170 200 160 Q215 150 200 140" stroke="#5a3a1a" stroke-width="4" fill="none"/><path d="M200 140 Q195 120 205 110" stroke="#5a3a1a" stroke-width="3" fill="none"/><path d="M140 210 Q155 180 160 170" stroke="#5a3a1a" stroke-width="3" fill="none" stroke-dasharray="3"/><circle cx="200" cy="50" r="8" fill="#3a9e4e"/><circle cx="180" cy="70" r="5" fill="#52c065"/><circle cx="220" cy="65" r="6" fill="#3a9e4e"/><text x="200" y="232" font-size="10" fill="#256a25" text-anchor="middle">A tropical rainforest</text></svg>`,caption:'A dense tropical rainforest with tall trees and a stream.',hint:'Describe the textures, colours, sounds you might hear, and how it feels to stand there.'},
+    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="180" fill="#1a2a4a"/><rect y="180" width="400" height="80" fill="#2d3a2d"/><rect x="30" y="50" width="55" height="130" fill="#2a3f5a"/><rect x="105" y="30" width="75" height="150" fill="#1e2e4a"/><rect x="200" y="60" width="50" height="120" fill="#253550"/><rect x="270" y="20" width="85" height="160" fill="#1a2840"/><rect x="38" y="68" width="14" height="10" fill="#FFDD44"/><rect x="60" y="68" width="14" height="10" fill="#FFDD44" opacity=".7"/><rect x="38" y="98" width="14" height="10" fill="#FFDD44" opacity=".5"/><rect x="115" y="50" width="18" height="13" fill="#FFDD44"/><rect x="148" y="50" width="18" height="13" fill="#FFDD44" opacity=".6"/><rect x="280" y="38" width="22" height="16" fill="#FFDD44"/><rect x="320" y="38" width="22" height="16" fill="#FFDD44" opacity=".7"/><rect x="0" y="186" width="400" height="4" fill="#3a3a3a"/></svg>`,caption:'A city skyline at night with illuminated buildings.',hint:'Describe the buildings, the lights, the mood, and what city life at night feels like.'},
+    {svg:`<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#c8e8c8"/><rect y="150" width="400" height="90" fill="#4a7c4a"/><ellipse cx="80" cy="140" rx="48" ry="58" fill="#2d6a2d"/><ellipse cx="88" cy="118" rx="34" ry="44" fill="#3a8a3a"/><ellipse cx="240" cy="130" rx="58" ry="66" fill="#256a25"/><ellipse cx="250" cy="108" rx="44" ry="52" fill="#3a9a3a"/><ellipse cx="340" cy="145" rx="38" ry="48" fill="#2a7a2a"/><path d="M175 200 Q180 170 195 158 Q210 148 196 136" stroke="#5a3a1a" stroke-width="4" fill="none"/><path d="M136 210 Q150 180 155 168" stroke="#5a3a1a" stroke-width="3" fill="none" stroke-dasharray="3 2"/></svg>`,caption:'A dense tropical rainforest with tall trees.',hint:'Describe the textures, colours, sounds, and what it feels like to stand there.'},
   ],
   B2:[
-    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f9f7f2"/><rect x="50" y="20" width="300" height="200" fill="white" stroke="#ccc" stroke-width="1" rx="4"/><line x1="80" y1="190" x2="80" y2="40" stroke="#aaa" stroke-width="1.5"/><line x1="80" y1="190" x2="340" y2="190" stroke="#aaa" stroke-width="1.5"/><text x="75" y="195" font-size="9" fill="#666" text-anchor="end">0</text><text x="75" y="170" font-size="9" fill="#666" text-anchor="end">5</text><text x="75" y="145" font-size="9" fill="#666" text-anchor="end">10</text><text x="75" y="120" font-size="9" fill="#666" text-anchor="end">15</text><text x="75" y="95" font-size="9" fill="#666" text-anchor="end">20</text><text x="75" y="70" font-size="9" fill="#666" text-anchor="end">25°C</text><text x="100" y="210" font-size="8" fill="#666">1900</text><text x="150" y="210" font-size="8" fill="#666">1940</text><text x="200" y="210" font-size="8" fill="#666">1960</text><text x="250" y="210" font-size="8" fill="#666">1990</text><text x="300" y="210" font-size="8" fill="#666">2020</text><polyline points="90,175 110,178 130,172 150,170 170,168 190,165 210,163 230,158 250,152 270,143 290,130 310,112 330,90" stroke="#c0392b" stroke-width="2.5" fill="none"/><text x="200" y="30" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Global Average Temperature 1900–2020</text><text x="200" y="252" font-size="10" fill="#888" text-anchor="middle">Rising temperatures: a data chart</text></svg>`,caption:'A graph showing rising global average temperatures from 1900 to 2020.',hint:'Interpret the data: what trend do you see, what might be causing it, and what are the implications?'},
-    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f9f7f2"/><rect x="50" y="20" width="300" height="200" fill="white" stroke="#ccc" stroke-width="1" rx="4"/><rect x="80" y="120" width="30" height="70" fill="#3498db" opacity=".8"/><rect x="130" y="100" width="30" height="90" fill="#3498db" opacity=".8"/><rect x="180" y="80" width="30" height="110" fill="#3498db" opacity=".8"/><rect x="230" y="60" width="30" height="130" fill="#2d7a3a" opacity=".8"/><rect x="280" y="40" width="30" height="150" fill="#2d7a3a" opacity=".85"/><line x1="70" y1="190" x2="330" y2="190" stroke="#aaa" stroke-width="1"/><text x="95" y="205" font-size="8" fill="#555" text-anchor="middle">2019</text><text x="145" y="205" font-size="8" fill="#555" text-anchor="middle">2020</text><text x="195" y="205" font-size="8" fill="#555" text-anchor="middle">2021</text><text x="245" y="205" font-size="8" fill="#555" text-anchor="middle">2022</text><text x="295" y="205" font-size="8" fill="#555" text-anchor="middle">2023</text><text x="200" y="30" font-size="10" fill="#333" text-anchor="middle" font-weight="600">E-commerce Growth in Indonesia</text><text x="200" y="252" font-size="10" fill="#888" text-anchor="middle">Bar chart: e-commerce growth</text></svg>`,caption:'A bar chart showing the growth of e-commerce in Indonesia from 2019 to 2023.',hint:'Describe the trend, compare the bars, and discuss what might explain the growth.'},
+    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f9f7f2"/><rect x="50" y="20" width="300" height="200" fill="white" stroke="#ddd" stroke-width="1" rx="3"/><line x1="80" y1="190" x2="80" y2="40" stroke="#bbb" stroke-width="1"/><line x1="80" y1="190" x2="340" y2="190" stroke="#bbb" stroke-width="1"/><text x="74" y="193" font-size="8" fill="#888" text-anchor="end">0</text><text x="74" y="165" font-size="8" fill="#888" text-anchor="end">5</text><text x="74" y="138" font-size="8" fill="#888" text-anchor="end">10</text><text x="74" y="112" font-size="8" fill="#888" text-anchor="end">15</text><text x="74" y="85" font-size="8" fill="#888" text-anchor="end">20</text><text x="74" y="58" font-size="8" fill="#888" text-anchor="end">25°C</text><text x="100" y="208" font-size="8" fill="#888">1900</text><text x="155" y="208" font-size="8" fill="#888">1940</text><text x="205" y="208" font-size="8" fill="#888">1970</text><text x="255" y="208" font-size="8" fill="#888">2000</text><text x="305" y="208" font-size="8" fill="#888">2020</text><polyline points="90,172 115,175 140,170 165,167 190,163 215,159 240,153 265,143 290,128 315,108 335,84" stroke="#c0392b" stroke-width="2.5" fill="none"/><text x="200" y="34" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Global Average Temperature 1900–2020</text></svg>`,caption:'A line graph showing rising global average temperatures from 1900 to 2020.',hint:'Interpret the trend, discuss causes, and explain potential consequences.'},
+    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f9f7f2"/><rect x="40" y="20" width="320" height="200" fill="white" stroke="#ddd" rx="3"/><rect x="75" y="120" width="32" height="70" fill="#3498db" opacity=".85"/><rect x="130" y="95" width="32" height="95" fill="#3498db" opacity=".85"/><rect x="185" y="72" width="32" height="118" fill="#3498db" opacity=".85"/><rect x="240" y="52" width="32" height="138" fill="#2d7a3a" opacity=".85"/><rect x="295" y="36" width="32" height="154" fill="#2d7a3a" opacity=".9"/><line x1="65" y1="190" x2="345" y2="190" stroke="#bbb" stroke-width="1"/><text x="91" y="205" font-size="8" fill="#666" text-anchor="middle">2019</text><text x="146" y="205" font-size="8" fill="#666" text-anchor="middle">2020</text><text x="201" y="205" font-size="8" fill="#666" text-anchor="middle">2021</text><text x="256" y="205" font-size="8" fill="#666" text-anchor="middle">2022</text><text x="311" y="205" font-size="8" fill="#666" text-anchor="middle">2023</text><text x="200" y="34" font-size="10" fill="#333" text-anchor="middle" font-weight="600">E-commerce Growth in Indonesia</text></svg>`,caption:'A bar chart showing e-commerce growth in Indonesia, 2019–2023.',hint:'Describe the trend, compare the years, and discuss what might explain the growth.'},
   ],
   C1:[
-    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f9f7f2"/><rect x="40" y="20" width="320" height="200" fill="white" stroke="#ccc" rx="4"/><circle cx="200" cy="120" r="90" fill="none" stroke="#ddd" stroke-width="1"/><path d="M200 120 L200 30 A90 90 0 0 1 283 165 Z" fill="#2d7a3a" opacity=".8"/><path d="M200 120 L283 165 A90 90 0 0 1 117 165 Z" fill="#c89a3a" opacity=".8"/><path d="M200 120 L117 165 A90 90 0 0 1 200 30 Z" fill="#3498db" opacity=".8"/><text x="220" y="75" font-size="10" fill="#fff" font-weight="600">35%</text><text x="260" y="165" font-size="10" fill="#fff" font-weight="600">30%</text><text x="130" y="165" font-size="10" fill="#fff" font-weight="600">35%</text><rect x="50" y="195" width="12" height="10" fill="#2d7a3a" opacity=".8"/><text x="68" y="204" font-size="9" fill="#555">Renewable</text><rect x="140" y="195" width="12" height="10" fill="#c89a3a" opacity=".8"/><text x="158" y="204" font-size="9" fill="#555">Fossil fuels</text><rect x="240" y="195" width="12" height="10" fill="#3498db" opacity=".8"/><text x="258" y="204" font-size="9" fill="#555">Nuclear</text><text x="200" y="252" font-size="10" fill="#888" text-anchor="middle">Global energy mix pie chart</text></svg>`,caption:'A pie chart showing the global energy mix: renewable, fossil fuels, and nuclear.',hint:'Analyse the proportions, evaluate implications for climate policy, and propose what changes you would advocate for.'},
-    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f0f4f8"/><rect x="30" y="130" width="80" height="100" fill="#2d7a3a" opacity=".85" rx="4"/><rect x="130" y="90" width="80" height="140" fill="#3498db" opacity=".85" rx="4"/><rect x="230" y="60" width="80" height="170" fill="#c89a3a" opacity=".85" rx="4"/><rect x="330" y="30" width="50" height="200" fill="#8e44ad" opacity=".85" rx="4"/><text x="70" y="145" font-size="11" fill="white" text-anchor="middle" font-weight="600">IDR</text><text x="170" y="105" font-size="11" fill="white" text-anchor="middle" font-weight="600">AUD</text><text x="270" y="75" font-size="11" fill="white" text-anchor="middle" font-weight="600">USD</text><text x="355" y="45" font-size="11" fill="white" text-anchor="middle" font-weight="600">CHF</text><text x="70" y="242" font-size="9" fill="#555" text-anchor="middle">Avg wage</text><text x="170" y="242" font-size="9" fill="#555" text-anchor="middle">Avg wage</text><text x="270" y="242" font-size="9" fill="#555" text-anchor="middle">Avg wage</text><text x="355" y="242" font-size="9" fill="#555" text-anchor="middle">Avg wage</text><text x="200" y="20" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Comparative Average Wages by Currency</text></svg>`,caption:'A comparative bar chart showing average wages in different currencies.',hint:'Interpret what the data reveals about economic inequality, purchasing power parity, and global wage disparities.'},
+    {svg:`<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="260" fill="#f9f7f2"/><rect x="40" y="20" width="320" height="200" fill="white" stroke="#ddd" rx="3"/><circle cx="200" cy="120" r="88" fill="none" stroke="#eee" stroke-width="1"/><path d="M200 120 L200 32 A88 88 0 0 1 276 164 Z" fill="#2d7a3a" opacity=".82"/><path d="M200 120 L276 164 A88 88 0 0 1 124 164 Z" fill="#c89a3a" opacity=".82"/><path d="M200 120 L124 164 A88 88 0 0 1 200 32 Z" fill="#3498db" opacity=".82"/><text x="222" y="78" font-size="11" fill="white" font-weight="700">35%</text><text x="255" y="162" font-size="11" fill="white" font-weight="700">30%</text><text x="130" y="162" font-size="11" fill="white" font-weight="700">35%</text><rect x="50" y="198" width="12" height="10" fill="#2d7a3a" opacity=".82"/><text x="68" y="207" font-size="9" fill="#555">Renewable</text><rect x="140" y="198" width="12" height="10" fill="#c89a3a" opacity=".82"/><text x="158" y="207" font-size="9" fill="#555">Fossil fuels</text><rect x="240" y="198" width="12" height="10" fill="#3498db" opacity=".82"/><text x="258" y="207" font-size="9" fill="#555">Nuclear</text><text x="200" y="34" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Global Energy Mix</text></svg>`,caption:'A pie chart showing the global energy mix: renewable, fossil fuels, and nuclear.',hint:'Analyse the proportions, evaluate implications for climate policy, and propose what changes you would advocate.'},
   ],
 };
 
-// PRONUNCIATION DRILLS — comprehensive Indonesian-specific (60+ per level)
-const PRON={
+const PRON = {
   A1:[
-    {words:['ship','sheep','bit','beat','fill','feel'],focus:'/ɪ/ vs /iː/ — short vs long i',tip:'"ship" and "sheep" sound different in English! Indonesian vowels are always the same length.'},
-    {words:['cat','cut','car','cup','cap'],focus:'/æ/, /ʌ/, /ɑː/ — three "a" sounds',tip:'Indonesian only has /a/. English "a" has at least three different sounds.'},
+    {words:['ship','sheep','bit','beat','fill','feel'],focus:'/ɪ/ vs /iː/ — short vs long i',tip:'"ship" and "sheep" are different! Indonesian vowels are always the same length.'},
     {words:['very','berry','vest','best','van','ban'],focus:'/v/ vs /b/ — not interchangeable!',tip:'Indonesian has no /v/. Put your top teeth on your lower lip and blow for /v/.'},
-    {words:['this','these','that','those','the','there'],focus:'/ð/ — voiced "th"',tip:'Touch your tongue lightly between your teeth and use your voice.'},
-    {words:['think','three','throw','thin','through'],focus:'/θ/ — voiceless "th"',tip:'Same position as /ð/ but no voice — just air. Very different from /t/ or /s/!'},
-    {words:['red','led','read','lead','run','done'],focus:'/r/ vs /l/ — must be distinct',tip:'/r/ in English: tongue does NOT touch the roof. /l/: tongue tip touches the ridge behind front teeth.'},
+    {words:['think','three','throw','thin','through'],focus:'/θ/ — voiceless "th"',tip:'Tongue between teeth, blow air — no voice. Very different from /t/ or /s/!'},
+    {words:['this','these','that','those','the','there'],focus:'/ð/ — voiced "th"',tip:'Same position as /θ/ but ADD voice. Hum while your tongue is between your teeth.'},
   ],
   A2:[
-    {words:['comfortable','vegetable','interesting','different','every','chocolate'],focus:'Silent syllables — words shorter than they look',tip:'"Comfortable" = COM-fta-ble (3 syllables, not 4). "Vegetable" = VEJ-ta-ble.'},
-    {words:['world','girl','word','work','bird','curve'],focus:'/ɜː/ — the er/ir/ur vowel',tip:'Round your lips slightly and pull your tongue back. This sound does not exist in Indonesian.'},
-    {words:['apple','ago','about','another','along','arrive'],focus:'/ə/ schwa — the most common English vowel',tip:'Schwa is a very short, central, relaxed vowel. "about" = /ə-BAUT/. Unstressed syllables use it.'},
-    {words:['zoo','shoe','true','blue','knew','through'],focus:'/uː/ — long "oo" sound',tip:'Indonesian /u/ is similar but English /uː/ is slightly longer and more rounded.'},
+    {words:['comfortable','vegetable','interesting','different','every'],focus:'Silent syllables — words are shorter than they look',tip:'"Comfortable" = COM-fta-ble (3 syllables). "Vegetable" = VEJ-ta-ble.'},
     {words:['how','now','house','mouse','found','loud'],focus:'/aʊ/ diphthong — moves from /a/ to /ʊ/',tip:'Start with an open /a/ and glide to /ʊ/. Not a single flat vowel!'},
     {words:['day','say','wait','great','rain','they'],focus:'/eɪ/ diphthong',tip:'Glide from /e/ to /ɪ/. Indonesian speakers often use a flat /e/ — add the glide!'},
-    {words:['nature','picture','future','culture','question','suggestion'],focus:'/tʃ/ and /dʒ/ in -ture, -tion words',tip:'"nature" = NAY-cher, not NAY-tyoor. "question" = KWES-chun, not KWES-tyon.'},
+    {words:['nature','picture','future','culture','question'],focus:'/tʃ/ in -ture words',tip:'"nature" = NAY-cher, not NAY-tyoor. "question" = KWES-chun.'},
   ],
   B1:[
-    {words:['desert (n.) / desert (v.)','present (n.) / present (v.)','record (n.) / record (v.)','permit (n.) / permit (v.)','protest (n.) / protest (v.)'],focus:'Noun vs verb stress shift',tip:'Nouns: stress on first syllable (DES-ert). Verbs: stress on second (de-SERT). Same spelling, different meaning.'},
-    {words:['photograph','photography','photographic','telephone','telephony','telegraphic'],focus:'Stress shift in word families',tip:'PHO-to-graph → pho-TOG-ra-phy → pho-to-GRAPH-ic. The suffix changes the stress pattern.'},
-    {words:['beautiful','nationality','opportunity','communication','approximately','particularly'],focus:'Multi-syllable stress and vowel reduction',tip:'Unstressed syllables become schwa: "beau-ti-ful" = BYOO-tɪ-fəl. Only stressed syllables are "full" vowels.'},
-    {words:['both','cloth','growth','mouth','south','worth'],focus:'/θ/ in final position',tip:'Many Indonesians drop the final /θ/ or replace it with /t/. Keep the tongue between the teeth to the end.'},
-    {words:['clothes','months','lengths','depths','sixths','fifths'],focus:'Final consonant clusters with /θs/ and /ðz/',tip:'"Clothes" = /kloʊðz/ — that final cluster is hard! Practice slowly: k-l-oh-dh-z.'},
-    {words:['water','butter','letter','better','matter','later','city','twenty'],focus:'/t/ → /ɾ/ flap in American English',tip:'Between vowels, /t/ becomes a quick tap like /d/ in American English: "butter" = /ˈbʌɾər/. British English keeps the /t/.'},
-    {words:['rural','warrior','mirror','horror','barrel','carol'],focus:'/r/ in clusters and final position',tip:'English /r/ after vowels (non-rhotic): British English often drops it ("mirror" = /mɪrə/). American keeps it. Know which you are using.'},
+    {words:['desert (n.) / desert (v.)','present (n.) / present (v.)','record (n.) / record (v.)','permit (n.) / permit (v.)'],focus:'Noun vs verb stress shift',tip:'Nouns: stress on 1st syllable (DES-ert). Verbs: stress on 2nd (de-SERT). Same spelling, different meaning!'},
+    {words:['beautiful','nationality','opportunity','communication','approximately'],focus:'Multi-syllable stress and vowel reduction',tip:'Unstressed syllables reduce to schwa /ə/: "beau-ti-ful" = BYOO-tɪ-fəl. Only stressed syllables are full vowels.'},
+    {words:['clothes','months','lengths','depths','sixths'],focus:'Final consonant clusters with /θs/ and /ðz/',tip:'"Clothes" = /kloʊðz/ — that final cluster is genuinely hard! Go slowly: k-l-oh-dh-z.'},
+    {words:['world','girl','word','work','bird','curve'],focus:'/ɜː/ — the er/ir/ur vowel',tip:'Round lips slightly, pull tongue back. This sound does not exist in Indonesian!'},
   ],
   B2:[
-    {words:['albeit','facade','niche','debris','genre','cache','entrepreneur','rendezvous'],focus:'French loanwords — unusual English pronunciation',tip:'"Albeit" = awl-BE-it. "Facade" = fə-SAHD. "Niche" = /niːʃ/ (British) or /nɪtʃ/ (American). "Debris" = /dɪˈbriː/.'},
-    {words:['colonel','Wednesday','February','Leicester','Worcestershire','choir','debt','subtle'],focus:'Silent letters — historically irregular spellings',tip:'"Colonel" = /ˈkɜːrnəl/ (sounds like "kernel"). "Wednesday" = /ˈwenzdi/. "Leicester" = /ˈlɛstər/.'},
-    {words:['thoroughly','portrayal','preliminary','extraordinary','particularly','necessarily','contemporary'],focus:'Advanced polysyllabic accuracy',tip:'Map the stress first: "thor-OU-ghly", "por-TRAY-al". Then work outward from the stressed syllable.'},
-    {words:['I would have / I would\'ve','should have / should\'ve','could have / could\'ve','must have / must\'ve','might have / might\'ve'],focus:'Modal perfect contractions in connected speech',tip:'"Would have" in natural speech = /wʊdəv/ or "would\'ve". Never "would of" — that\'s a spelling error.'},
-    {words:['Do you want to / D\'ya wanna','Going to / gonna','Have to / hafta','Out of / outta','Kind of / kinda','Sort of / sorta'],focus:'Connected speech reductions (informal)',tip:'These reductions are everywhere in native speech. Knowing them helps your listening comprehension enormously.'},
-    {words:['phenomenon','criteria','analysis','thesis','appendix','nucleus','cactus','datum'],focus:'Greek and Latin singular/plural irregulars',tip:'"phenomena" (plural), "criteria" (plural of criterion), "analyses" (plural of analysis). Used in academic English.'},
+    {words:['albeit','facade','niche','debris','genre','cache','rendezvous'],focus:'French loanwords in English',tip:'"Albeit" = awl-BE-it. "Facade" = fə-SAHD. "Debris" = /dɪˈbriː/. "Genre" = /ˈʒɒnrə/.'},
+    {words:['colonel','Wednesday','February','choir','debt','subtle','salmon'],focus:'Words with silent letters',tip:'"Colonel" sounds like "kernel". "Wednesday" = /ˈwenzdi/. "Debt" — the b is silent.'},
+    {words:['I would have / I\'d\'ve','should have / should\'ve','could have / could\'ve','must have / must\'ve'],focus:'Modal perfect contractions in speech',tip:'"Would have" in natural speech = /wʊdəv/. Never "would of" — that\'s a spelling error, not a contraction.'},
+    {words:['thoroughly','portrayal','preliminary','extraordinary','particularly'],focus:'Advanced polysyllabic accuracy',tip:'Map the stress first: "thor-OU-ghly". Then work outward from the stressed syllable.'},
   ],
   C1:[
-    {words:['ambiguity','perspicacious','equivocal','mellifluous','ephemeral','loquacious','circumlocution','enunciation'],focus:'C1 vocabulary precision and stress',tip:'Map stress before speaking: am-bi-GU-i-ty, per-spi-CA-cious, mel-LIF-lu-ous. Then add natural rhythm.'},
-    {words:['inextricably','unequivocally','disproportionately','contemporaneously','incomprehensibility','institutionalisation'],focus:'Low-frequency polysyllabic words',tip:'"Institutionalisation" = in-STIT-yoo-shə-nə-lɪ-ZAY-shən. 8 syllables. Map, chunk, then blend.'},
-    {words:['albeit','ergo','ipso facto','per se','vis-à-vis','inter alia','de facto','a priori'],focus:'Latin/French academic phrases used in English',tip:'"Per se" = /pɜːr seɪ/. "Ipso facto" = /ˈɪpsəʊ ˈfæktəʊ/. "Vis-à-vis" = /ˌviːzəˈviː/.'},
-    {words:['I\'d\'ve (I would have)','she\'ll\'ve (she will have)','they\'d\'ve (they would have)','you\'d\'ve (you would have)','it\'ll\'ve (it will have)'],focus:'Triple contractions in natural speech',tip:'These appear in very fast native speech. "I\'d\'ve known" = /aɪdəv noʊn/. Understanding these is a C1 listening skill.'},
-    {words:['glottal stop (bottle/button)','linking /r/ (far away)','intrusive /r/ (law and order)','elision (last night → las\' night)','assimilation (ten boys → tem boys)'],focus:'Advanced phonological processes',tip:'These processes are what make native speech sound "fast". Glottal stops replace /t/ between vowels in British English: "bottle" = /ˈbɒʔl/.'},
-    {words:['pitch (rising tone for questions)','stress-timed rhythm','nuclear stress (I SAW him vs I saw HIM)','tone groups and pausing','deaccentuation of given information'],focus:'Prosody: the music of English',tip:'English is stress-timed: stressed syllables occur at roughly equal intervals. Indonesian is syllable-timed. This is the deepest structural difference.'},
+    {words:['ambiguity','perspicacious','equivocal','mellifluous','ephemeral','circumlocution'],focus:'C1 academic vocabulary — stress and precision',tip:'Map stress before speaking: am-bi-GU-i-ty, per-spi-CA-cious, mel-LIF-lu-ous.'},
+    {words:['inextricably','unequivocally','disproportionately','incomprehensibility','institutionalisation'],focus:'Low-frequency polysyllabic words',tip:'"Institutionalisation" = in-STIT-yoo-shə-nə-lɪ-ZAY-shən. 8 syllables — map first, then chunk, then blend.'},
+    {words:['albeit','ergo','ipso facto','per se','vis-à-vis','inter alia','de facto'],focus:'Latin/French academic phrases',tip:'"Per se" = /pɜːr seɪ/. "Ipso facto" = /ˈɪpsəʊ ˈfæktəʊ/. "Vis-à-vis" = /ˌviːzəˈviː/.'},
+    {words:['pitch (rising tone for questions)','stress-timed rhythm','nuclear stress (I SAW him vs I saw HIM)','deaccentuation of given information'],focus:'Prosody: the music of English',tip:'English is stress-timed: stressed syllables at roughly equal intervals. Indonesian is syllable-timed. This is the deepest structural difference.'},
   ],
 };
 
-// ════════════════════════════════════════════════
-//  PRACTICE PAGE
-// ════════════════════════════════════════════════
-function openPractice(code,mode){
-  currentLevel=code;currentMode=mode||'monologue';
-  const info=LEVEL_INFO[code];
-  document.getElementById('pBadge').textContent=code;
-  document.getElementById('pBadge').style.color='var(--g)';
-  document.getElementById('pName').textContent=`${code} — ${info.name}`;
-  document.getElementById('pDesc').textContent=info.desc;
-  document.getElementById('pBreadcrumb').textContent=`${code} ${info.name}`;
+// ══════════════════════════════════════════════
+//  PRACTICE
+// ══════════════════════════════════════════════
+function openPractice(code, mode) {
+  currentLevel = code; currentMode = mode || 'monologue';
+  const info = LEVEL_INFO[code];
+  document.getElementById('pBadge').textContent = code;
+  document.getElementById('pBadge').style.color = 'var(--g)';
+  document.getElementById('pName').textContent = `${code} — ${info.name}`;
+  document.getElementById('pDesc').textContent = info.desc;
+  document.getElementById('pBreadcrumb').textContent = `${code} ${info.name}`;
   updatePracXP();
-  const xp=currentUser.xp[code]||0;
-  const isDone=currentUser.completedLevels?.includes(code);
-  const examBtn=document.getElementById('examBtn');
-  if(isDone){examBtn.textContent='✓ Level passed';examBtn.disabled=true;}
-  else if(xp>=XP_TO_EXAM){examBtn.textContent='📝 Take Level Exam';examBtn.disabled=false;}
-  else{examBtn.textContent=`📝 Exam unlocks at ${XP_TO_EXAM} XP`;examBtn.disabled=true;}
+  const xp = currentUser.xp ? (currentUser.xp[code] || 0) : 0;
+  const isDone = currentUser.completedLevels && currentUser.completedLevels.includes(code);
+  const examBtn = document.getElementById('examBtn');
+  if (isDone) { examBtn.textContent = '✓ Level passed'; examBtn.disabled = true; }
+  else if (xp >= XP_TO_EXAM) { examBtn.textContent = '📝 Take Level Exam'; examBtn.disabled = false; }
+  else { examBtn.textContent = `📝 Exam unlocks at ${XP_TO_EXAM} XP (${xp}/${XP_TO_EXAM})`; examBtn.disabled = true; }
   renderModeTabs();
   loadPrompt();
   showPage('practice');
 }
-function updatePracXP(){
-  const xp=currentUser.xp[currentLevel]||0;
-  const pct=Math.min(100,Math.round(xp/XP_TO_EXAM*100));
-  document.getElementById('pracXpFill').style.width=pct+'%';
-  document.getElementById('pracXpNum').textContent=xp+'/'+XP_TO_EXAM+' XP';
+
+function updatePracXP() {
+  const xp = currentUser.xp ? (currentUser.xp[currentLevel] || 0) : 0;
+  const pct = Math.min(100, Math.round(xp / XP_TO_EXAM * 100));
+  document.getElementById('pracXpFill').style.width = pct + '%';
+  document.getElementById('pracXpNum').textContent = xp + '/' + XP_TO_EXAM + ' XP';
 }
-function renderModeTabs(){
-  document.getElementById('modeTabs').innerHTML=MODES.map(m=>
-    `<button class="mode-tab ${m.id===currentMode?'active':''}" onclick="switchMode('${m.id}')">${m.icon} ${m.label}</button>`
+
+function renderModeTabs() {
+  document.getElementById('modeTabs').innerHTML = MODES.map(m =>
+    `<button class="mode-tab ${m.id === currentMode ? 'active' : ''}" onclick="switchMode('${m.id}')">${m.icon} ${m.label}</button>`
   ).join('');
 }
-function switchMode(id){currentMode=id;renderModeTabs();resetRecorder();loadPrompt();}
 
-// ════════════════════════════════════════════════
+function switchMode(id) { currentMode = id; renderModeTabs(); resetRecorder(); loadPrompt(); }
+
+// ══════════════════════════════════════════════
 //  PROMPT GENERATION
-// ════════════════════════════════════════════════
-async function loadPrompt(){
-  document.getElementById('pracBody').innerHTML=`<div class="prompt-card"><div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
-  // Try AI first, then fall back to pool
-  try{
-    await generateAIPrompt();
-  }catch(e){
-    usePoolPrompt();
-  }
+// ══════════════════════════════════════════════
+async function loadPrompt() {
+  document.getElementById('pracBody').innerHTML = `<div class="prompt-card"><div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  try { await generateAIPrompt(); }
+  catch (e) { usePoolPrompt(); }
 }
 
-async function generateAIPrompt(){
-  const prompts={
-    monologue:`Generate a fresh speaking topic for ${currentLevel} CEFR level. Return only JSON: {"prompt":"...","hint":"..."}. The topic must be different from: ${TOPICS[currentLevel].slice(0,5).join('; ')}. Culturally relevant to Indonesia where natural.`,
-    readAloud:`Generate a read-aloud passage for ${currentLevel} CEFR (4-6 sentences). Return only JSON: {"text":"...","focus":"..."}. Make it engaging and level-appropriate.`,
-    picture:`Generate a picture description task for ${currentLevel} CEFR. Return only JSON: {"caption":"...","hint":"...","svgTheme":"(one of: nature/city/market/chart/interior/sport)"}`,
-    pron:`Generate a pronunciation exercise for ${currentLevel} CEFR targeting Indonesian speaker weaknesses. Return only JSON: {"words":["...","...","...","..."],"focus":"...","tip":"..."}`,
+async function generateAIPrompt() {
+  const prompts = {
+    monologue: `Generate a fresh speaking topic for CEFR ${currentLevel}. Return only valid JSON: {"prompt":"...","hint":"..."}`,
+    readAloud: `Generate a read-aloud passage for CEFR ${currentLevel} (4-6 sentences). Return only valid JSON: {"text":"...","focus":"..."}`,
+    picture:   `Generate a picture description task for CEFR ${currentLevel}. Return only valid JSON: {"caption":"...","hint":"..."}`,
+    pron:      `Generate a pronunciation exercise for CEFR ${currentLevel} targeting Indonesian speaker weaknesses. Return only valid JSON: {"words":["...","...","..."],"focus":"...","tip":"..."}`,
   };
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,system:'You are an English curriculum designer. Respond ONLY with valid JSON, no markdown, no extra text.',messages:[{role:'user',content:prompts[currentMode]}]}),
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:400, system:'You are an English curriculum designer. Respond ONLY with valid JSON, no markdown.', messages:[{role:'user', content:prompts[currentMode]}]}),
   });
-  if(!res.ok)throw new Error('API error');
-  const data=await res.json();
-  if(data.error)throw new Error(data.error.message);
-  const text=data.content[0].text.trim().replace(/```json|```/g,'');
-  currentPromptData=JSON.parse(text);
+  if (!res.ok) throw new Error('API ' + res.status);
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  const text = data.content[0].text.trim().replace(/```json|```/g, '');
+  currentPromptData = JSON.parse(text);
   renderPromptUI(currentPromptData);
 }
 
-function usePoolPrompt(){
-  if(currentMode==='monologue'){
-    const pool=TOPICS[currentLevel];
-    currentPromptData={prompt:pool[Math.floor(Math.random()*pool.length)],hint:'Speak for 1–2 minutes. Use full sentences and give reasons for your ideas.'};
-  }else if(currentMode==='readAloud'){
-    const pool=PASSAGES[currentLevel];
-    const p=pool[Math.floor(Math.random()*pool.length)];
-    currentPromptData=p;
-  }else if(currentMode==='picture'){
-    const pool=PICTURES[currentLevel];
-    currentPromptData=pool[Math.floor(Math.random()*pool.length)];
-  }else{
-    const pool=PRON[currentLevel];
-    currentPromptData=pool[Math.floor(Math.random()*pool.length)];
+function usePoolPrompt() {
+  if (currentMode === 'monologue') {
+    const pool = TOPICS[currentLevel];
+    currentPromptData = {prompt: pool[Math.floor(Math.random() * pool.length)], hint: 'Speak for 1–2 minutes. Give reasons and examples for your ideas.'};
+  } else if (currentMode === 'readAloud') {
+    const pool = PASSAGES[currentLevel];
+    currentPromptData = pool[Math.floor(Math.random() * pool.length)];
+  } else if (currentMode === 'picture') {
+    const pool = PICTURES[currentLevel];
+    currentPromptData = pool[Math.floor(Math.random() * pool.length)];
+  } else {
+    const pool = PRON[currentLevel];
+    currentPromptData = pool[Math.floor(Math.random() * pool.length)];
   }
   renderPromptUI(currentPromptData);
 }
 
-function renderPromptUI(d){
-  let inner='';
-  if(currentMode==='monologue'){
-    inner=`<div class="prompt-eyebrow">Your topic <button class="refresh-btn" onclick="loadPrompt()">↺ New topic</button></div>
-      <div class="prompt-main">${d.prompt||d}</div>
-      ${d.hint?`<div class="prompt-hint"><strong>Tip:</strong> ${d.hint}</div>`:''}`;
-  }else if(currentMode==='readAloud'){
-    inner=`<div class="prompt-eyebrow">Read this aloud <button class="refresh-btn" onclick="loadPrompt()">↺ New passage</button></div>
-      <div class="read-passage">${(d.text||d.passage||d).replace(/\n/g,'<br>')}</div>
-      ${d.focus?`<div class="prompt-hint"><strong>Focus on:</strong> ${d.focus}</div>`:''}`;
-  }else if(currentMode==='picture'){
-    const svgContent=d.svg||`<div style="padding:40px;text-align:center;font-size:32px">🖼️</div>`;
-    inner=`<div class="prompt-eyebrow">Describe this picture <button class="refresh-btn" onclick="loadPrompt()">↺ New image</button></div>
-      <div class="pic-scene"><div class="pic-svg-wrap">${svgContent}</div><div class="pic-caption">${d.caption||''}</div></div>
-      ${d.hint?`<div class="prompt-hint"><strong>Cover:</strong> ${d.hint}</div>`:''}`;
-  }else{
-    inner=`<div class="prompt-eyebrow">Pronunciation drill <button class="refresh-btn" onclick="loadPrompt()">↺ New drill</button></div>
-      <div class="pron-chips">${(d.words||[]).map(w=>`<div class="pron-chip">${w}</div>`).join('')}</div>
-      ${d.focus?`<div class="prompt-hint"><strong>Focus:</strong> ${d.focus}</div>`:''}
-      ${d.tip?`<div class="prompt-hint" style="margin-top:8px"><strong>🇮🇩 For Indonesian speakers:</strong> ${d.tip}</div>`:''}`;
+function renderPromptUI(d) {
+  let inner = '';
+  if (currentMode === 'monologue') {
+    inner = `<div class="prompt-eyebrow">Your topic <button class="refresh-btn" onclick="loadPrompt()">↺ New topic</button></div>
+      <div class="prompt-main">${d.prompt || d}</div>
+      ${d.hint ? `<div class="prompt-hint"><strong>Tip:</strong> ${d.hint}</div>` : ''}`;
+  } else if (currentMode === 'readAloud') {
+    inner = `<div class="prompt-eyebrow">Read this aloud <button class="refresh-btn" onclick="loadPrompt()">↺ New passage</button></div>
+      <div class="read-passage">${(d.text || d.passage || d).replace(/\n/g,'<br>')}</div>
+      ${d.focus ? `<div class="prompt-hint"><strong>Focus on:</strong> ${d.focus}</div>` : ''}`;
+  } else if (currentMode === 'picture') {
+    const svgHtml = d.svg || '';
+    inner = `<div class="prompt-eyebrow">Describe this picture <button class="refresh-btn" onclick="loadPrompt()">↺ New image</button></div>
+      <div class="pic-scene"><div class="pic-svg-wrap">${svgHtml || '<div style="padding:40px;text-align:center;font-size:40px">🖼️</div>'}</div><div class="pic-caption">${d.caption || ''}</div></div>
+      ${d.hint ? `<div class="prompt-hint"><strong>Cover:</strong> ${d.hint}</div>` : ''}`;
+  } else {
+    inner = `<div class="prompt-eyebrow">Pronunciation drill <button class="refresh-btn" onclick="loadPrompt()">↺ New drill</button></div>
+      <div class="pron-chips">${(d.words||[]).map(w => `<div class="pron-chip">${w}</div>`).join('')}</div>
+      ${d.focus ? `<div class="prompt-hint"><strong>Focus:</strong> ${d.focus}</div>` : ''}
+      ${d.tip ? `<div class="prompt-hint" style="margin-top:8px"><strong>🇮🇩 For Indonesian speakers:</strong> ${d.tip}</div>` : ''}`;
   }
-  const iosFallbackHTML=useIOSFallback?`<div class="ios-fallback show"><label class="ios-fallback-label">Type your response (voice not available in this browser):</label><textarea id="iosFallbackText" placeholder="Type what you would say…" oninput="handleIOSInput(this.value)"></textarea></div>`:'';
-  const recHTML=useIOSFallback?'':`<div class="rec-ring" id="recRing" onclick="toggleRec()"><div class="rec-dot"></div></div>
+
+  const iosFallback = useIOSFallback ? `
+    <div style="margin-top:14px">
+      <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:6px;">Type your response (voice not available in this browser):</label>
+      <textarea id="iosFallbackText" style="width:100%;padding:10px 12px;background:var(--parch);border:1.5px solid var(--border2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);resize:vertical;min-height:80px;outline:none;" placeholder="Type what you would say…" oninput="handleIOSInput(this.value)"></textarea>
+    </div>` : '';
+
+  const recHtml = useIOSFallback ? '' : `
+    <div class="rec-ring" id="recRing" onclick="toggleRec()"><div class="rec-dot"></div></div>
     <div class="rec-label" id="recLabel">Tap to start recording</div>
     <div class="rec-timer" id="recTimer"></div>
     <div class="transcript-area" id="transcriptArea"></div>`;
 
-  document.getElementById('pracBody').innerHTML=`
+  document.getElementById('pracBody').innerHTML = `
     <div class="prompt-card">${inner}</div>
     <div class="rec-card" id="recCard">
-      ${recHTML}
-      ${iosFallbackHTML}
+      ${recHtml}${iosFallback}
       <button class="analyse-btn" id="analyseBtn" onclick="submitSpeech()">Analyse my response →</button>
     </div>
     <div class="fb-card" id="fbCard">
@@ -1273,337 +1354,340 @@ function renderPromptUI(d){
     </div>`;
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 //  RECORDER
-// ════════════════════════════════════════════════
-function handleIOSInput(v){
-  transcript=v;
-  const ab=document.getElementById('analyseBtn');
-  if(ab){if(v.trim())ab.classList.add('show');else ab.classList.remove('show');}
+// ══════════════════════════════════════════════
+function handleIOSInput(v) {
+  transcript = v;
+  const ab = document.getElementById('analyseBtn');
+  if (ab) { if (v.trim()) ab.classList.add('show'); else ab.classList.remove('show'); }
 }
-function toggleRec(){if(isRecording)stopRec();else startRec();}
-function startRec(){
-  transcript='';
-  const ta=document.getElementById('transcriptArea');if(ta){ta.textContent='Listening…';ta.classList.add('show');}
-  const ab=document.getElementById('analyseBtn');if(ab)ab.classList.remove('show');
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(SR){
-    try{
-      recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';
-      recognition.onresult=e=>{let f='',it='';for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)f+=t+' ';else it+=t;}transcript+=f;if(ta)ta.textContent=(transcript+it).trim()||'Listening…';if(transcript.trim()&&ab)ab.classList.add('show');};
-      recognition.onerror=e=>{if(e.error!=='no-speech'){console.error(e.error);showToast('Microphone error: '+e.error);}};
+function toggleRec() { if (isRecording) stopRec(); else startRec(); }
+function startRec() {
+  transcript = '';
+  const ta = document.getElementById('transcriptArea'); if (ta) { ta.textContent = 'Listening…'; ta.classList.add('show'); }
+  const ab = document.getElementById('analyseBtn'); if (ab) ab.classList.remove('show');
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) {
+    try {
+      recognition = new SR(); recognition.continuous = true; recognition.interimResults = true; recognition.lang = 'en-US';
+      recognition.onresult = e => {
+        let f = '', it = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) { const t = e.results[i][0].transcript; if (e.results[i].isFinal) f += t + ' '; else it += t; }
+        transcript += f;
+        if (ta) ta.textContent = (transcript + it).trim() || 'Listening…';
+        if (transcript.trim() && ab) ab.classList.add('show');
+      };
+      recognition.onerror = e => { if (e.error !== 'no-speech') showToast('Mic error: ' + e.error); };
       recognition.start();
-    }catch(err){showToast('Could not start microphone. Please type your response.');}
+    } catch (err) { showToast('Could not start microphone.'); }
   }
-  isRecording=true;
-  const rr=document.getElementById('recRing');if(rr)rr.classList.add('on');
-  const rl=document.getElementById('recLabel');if(rl)rl.textContent='Recording… tap to stop';
-  secs=0;updateTimer();timerInt=setInterval(()=>{secs++;updateTimer();},1000);
+  isRecording = true;
+  const rr = document.getElementById('recRing'); if (rr) rr.classList.add('on');
+  const rl = document.getElementById('recLabel'); if (rl) rl.textContent = 'Recording… tap to stop';
+  secs = 0; updateTimer(); timerInt = setInterval(() => { secs++; updateTimer(); }, 1000);
 }
-function stopRec(){
-  if(!isRecording)return;isRecording=false;
-  if(recognition){try{recognition.stop();}catch(e){}recognition=null;}
+function stopRec() {
+  if (!isRecording) return; isRecording = false;
+  if (recognition) { try { recognition.stop(); } catch (e) {} recognition = null; }
   clearInterval(timerInt);
-  const rr=document.getElementById('recRing');if(rr)rr.classList.remove('on');
-  const rl=document.getElementById('recLabel');if(rl)rl.textContent='Tap to record again';
-  const rt=document.getElementById('recTimer');if(rt)rt.textContent='';
-  const ab=document.getElementById('analyseBtn');if(ab&&transcript.trim())ab.classList.add('show');
+  const rr = document.getElementById('recRing'); if (rr) rr.classList.remove('on');
+  const rl = document.getElementById('recLabel'); if (rl) rl.textContent = 'Tap to record again';
+  const rt = document.getElementById('recTimer'); if (rt) rt.textContent = '';
+  const ab = document.getElementById('analyseBtn'); if (ab && transcript.trim()) ab.classList.add('show');
 }
-function updateTimer(){const el=document.getElementById('recTimer');if(el)el.textContent=`${Math.floor(secs/60).toString().padStart(2,'0')}:${(secs%60).toString().padStart(2,'0')}`;}
-function resetRecorder(){stopRec();transcript='';secs=0;}
-function tryAgain(){
-  transcript='';
-  const ta=document.getElementById('transcriptArea');if(ta){ta.textContent='';ta.classList.remove('show');}
-  const iosT=document.getElementById('iosFallbackText');if(iosT)iosT.value='';
-  const ab=document.getElementById('analyseBtn');if(ab){ab.classList.remove('show');ab.disabled=false;}
-  const fc=document.getElementById('fbCard');if(fc)fc.classList.remove('show');
-  const rl=document.getElementById('recLabel');if(rl)rl.textContent='Tap to start recording';
+function updateTimer() {
+  const el = document.getElementById('recTimer');
+  if (el) el.textContent = `${Math.floor(secs/60).toString().padStart(2,'0')}:${(secs%60).toString().padStart(2,'0')}`;
+}
+function resetRecorder() { stopRec(); transcript = ''; secs = 0; }
+function tryAgain() {
+  transcript = '';
+  const ta = document.getElementById('transcriptArea'); if (ta) { ta.textContent = ''; ta.classList.remove('show'); }
+  const iosTa = document.getElementById('iosFallbackText'); if (iosTa) iosTa.value = '';
+  const ab = document.getElementById('analyseBtn'); if (ab) { ab.classList.remove('show'); ab.disabled = false; }
+  const fc = document.getElementById('fbCard'); if (fc) fc.classList.remove('show');
+  const rl = document.getElementById('recLabel'); if (rl) rl.textContent = 'Tap to start recording';
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 //  AI ANALYSIS
-// ════════════════════════════════════════════════
-async function submitSpeech(){
-  const t=transcript.trim();if(!t){showToast('Please record or type your response first.');return;}
+// ══════════════════════════════════════════════
+async function submitSpeech() {
+  const t = transcript.trim(); if (!t) { showToast('Please record or type your response first.'); return; }
   stopRec();
-  const ab=document.getElementById('analyseBtn');if(ab)ab.disabled=true;
-  const fc=document.getElementById('fbCard');fc.classList.add('show');
-  document.getElementById('fbNum').textContent='…';document.getElementById('fbBars').innerHTML='';
-  document.getElementById('fbBody').innerHTML='<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-  fc.scrollIntoView({behavior:'smooth',block:'start'});
-
-  const modeCtx={
-    monologue:`The student spoke on this topic: "${currentPromptData?.prompt||''}"`,
-    readAloud:`The student read aloud this passage: "${currentPromptData?.text||currentPromptData?.passage||''}"`,
-    picture:`The student described this scene: "${currentPromptData?.caption||''}"`,
-    pron:`The student practised these words/phrases: ${(currentPromptData?.words||[]).join(', ')}`,
+  const ab = document.getElementById('analyseBtn'); if (ab) ab.disabled = true;
+  const fc = document.getElementById('fbCard'); fc.classList.add('show');
+  document.getElementById('fbNum').textContent = '…'; document.getElementById('fbBars').innerHTML = '';
+  document.getElementById('fbBody').innerHTML = '<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+  fc.scrollIntoView({behavior:'smooth', block:'start'});
+  const ctx = {
+    monologue: `Topic: "${currentPromptData && currentPromptData.prompt ? currentPromptData.prompt : ''}"`,
+    readAloud: `Passage: "${currentPromptData && (currentPromptData.text || currentPromptData.passage) ? (currentPromptData.text || currentPromptData.passage) : ''}"`,
+    picture:   `Scene: "${currentPromptData && currentPromptData.caption ? currentPromptData.caption : ''}"`,
+    pron:      `Words: ${currentPromptData && currentPromptData.words ? currentPromptData.words.join(', ') : ''}`,
   };
-
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:800,
-        system:`You are a warm, expert English speaking coach specialising in Indonesian learners at CEFR level ${currentLevel}. You give honest, specific, encouraging feedback. You know that Indonesian speakers typically struggle with: /v/ vs /b/, /θ/ and /ð/, article use (a/an/the), verb tense consistency, schwa vowels, and stress-timing. Respond ONLY with valid JSON.`,
-        messages:[{role:'user',content:`Evaluate this CEFR ${currentLevel} learner's spoken response.\n${modeCtx[currentMode]}\nTranscribed speech: "${t}"\n\nReturn JSON:\n{"overall":<1-100>,"scores":{"fluency":<1-100>,"vocabulary":<1-100>,"grammar":<1-100>,"content":<1-100>},"strengths":["specific strength 1","specific strength 2"],"improvements":["specific, actionable tip 1","specific tip 2"],"detail":"2-3 sentences of specific, personal feedback referencing what they actually said","encouragement":"One warm, personalised sentence acknowledging their effort as an Indonesian speaker"}\n\nBe generous at A1/A2 (reward effort). Be precise and challenging at B2/C1. Always be constructive, never harsh.`}],
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 800,
+        system: `You are a warm expert English speaking coach for CEFR ${currentLevel} Indonesian learners. Indonesian speakers typically struggle with: /v/ vs /b/, /θ/ and /ð/, articles, verb tense, schwa vowels, stress-timing. Respond ONLY with valid JSON.`,
+        messages: [{role:'user', content:`Evaluate this CEFR ${currentLevel} learner.\n${ctx[currentMode]}\nSpeech: "${t}"\n\nReturn JSON:\n{"overall":<1-100>,"scores":{"fluency":<1-100>,"vocabulary":<1-100>,"grammar":<1-100>,"content":<1-100>},"strengths":["...","..."],"improvements":["...","..."],"detail":"2-3 sentences of specific feedback referencing what they said","encouragement":"One warm sentence for an Indonesian speaker"}\n\nBe generous at A1/A2. Be precise at B2/C1. Always constructive.`}],
       }),
     });
-    if(!res.ok)throw new Error('API '+res.status);
-    const data=await res.json();
-    if(data.error)throw new Error(data.error.message);
-    const text=data.content[0].text.trim().replace(/```json|```/g,'');
-    const parsed=JSON.parse(text);
-    renderFeedback(parsed,true);
-  }catch(err){
+    if (!res.ok) throw new Error('API ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const parsed = JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
+    renderFeedback(parsed, true);
+  } catch (err) {
     console.error(err);
-    document.getElementById('fbBody').innerHTML=`<div style="padding:12px 0"><p style="font-size:13px;color:var(--muted);margin-bottom:12px">Could not reach AI analysis. Check your connection.</p><p style="font-size:12px;color:var(--muted)">Error: ${err.message}</p></div>`;
-    if(ab)ab.disabled=false;
+    document.getElementById('fbBody').innerHTML = `<p style="font-size:13px;color:var(--muted);padding:8px 0">Could not reach AI. Check your connection and try again.<br><small>${err.message}</small></p>`;
+    if (ab) ab.disabled = false;
   }
 }
 
-function renderFeedback(d,earnXp){
-  document.getElementById('fbNum').textContent=d.overall;
-  const cols={fluency:'var(--teal)',vocabulary:'var(--gold2)',grammar:'var(--g2)',content:'var(--g)'};
-  document.getElementById('fbBars').innerHTML=Object.entries(d.scores).map(([k,v])=>
+function renderFeedback(d, earnXp) {
+  document.getElementById('fbNum').textContent = d.overall;
+  const cols = {fluency:'var(--teal)', vocabulary:'var(--gold2)', grammar:'var(--g2)', content:'var(--g)'};
+  document.getElementById('fbBars').innerHTML = Object.entries(d.scores).map(([k,v]) =>
     `<div class="fb-br"><div class="fb-bl">${k.charAt(0).toUpperCase()+k.slice(1)}</div><div class="fb-bt"><div class="fb-bf" data-v="${v}" style="background:${cols[k]}"></div></div><div class="fb-bn">${v}</div></div>`
   ).join('');
-  setTimeout(()=>document.querySelectorAll('.fb-bf').forEach(el=>el.style.width=el.dataset.v+'%'),80);
-
-  let xpHtml='';
-  if(earnXp){
-    currentUser.xp[currentLevel]=(currentUser.xp[currentLevel]||0)+XP_PER_SESSION;
-    if(!currentUser.activity)currentUser.activity=[];
-    currentUser.activity.push({mode:currentMode,level:currentLevel,score:d.overall,ts:Date.now()});
-    if(currentUser.activity.length>50)currentUser.activity=currentUser.activity.slice(-50);
-    saveCurrentUser();
-    updatePracXP();
-    const xp=currentUser.xp[currentLevel];
-    const isDone=currentUser.completedLevels?.includes(currentLevel);
-    const examBtn=document.getElementById('examBtn');
-    if(!isDone){
-      if(xp>=XP_TO_EXAM){examBtn.textContent='📝 Take Level Exam';examBtn.disabled=false;}
-      else{examBtn.textContent=`📝 Exam unlocks at ${XP_TO_EXAM} XP`;examBtn.disabled=true;}
+  setTimeout(() => document.querySelectorAll('.fb-bf').forEach(el => el.style.width = el.dataset.v + '%'), 80);
+  let xpHtml = '';
+  if (earnXp) {
+    if (!currentUser.xp) currentUser.xp = {};
+    currentUser.xp[currentLevel] = (currentUser.xp[currentLevel] || 0) + XP_PER_SESSION;
+    if (!currentUser.activity) currentUser.activity = [];
+    currentUser.activity.push({mode: currentMode, level: currentLevel, score: d.overall, ts: Date.now()});
+    if (currentUser.activity.length > 50) currentUser.activity = currentUser.activity.slice(-50);
+    saveCurrentUser(); updatePracXP();
+    const xp = currentUser.xp[currentLevel];
+    const isDone = currentUser.completedLevels && currentUser.completedLevels.includes(currentLevel);
+    const examBtn = document.getElementById('examBtn');
+    if (!isDone) {
+      if (xp >= XP_TO_EXAM) { examBtn.textContent = '📝 Take Level Exam'; examBtn.disabled = false; }
+      else { examBtn.textContent = `📝 Exam unlocks at ${XP_TO_EXAM} XP (${xp}/${XP_TO_EXAM})`; examBtn.disabled = true; }
     }
-    xpHtml=`<div class="fb-xp"><span style="font-size:16px">⚡</span><span class="fb-xp-text">+${XP_PER_SESSION} XP earned! Total: ${xp}/${XP_TO_EXAM}${xp>=XP_TO_EXAM&&!isDone?' · <strong>Exam unlocked!</strong>':''}</span></div>`;
+    xpHtml = `<div class="fb-xp"><span style="font-size:16px">⚡</span><span class="fb-xp-text">+${XP_PER_SESSION} XP! Total: ${xp}/${XP_TO_EXAM}${xp>=XP_TO_EXAM&&!isDone ? ' · <strong>Exam unlocked!</strong>' : ''}</span></div>`;
   }
-  document.getElementById('fbBody').innerHTML=`
+  document.getElementById('fbBody').innerHTML = `
     <div><div class="fb-stitle">Feedback</div><div class="fb-text">${d.detail}</div></div>
-    ${d.strengths?.length?`<div><div class="fb-stitle">What you did well</div><div class="fb-pills">${d.strengths.map(s=>`<span class="fb-pill good">✓ ${s}</span>`).join('')}</div></div>`:''}
-    ${d.improvements?.length?`<div><div class="fb-stitle">To work on</div><div class="fb-pills">${d.improvements.map(s=>`<span class="fb-pill imp">${s}</span>`).join('')}</div></div>`:''}
+    ${d.strengths && d.strengths.length ? `<div><div class="fb-stitle">What you did well</div><div class="fb-pills">${d.strengths.map(s=>`<span class="fb-pill good">✓ ${s}</span>`).join('')}</div></div>` : ''}
+    ${d.improvements && d.improvements.length ? `<div><div class="fb-stitle">To work on</div><div class="fb-pills">${d.improvements.map(s=>`<span class="fb-pill imp">${s}</span>`).join('')}</div></div>` : ''}
     ${xpHtml}
     <div class="fb-quote">"${d.encouragement}"</div>`;
-  if(document.getElementById('analyseBtn'))document.getElementById('analyseBtn').disabled=false;
+  if (document.getElementById('analyseBtn')) document.getElementById('analyseBtn').disabled = false;
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════
 //  EXAM SYSTEM
-// ════════════════════════════════════════════════
-// Exam question banks (sourced from IELTS/Cambridge CEFR frameworks)
-const EXAM_TASK_TOPICS={
-  A1:{monologue:'Describe your house or apartment.',readAloud:'My name is Ana. I am from Indonesia. I live in a big city. I have two brothers and one sister.',picture:PICTURES.A1[0]},
-  A2:{monologue:'Talk about your favourite holiday or celebration.',readAloud:'Every Sunday, I visit my grandmother. She lives near the market. We cook together and eat a big lunch. I love spending time with her.',picture:PICTURES.A2[0]},
-  B1:{monologue:'Describe a problem in your city and how you think it could be solved.',readAloud:PASSAGES.B1[0].text,picture:PICTURES.B1[0]},
-  B2:{monologue:'Some people believe that economic growth should take priority over environmental protection. To what extent do you agree with this view?',readAloud:PASSAGES.B2[0].text,picture:PICTURES.B2[0]},
-  C1:{monologue:'Critically evaluate the claim that social media has done more harm than good to democratic discourse.',readAloud:PASSAGES.C1[0].text,picture:PICTURES.C1[0]},
+// ══════════════════════════════════════════════
+const EXAM_TASKS = {
+  A1:  {monologue:'Describe your house or apartment. What rooms does it have? What do you like about it?',       readAloud:'My name is Ana. I am from Indonesia. I live in a big city. I have two brothers and one sister. I go to school every day.',              pic:null},
+  A2:  {monologue:'Talk about your favourite holiday or celebration. What do you do? Who do you celebrate with?', readAloud:'Every Sunday, I visit my grandmother. She lives near the market. We cook together and eat a big lunch. I love spending time with her.', pic:null},
+  B1:  {monologue:'Describe a problem in your city and explain how you think it could be solved.',               readAloud:null, pic:null},
+  B2:  {monologue:'Some people believe that economic growth should take priority over environmental protection. To what extent do you agree?', readAloud:null, pic:null},
+  C1:  {monologue:'Critically evaluate the claim that social media has done more harm than good to democratic discourse.',                       readAloud:null, pic:null},
 };
 
-function startExam(){
-  examLevel=currentLevel;examTasks=[];examTaskIdx=0;examScores=[];
-  const nextLvl=LEVELS_ORDER[LEVELS_ORDER.indexOf(examLevel)+1];
-  document.getElementById('examTitle').textContent=`${examLevel} Level Exam`;
-  document.getElementById('examSub').textContent=`Score 75%+ to pass and unlock ${nextLvl?nextLvl+' — '+LEVEL_INFO[nextLvl]?.name:'final level completion'}.`;
-  document.getElementById('examRulesCard').style.display='block';
-  document.getElementById('examTasksWrap').style.display='none';
+function startExam() {
+  examLevel = currentLevel; examTasks = []; examTaskIdx = 0; examScores = [];
+  const nextIdx = LEVELS_ORDER.indexOf(examLevel) + 1;
+  const nextLvl = LEVELS_ORDER[nextIdx] || null;
+  document.getElementById('examTitle').textContent = `${examLevel} Level Exam`;
+  document.getElementById('examSub').textContent = nextLvl ? `Score 75%+ to pass and unlock ${nextLvl} — ${LEVEL_INFO[nextLvl].name}.` : 'Final level exam — score 75%+ to complete Verba.';
+  document.getElementById('examRulesCard').style.display = 'block';
+  document.getElementById('examTasksWrap').style.display = 'none';
   document.getElementById('examResultCard').classList.remove('show');
   showPage('exam');
 }
 
-function beginExamTasks(){
-  document.getElementById('examRulesCard').style.display='none';
-  document.getElementById('examTasksWrap').style.display='block';
-  const tasks=EXAM_TASK_TOPICS[examLevel];
-  examTasks=[
-    {mode:'monologue',label:'Free Monologue',prompt:tasks.monologue,hint:'Speak for at least 90 seconds. Give reasons, examples, and opinions.'},
-    {mode:'readAloud',label:'Read Aloud',prompt:tasks.readAloud,hint:'Read clearly at a natural pace. Pay attention to stress and pronunciation.'},
-    {mode:'picture',label:'Picture Description',prompt:tasks.picture?.caption||'Describe the image',hint:tasks.picture?.hint||'Describe what you see in detail.',svg:tasks.picture?.svg||''},
+function beginExamTasks() {
+  document.getElementById('examRulesCard').style.display = 'none';
+  document.getElementById('examTasksWrap').style.display = 'block';
+  const t = EXAM_TASKS[examLevel];
+  const readAloudText = t.readAloud || (PASSAGES[examLevel][0] ? PASSAGES[examLevel][0].text : 'Read this passage clearly and naturally.');
+  const pic = PICTURES[examLevel][0];
+  examTasks = [
+    {mode:'monologue', label:'Free Monologue', prompt: t.monologue, hint:'Speak for at least 90 seconds. Give reasons, examples, and opinions.'},
+    {mode:'readAloud', label:'Read Aloud', prompt: readAloudText, hint:'Read clearly at a natural pace. Pay attention to stress and pronunciation.'},
+    {mode:'picture',   label:'Picture Description', prompt: pic ? pic.caption : 'Describe what you see.', hint: pic ? (pic.hint || 'Describe in detail.') : 'Describe in detail.', svg: pic ? pic.svg : ''},
   ];
   renderExamTask(0);
 }
 
-function renderExamTask(idx){
-  const wrap=document.getElementById('examTasksWrap');
-  wrap.innerHTML=examTasks.map((task,i)=>{
-    const isActive=i===idx;const isDone=i<idx;const isLocked=i>idx;
-    let promptHtml='';
-    if(task.mode==='readAloud')promptHtml=`<div style="font-family:'Playfair Display',serif;font-style:italic;font-size:16px;line-height:1.9;color:var(--ink)">${task.prompt.replace(/\n/g,'<br>')}</div>`;
-    else if(task.mode==='picture')promptHtml=`${task.svg?`<div style="background:var(--parch3);border-radius:8px;overflow:hidden;margin-bottom:12px">${task.svg}</div>`:''}<div class="exam-task-prompt">${task.prompt}</div>`;
-    else promptHtml=`<div class="exam-task-prompt">${task.prompt}</div>`;
+function renderExamTask(idx) {
+  const wrap = document.getElementById('examTasksWrap');
+  wrap.innerHTML = examTasks.map((task, i) => {
+    const isActive = i === idx;
+    const isDone = i < idx;
+    let promptHtml = '';
+    if (task.mode === 'readAloud') promptHtml = `<div style="font-family:'Playfair Display',serif;font-style:italic;font-size:16px;line-height:1.9;color:var(--ink)">${task.prompt.replace(/\n/g,'<br>')}</div>`;
+    else if (task.mode === 'picture') promptHtml = `${task.svg ? `<div style="background:var(--parch3);border-radius:8px;overflow:hidden;margin-bottom:10px">${task.svg}</div>` : ''}<div class="exam-task-prompt">${task.prompt}</div>`;
+    else promptHtml = `<div class="exam-task-prompt">${task.prompt}</div>`;
 
-    let recSection='';
-    if(isActive){
-      const iosFB=useIOSFallback?`<div style="margin-top:10px"><label style="font-size:12px;color:var(--muted);display:block;margin-bottom:5px">Type your response:</label><textarea style="width:100%;padding:9px 12px;background:var(--parch);border:1.5px solid var(--border2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);resize:vertical;min-height:80px;outline:none;" id="examIOSText" oninput="examTaskTranscript=this.value;if(this.value.trim())document.getElementById('examSubmitBtn').classList.add('show');"></textarea></div>`:'';
-      const recSection2=useIOSFallback?iosFB:`<div style="text-align:center;margin-top:12px">
-        <div class="rec-ring" id="examRecRing" onclick="toggleExamRec()" style="margin:0 auto 9px"><div class="rec-dot" id="examRecDot"></div></div>
-        <div class="rec-label" id="examRecLabel">Tap to record</div><div class="rec-timer" id="examRecTimer"></div>
-        <div class="transcript-area" id="examTranscript"></div></div>`;
-      recSection=`<div class="exam-task-status" id="examTaskStatus">Ready when you are.</div>
-        ${recSection2}
-        <button class="analyse-btn" id="examSubmitBtn" onclick="submitExamTask()" style="margin-top:10px">Submit task ${idx+1} →</button>`;
+    let recSection = '';
+    if (isActive) {
+      const iosRec = useIOSFallback ? `<div style="margin-top:10px"><label style="font-size:12px;color:var(--muted);display:block;margin-bottom:5px">Type your response:</label><textarea style="width:100%;padding:9px 12px;background:var(--parch);border:1.5px solid var(--border2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);resize:vertical;min-height:80px;outline:none;" id="examIOSText" oninput="examTaskTranscript=this.value;if(this.value.trim()){document.getElementById('examSubmitBtn').classList.add('show');}"></textarea></div>` : `<div style="text-align:center;margin-top:12px"><div class="rec-ring" id="examRecRing" onclick="toggleExamRec()" style="margin:0 auto 9px"><div class="rec-dot"></div></div><div class="rec-label" id="examRecLabel">Tap to record</div><div class="rec-timer" id="examRecTimer"></div><div class="transcript-area" id="examTranscript"></div></div>`;
+      recSection = `<div class="exam-task-status" id="examTaskStatus">Ready — record your response when you are.</div>
+        <div class="prompt-hint" style="margin-bottom:10px"><strong>Examiner tip:</strong> ${task.hint}</div>
+        ${iosRec}
+        <button class="analyse-btn" id="examSubmitBtn" onclick="submitExamTask()" style="margin-top:10px">Submit task ${i+1} →</button>`;
     }
     return `<div class="exam-task-card" id="examTask${i}">
       <div class="exam-task-hd"><span class="exam-task-num">Task ${i+1} of 3</span><span class="exam-task-badge">${task.label}</span></div>
       <div class="exam-task-body">
-        ${isActive?promptHtml:isDone?`<div class="exam-task-prompt" style="font-size:14px;color:var(--muted)">Task completed.</div>`:
-          `<div class="exam-task-prompt" style="font-size:14px;color:var(--muted)">🔒 Complete task ${i} first.</div>`}
-        ${isActive?`${promptHtml?'':''}<div class="prompt-hint"><strong>Tip:</strong> ${task.hint}</div>${recSection}`:''}
-        ${isDone?'<div class="exam-task-status done">✓ Submitted & scored</div>':''}
-      </div>
-    </div>`;
+        ${isActive ? promptHtml + recSection : isDone ? `<div class="exam-task-prompt" style="font-size:14px;color:var(--muted)">✓ Submitted.</div><div class="exam-task-status done">Scored</div>` : `<div class="exam-task-prompt" style="font-size:14px;color:var(--muted)">🔒 Complete task ${i} first.</div>`}
+      </div></div>`;
   }).join('');
-  examTaskTranscript='';examRec=false;
+  examTaskTranscript = ''; examRec = false;
 }
 
-function toggleExamRec(){if(examRec)stopExamRec();else startExamRec();}
-function startExamRec(){
-  examTaskTranscript='';
-  const ta=document.getElementById('examTranscript');if(ta){ta.textContent='Listening…';ta.classList.add('show');}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(SR){
-    try{
-      examRecObj=new SR();examRecObj.continuous=true;examRecObj.interimResults=true;examRecObj.lang='en-US';
-      examRecObj.onresult=e=>{let f='',it='';for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)f+=t+' ';else it+=t;}examTaskTranscript+=f;if(ta)ta.textContent=(examTaskTranscript+it).trim()||'Listening…';if(examTaskTranscript.trim()){const sb=document.getElementById('examSubmitBtn');if(sb)sb.classList.add('show');}};
+function toggleExamRec() { if (examRec) stopExamRec(); else startExamRec(); }
+function startExamRec() {
+  examTaskTranscript = '';
+  const ta = document.getElementById('examTranscript'); if (ta) { ta.textContent = 'Listening…'; ta.classList.add('show'); }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) {
+    try {
+      examRecObj = new SR(); examRecObj.continuous = true; examRecObj.interimResults = true; examRecObj.lang = 'en-US';
+      examRecObj.onresult = e => {
+        let f = '', it = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) { const t = e.results[i][0].transcript; if (e.results[i].isFinal) f += t + ' '; else it += t; }
+        examTaskTranscript += f;
+        if (ta) ta.textContent = (examTaskTranscript + it).trim() || 'Listening…';
+        if (examTaskTranscript.trim()) { const sb = document.getElementById('examSubmitBtn'); if (sb) sb.classList.add('show'); }
+      };
       examRecObj.start();
-    }catch(e){showToast('Microphone error. Try typing your response.');}
+    } catch(e) { showToast('Mic error. Type your response instead.'); }
   }
-  examRec=true;
-  const er=document.getElementById('examRecRing');if(er)er.classList.add('on');
-  const el=document.getElementById('examRecLabel');if(el)el.textContent='Recording… tap to stop';
-  examSecs=0;updateExamTimer();examTimerInt=setInterval(()=>{examSecs++;updateExamTimer();},1000);
+  examRec = true;
+  const er = document.getElementById('examRecRing'); if (er) er.classList.add('on');
+  const el = document.getElementById('examRecLabel'); if (el) el.textContent = 'Recording… tap to stop';
+  examSecs = 0; updateExamTimer(); examTimerInt = setInterval(() => { examSecs++; updateExamTimer(); }, 1000);
 }
-function stopExamRec(){
-  if(!examRec)return;examRec=false;
-  if(examRecObj){try{examRecObj.stop();}catch(e){}examRecObj=null;}
+function stopExamRec() {
+  if (!examRec) return; examRec = false;
+  if (examRecObj) { try { examRecObj.stop(); } catch(e) {} examRecObj = null; }
   clearInterval(examTimerInt);
-  const er=document.getElementById('examRecRing');if(er)er.classList.remove('on');
-  const el=document.getElementById('examRecLabel');if(el)el.textContent='Tap to record again';
-  const et=document.getElementById('examRecTimer');if(et)et.textContent='';
-  if(examTaskTranscript.trim()){const sb=document.getElementById('examSubmitBtn');if(sb)sb.classList.add('show');}
+  const er = document.getElementById('examRecRing'); if (er) er.classList.remove('on');
+  const el = document.getElementById('examRecLabel'); if (el) el.textContent = 'Tap to record again';
+  const et = document.getElementById('examRecTimer'); if (et) et.textContent = '';
+  if (examTaskTranscript.trim()) { const sb = document.getElementById('examSubmitBtn'); if (sb) sb.classList.add('show'); }
 }
-function updateExamTimer(){const el=document.getElementById('examRecTimer');if(el)el.textContent=`${Math.floor(examSecs/60).toString().padStart(2,'0')}:${(examSecs%60).toString().padStart(2,'0')}`;}
+function updateExamTimer() {
+  const el = document.getElementById('examRecTimer');
+  if (el) el.textContent = `${Math.floor(examSecs/60).toString().padStart(2,'0')}:${(examSecs%60).toString().padStart(2,'0')}`;
+}
 
-async function submitExamTask(){
-  const t=examTaskTranscript.trim();
-  if(!t){showToast('Please record or type your response first.');return;}
+async function submitExamTask() {
+  const t = examTaskTranscript.trim(); if (!t) { showToast('Please record or type your response first.'); return; }
   stopExamRec();
-  const sb=document.getElementById('examSubmitBtn');if(sb)sb.disabled=true;
-  const st=document.getElementById('examTaskStatus');if(st)st.textContent='Analysing with AI…';
-  const task=examTasks[examTaskIdx];
-
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:200,
-        system:`You are a rigorous but fair CEFR ${examLevel} speaking examiner. Apply IELTS/Cambridge speaking band descriptor standards. Respond ONLY with valid JSON.`,
-        messages:[{role:'user',content:`Grade this ${examLevel} CEFR exam task: ${task.mode}.\nPrompt: "${task.prompt}"\nStudent response: "${t}"\n\nApply ${examLevel} band descriptors strictly. Return JSON: {"overall":<1-100>,"fluency":<1-100>,"vocabulary":<1-100>,"grammar":<1-100>,"content":<1-100>,"comment":"One sentence of examiner feedback."}\n\nFor ${examLevel}: require ${examLevel==='A1'?'basic words and short phrases':examLevel==='A2'?'simple sentences and familiar topics':examLevel==='B1'?'clear opinions with reasons':examLevel==='B2'?'fluent arguments and complex sentences':'sophisticated language and precise vocabulary'}.`}],
+  const sb = document.getElementById('examSubmitBtn'); if (sb) sb.disabled = true;
+  const st = document.getElementById('examTaskStatus'); if (st) st.textContent = 'Analysing with AI…';
+  const task = examTasks[examTaskIdx];
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 200,
+        system: `You are a rigorous CEFR ${examLevel} speaking examiner. Apply Cambridge/IELTS speaking band descriptors strictly. Respond ONLY with valid JSON.`,
+        messages: [{role:'user', content:`Grade this CEFR ${examLevel} exam task (${task.mode}).\nPrompt: "${task.prompt}"\nStudent: "${t}"\n\nReturn JSON: {"overall":<1-100>,"fluency":<1-100>,"vocabulary":<1-100>,"grammar":<1-100>,"content":<1-100>,"comment":"One examiner sentence."}\n\nApply strict ${examLevel} standards.`}],
       }),
     });
-    if(!res.ok)throw new Error('API error');
-    const data=await res.json();
-    if(data.error)throw new Error(data.error.message);
-    const text=data.content[0].text.trim().replace(/```json|```/g,'');
-    const scored=JSON.parse(text);
+    if (!res.ok) throw new Error('API ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const scored = JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
     examScores.push(scored.overall);
-    if(st){st.textContent=`✓ Scored: ${scored.overall}/100 — ${scored.comment}`;st.className='exam-task-status done';}
-  }catch(e){
-    console.error(e);
-    examScores.push(60);
-    if(st){st.textContent='✓ Submitted (AI unavailable — default score applied)';st.className='exam-task-status done';}
+    if (st) { st.textContent = `✓ Scored: ${scored.overall}/100 — ${scored.comment}`; st.className = 'exam-task-status done'; }
+  } catch(e) {
+    console.error(e); examScores.push(60);
+    if (st) { st.textContent = '✓ Submitted (fallback score applied)'; st.className = 'exam-task-status done'; }
   }
-
   examTaskIdx++;
-  if(examTaskIdx>=examTasks.length){setTimeout(showExamResult,1000);}
-  else{setTimeout(()=>renderExamTask(examTaskIdx),600);}
+  if (examTaskIdx >= examTasks.length) { setTimeout(showExamResult, 800); }
+  else { setTimeout(() => renderExamTask(examTaskIdx), 600); }
 }
 
-function showExamResult(){
-  document.getElementById('examTasksWrap').style.display='none';
-  const rc=document.getElementById('examResultCard');rc.classList.add('show');
-  rc.scrollIntoView({behavior:'smooth'});
-  const avg=Math.round(examScores.reduce((a,b)=>a+b,0)/examScores.length);
-  const passed=avg>=75;
-  const nextIdx=LEVELS_ORDER.indexOf(examLevel)+1;
-  const nextLevel=LEVELS_ORDER[nextIdx]||null;
-  document.getElementById('examScore').textContent=avg;
-  document.getElementById('examScore').style.color=passed?'var(--g)':'var(--gold)';
-  document.getElementById('examEmoji').textContent=passed?'🎉':'💪';
-  document.getElementById('examVerdict').textContent=passed?'PASSED':'NOT YET';
-  document.getElementById('examVerdict').style.color=passed?'var(--g)':'var(--gold)';
-  if(passed){
-    if(!currentUser.completedLevels)currentUser.completedLevels=[];
-    if(!currentUser.completedLevels.includes(examLevel))currentUser.completedLevels.push(examLevel);
-    if(nextLevel&&!currentUser.unlockedLevels.includes(nextLevel)){currentUser.unlockedLevels.push(nextLevel);if(!currentUser.xp[nextLevel])currentUser.xp[nextLevel]=0;}
-    currentUser.assignedLevel=nextLevel||examLevel;
+function showExamResult() {
+  document.getElementById('examTasksWrap').style.display = 'none';
+  const rc = document.getElementById('examResultCard'); rc.classList.add('show'); rc.scrollIntoView({behavior:'smooth'});
+  const avg = Math.round(examScores.reduce((a,b) => a+b, 0) / examScores.length);
+  const passed = avg >= 75;
+  const nextIdx = LEVELS_ORDER.indexOf(examLevel) + 1;
+  const nextLevel = LEVELS_ORDER[nextIdx] || null;
+  document.getElementById('examScore').textContent = avg;
+  document.getElementById('examScore').style.color = passed ? 'var(--g)' : 'var(--gold)';
+  document.getElementById('examEmoji').textContent = passed ? '🎉' : '💪';
+  document.getElementById('examVerdict').textContent = passed ? 'PASSED' : 'NOT YET';
+  document.getElementById('examVerdict').style.color = passed ? 'var(--g)' : 'var(--gold)';
+  if (passed) {
+    if (!currentUser.completedLevels) currentUser.completedLevels = [];
+    if (!currentUser.completedLevels.includes(examLevel)) currentUser.completedLevels.push(examLevel);
+    if (nextLevel && currentUser.unlockedLevels && !currentUser.unlockedLevels.includes(nextLevel)) { currentUser.unlockedLevels.push(nextLevel); if (!currentUser.xp) currentUser.xp = {}; if (!currentUser.xp[nextLevel]) currentUser.xp[nextLevel] = 0; }
+    if (nextLevel) currentUser.assignedLevel = nextLevel;
     saveCurrentUser();
-    document.getElementById('examDesc').textContent=nextLevel?`Outstanding! You\'ve mastered ${examLevel} and unlocked ${nextLevel} — ${LEVEL_INFO[nextLevel]?.name}. Your learning path awaits.`:`You\'ve completed every level in Verba. You are a certified C1 speaker — extraordinary achievement!`;
-    document.getElementById('examResBtn').textContent=nextLevel?`Advance to ${nextLevel} →`:'See my achievement 🏆';
-  }else{
-    document.getElementById('examDesc').textContent=`You scored ${avg}/100 — you need 75 to pass. Keep practising in ${examLevel} and come back when you\'re ready. Every attempt makes you stronger!`;
-    document.getElementById('examResBtn').textContent='Back to practice';
+    document.getElementById('examDesc').textContent = nextLevel ? `Excellent! You've mastered ${examLevel} and unlocked ${nextLevel} — ${LEVEL_INFO[nextLevel].name}.` : `You've completed all levels in Verba. You are a C1 speaker — outstanding!`;
+    document.getElementById('examResBtn').textContent = nextLevel ? `Advance to ${nextLevel} →` : 'See my achievement 🏆';
+  } else {
+    document.getElementById('examDesc').textContent = `You scored ${avg}/100 — you need 75 to pass. Keep practising in ${examLevel} and come back when you're ready!`;
+    document.getElementById('examResBtn').textContent = 'Back to practice';
   }
-  examPassResult={passed,nextLevel,examLevel};
+  examPassResult = {passed, nextLevel, examLevel};
 }
-function handleExamResult(){
-  if(examPassResult.passed){
-    if(examPassResult.nextLevel){
-      document.getElementById('celSub').textContent=`You passed ${examPassResult.examLevel} and unlocked ${examPassResult.nextLevel} — ${LEVEL_INFO[examPassResult.nextLevel]?.name}!`;
-      document.getElementById('celNew').textContent=examPassResult.nextLevel;
-      document.getElementById('celNewName').textContent=LEVEL_INFO[examPassResult.nextLevel]?.name||'';
-      document.getElementById('celOverlay').classList.add('open');
-    }else{showPage('gamemap');}
-  }else{openPractice(examPassResult.examLevel,'monologue');}
-}
-function closeCelebrate(){document.getElementById('celOverlay').classList.remove('open');showPage('gamemap');}
 
-// ════════════════════════════════════════════════
-//  INIT
-// ════════════════════════════════════════════════
-window.addEventListener('load',()=>{
-  // Check if already logged in this session
-  const sess=sessionStorage.getItem('verba_session');
-  if(sess){
-    const u=getUser(sess);
-    if(u){currentUser=u;document.getElementById('auth').classList.remove('active');document.getElementById('mainNav').style.display='flex';updateNav();if(!currentUser.assignedLevel){showPage('quiz');initQuiz();}else{goHome();}return;}
+function handleExamResult() {
+  if (examPassResult.passed && examPassResult.nextLevel) {
+    document.getElementById('celSub').textContent = `You passed ${examPassResult.examLevel} and unlocked ${examPassResult.nextLevel} — ${LEVEL_INFO[examPassResult.nextLevel].name}!`;
+    document.getElementById('celNew').textContent = examPassResult.nextLevel;
+    document.getElementById('celNewName').textContent = LEVEL_INFO[examPassResult.nextLevel].name || '';
+    document.getElementById('celOverlay').classList.add('open');
+  } else if (examPassResult.passed) {
+    showPage('gamemap');
+  } else {
+    openPractice(examPassResult.examLevel, 'monologue');
+  }
+}
+function closeCelebrate() { document.getElementById('celOverlay').classList.remove('open'); showPage('gamemap'); }
+
+// ══════════════════════════════════════════════
+//  INIT ON LOAD
+// ══════════════════════════════════════════════
+window.addEventListener('load', () => {
+  // Check session
+  const sess = sessionStorage.getItem('verba_session');
+  if (sess) {
+    const u = getUser(sess);
+    if (u) {
+      currentUser = u;
+      document.getElementById('auth').classList.remove('active');
+      document.getElementById('mainNav').style.display = 'flex';
+      updateNav();
+      if (!currentUser.assignedLevel) { showPage('quiz'); initQuiz(); }
+      else { goHome(); }
+      return;
+    }
   }
 });
-// Save session on login
-const _afterAuthOrig=afterAuth;
-function afterAuth(){
-  sessionStorage.setItem('verba_session',currentUser.username);
-  document.getElementById('auth').classList.remove('active');
-  document.getElementById('mainNav').style.display='flex';
-  updateNav();
-  if(!currentUser.assignedLevel){showPage('quiz');initQuiz();}
-  else{goHome();}
-}
-const _logoutOrig=logout;
-function logout(){
-  sessionStorage.removeItem('verba_session');
-  currentUser=null;
-  document.getElementById('mainNav').style.display='none';
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('auth').classList.add('active');
-  document.getElementById('login-user').value='';
-  document.getElementById('login-pw').value='';
-  switchAuthTab('login');
-}
-// Close modals on overlay click
-document.getElementById('aboutModal').addEventListener('click',function(e){if(e.target===this)closeAbout();});
-document.getElementById('celOverlay').addEventListener('click',function(e){if(e.target===this)closeCelebrate();});
-// Enter key on login
-document.getElementById('login-pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-document.getElementById('reg-sa').addEventListener('keydown',e=>{if(e.key==='Enter')doRegister();});
+
+// Event listeners
+document.getElementById('aboutModal').addEventListener('click', function(e) { if (e.target === this) closeAbout(); });
+document.getElementById('celOverlay').addEventListener('click', function(e) { if (e.target === this) closeCelebrate(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const loginPanel = document.getElementById('panel-login');
+    const regPanel = document.getElementById('panel-register');
+    if (loginPanel && loginPanel.classList.contains('active') && document.activeElement && document.activeElement.closest('#panel-login')) doLogin();
+    if (regPanel && regPanel.classList.contains('active') && document.activeElement && (document.activeElement.id === 'reg-sa' || document.activeElement.id === 'reg-pw')) doRegister();
+  }
+});
+
+// Mobile viewport height fix for iOS
+function setVH() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
+setVH(); window.addEventListener('resize', setVH);
 </script>
 </body>
 </html>
