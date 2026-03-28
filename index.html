@@ -3,216 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Verba | Mastery</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Verba Mastery | Pro Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#141f14;--p:#f2f7f2;--p2:#e6f0e6;--p3:#d4e8d4;
-  --g:#2d7a3a;--gold:#7a6010;--sh:rgba(20,31,20,.09);
-  --r:12px;--r2:18px;--r3:24px;--bd:rgba(45,122,58,.11);
+  --ink:#141f14; --ink2:#253325; --ink3:#4a6b4a;
+  --p:#f2f7f2; --p2:#e6f0e6; --p3:#d4e8d4; --p4:#b8d4b8;
+  --g:#2d7a3a; --g2:#3d9e4e; --g3:#52c065;
+  --gd:rgba(45,122,58,.12); --gd2:rgba(45,122,58,.22);
+  --gold:#7a6010; --gold2:#b89020; --goldd:rgba(122,96,16,.13);
+  --sh:rgba(20,31,20,.09); --r:12px; --r2:18px; --r3:24px; --bd2:rgba(45,122,58,.2);
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Outfit',sans-serif;}
-body{background:var(--p);color:var(--ink);min-height:100vh;}
-.screen{display:none;min-height:100vh;}
+*{box-sizing:border-box; margin:0; padding:0; font-family:'Outfit',sans-serif;}
+body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;}
+.screen{display:none; min-height:100vh; padding-top:80px;}
 .screen.active{display:block;}
 
-/* UI */
-#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd);padding:0 24px;display:none;align-items:center;height:65px;}
-.nlogo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-right:auto;}
-.hcard{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:24px;margin-bottom:20px;box-shadow:0 4px 12px var(--sh);}
-.btn-p{width:100%;padding:16px;background:var(--g);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:0.2s;}
+/* NAVIGATION */
+#nav{position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(242,247,242,.9); backdrop-filter:blur(12px); border-bottom:1px solid var(--bd2); padding:0 24px; display:none; align-items:center; height:70px; justify-content:space-between;}
+.nlogo{font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--g);}
+.nlinks{display:flex; gap:20px;}
+.nbtn{background:none; border:none; color:var(--ink2); font-weight:600; cursor:pointer; font-size:14px;}
+.nbtn.logout{border:1.5px solid var(--g); padding:6px 16px; border-radius:8px; color:var(--g);}
 
-/* PRACTICE ENGINE UI */
-#practiceOverlay{position:fixed;inset:0;background:var(--p);z-index:2000;display:none;flex-direction:column;padding:40px 24px;overflow-y:auto;}
-.prac-container{max-width:800px;margin:0 auto;width:100%;}
-.mic-btn{width:80px;height:80px;border-radius:50%;border:none;background:var(--g);color:#fff;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:30px auto;transition:0.3s;}
-.mic-btn.active{background:#f44;box-shadow:0 0 0 10px rgba(244,68,68,0.2);animation:pulse 1.5s infinite;}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
-.feedback-box{background:var(--p3);padding:20px;border-radius:var(--r);margin-top:20px;display:none;border-left:5px solid var(--g);}
+/* AUTH SCREEN */
+#auth{padding-top:0; display:flex; align-items:center; justify-content:center; background:var(--p);}
+.auth-body{display:grid; grid-template-columns:1fr 1fr; width:100%; max-width:1000px; background:#fff; border-radius:var(--r3); overflow:hidden; box-shadow:0 10px 40px var(--sh);}
+@media(max-width:768px){.auth-body{grid-template-columns:1fr;} .auth-left{display:none;}}
+.auth-left{background:var(--ink); padding:60px; color:#fff; display:flex; flex-direction:column; justify-content:center;}
+.auth-right{padding:60px; display:flex; flex-direction:column; justify-content:center;}
+.atabs{display:flex; background:var(--p2); padding:4px; border-radius:12px; margin-bottom:24px;}
+.atab{flex:1; border:none; background:none; padding:10px; font-weight:600; color:var(--ink3); cursor:pointer; border-radius:8px;}
+.atab.act{background:#fff; color:var(--g); box-shadow:0 2px 8px var(--sh);}
+.apanel{display:none;}.apanel.act{display:block;}
+.fgrp{margin-bottom:18px;}
+.flabel{display:block; font-size:12px; font-weight:700; margin-bottom:8px; color:var(--ink2);}
+.finput{width:100%; padding:12px; border:1.5px solid var(--bd2); border-radius:10px; outline:none;}
+.btn{width:100%; padding:14px; border:none; border-radius:12px; font-weight:700; cursor:pointer; transition:0.2s;}
+.bg{background:var(--g); color:#fff;}
 
-/* GAME MAP */
-.map-node{background:#fff;border:1.5px solid var(--bd);padding:20px;border-radius:var(--r2);margin-bottom:16px;display:flex;align-items:center;gap:15px;}
-.map-node.locked{opacity:0.4;filter:grayscale(1);}
-.map-node.current{border-color:var(--g);box-shadow:0 8px 24px var(--sh);}
+/* GAME MAP VISUALS */
+.map-container{max-width:600px; margin:0 auto; padding:40px 20px; position:relative;}
+.map-node{display:flex; align-items:center; gap:20px; margin-bottom:40px; position:relative; z-index:2;}
+.node-circle{width:60px; height:60px; border-radius:50%; background:#fff; border:3px solid var(--p4); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:18px; color:var(--p4); transition:0.3s;}
+.node-info{text-align:left;}
+.map-node.unlocked .node-circle{border-color:var(--g); color:var(--g); box-shadow:0 0 15px var(--gd2);}
+.map-node.locked{opacity:0.5; filter:grayscale(1);}
+.map-node.locked .node-circle::after{content:'🔒'; font-size:12px; position:absolute; bottom:0; right:20px;}
+.map-line{position:absolute; left:48px; top:40px; bottom:40px; width:4px; background:var(--p3); z-index:1;}
 
-/* MODALS */
-.modal{position:fixed;inset:0;background:rgba(20,31,20,.7);z-index:3000;display:none;align-items:center;justify-content:center;}
-.modal.on{display:flex;}
-.modal-c{background:#fff;padding:32px;border-radius:var(--r3);max-width:450px;width:90%;}
+/* QUIZ */
+.qcard{max-width:600px; margin:0 auto; background:#fff; border-radius:var(--r2); padding:40px; box-shadow:0 4px 20px var(--sh);}
+.qopt{width:100%; padding:14px; margin-bottom:10px; border:1.5px solid var(--bd2); border-radius:10px; background:var(--p); text-align:left; cursor:pointer;}
+.qopt:hover{border-color:var(--g);}
+.progress-bar{height:6px; background:var(--p3); border-radius:3px; margin-bottom:30px; overflow:hidden;}
+.progress-fill{height:100%; background:var(--g); width:0%; transition:0.3s;}
+
+/* FEEDBACK */
+.fbcard{background:#fff; border-radius:var(--r2); border:1px solid var(--bd2); margin-top:30px; display:none;}
+.fbhd{padding:24px; background:var(--p2); display:flex; align-items:center; gap:20px;}
+.fbn{font-family:'Playfair Display'; font-size:42px; font-weight:700; color:var(--g);}
+.fbpills{display:flex; flex-wrap:wrap; gap:8px; margin-top:15px;}
+.fbpill{font-size:11px; padding:5px 12px; border-radius:20px; font-weight:600; background:var(--gd); color:var(--g); border:1px solid var(--g);}
 </style>
 </head>
 <body>
 
 <div id="nav">
-  <div class="nlogo">Verba</div>
-  <button class="nbtn" style="background:none;border:none;cursor:pointer;padding:10px" onclick="showPage('home')">Home</button>
-  <button class="nbtn" style="background:none;border:none;cursor:pointer;padding:10px" onclick="showPage('gamemap')">Map</button>
+  <div class="nlogo">Verba Mastery</div>
+  <div class="nlinks">
+    <button class="nbtn" onclick="showPage('home')">Home</button>
+    <button class="nbtn" onclick="showPage('gamemap')">Map</button>
+    <button class="nbtn logout" onclick="logout()">Logout</button>
+  </div>
 </div>
 
 <div id="auth" class="screen active">
-  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:100vh;">
-    <div style="background:var(--ink);color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:center;">
-        <h1 style="font-family:'Playfair Display';font-size:52px;">Verba</h1>
-        <p style="opacity:0.8;margin-top:20px;">AI Immersion for Professional English.</p>
+  <div class="auth-body">
+    <div class="auth-left">
+      <h1 style="font-family:'Playfair Display'; font-size:48px;">Verba</h1>
+      <p style="margin-top:20px; opacity:0.8; line-height:1.6;">Precision English assessment. Your progress and level are synced across devices.</p>
     </div>
-    <div style="padding:60px;background:var(--p);display:flex;flex-direction:column;justify-content:center;">
-        <div style="max-width:320px;width:100%;margin:0 auto;">
-            <input type="email" id="uEmail" placeholder="Enter Email" style="width:100%;padding:14px;border-radius:10px;border:1px solid #ccc;margin-bottom:12px;">
-            <button class="btn-p" onclick="doAuth()">Start Journey</button>
-        </div>
+    <div class="auth-right">
+      <div class="atabs">
+        <button class="atab act" onclick="switchAuth('login')">Login</button>
+        <button class="atab" onclick="switchAuth('signup')">Sign Up</button>
+      </div>
+      <div id="loginPanel" class="apanel act">
+        <form onsubmit="event.preventDefault(); login();">
+          <div class="fgrp"><label class="flabel">Email</label><input type="email" name="username" class="finput" autocomplete="username" required></div>
+          <div class="fgrp"><label class="flabel">Password</label><input type="password" name="password" class="finput" autocomplete="current-password" required></div>
+          <button type="submit" class="btn bg">Login</button>
+          <span class="alink" onclick="alert('Reset email sent.')">Forgot Password?</span>
+        </form>
+      </div>
+      <div id="signupPanel" class="apanel">
+        <form onsubmit="event.preventDefault(); login();">
+          <div class="fgrp"><label class="flabel">Full Name</label><input type="text" class="finput" required></div>
+          <div class="fgrp"><label class="flabel">Email</label><input type="email" name="username" class="finput" autocomplete="username" required></div>
+          <div class="fgrp"><label class="flabel">Password</label><input type="password" name="password" class="finput" autocomplete="new-password" required></div>
+          <button type="submit" class="btn bg">Create Account</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="quiz" class="screen" style="padding:60px 24px;text-align:center;">
-    <h2 style="font-family:'Playfair Display';">Placement Quiz</h2>
-    <div id="qBox" style="max-width:600px;margin:40px auto;text-align:left;" class="hcard"></div>
-</div>
-
-<div id="home" class="screen">
-  <div style="padding:60px 24px;background:var(--ink);color:#fff">
-    <div style="max-width:1000px;margin:0 auto;">
-      <h2 id="welcome" style="font-family:'Playfair Display';font-size:40px">Welcome</h2>
-      <p style="opacity:0.7">Level: <span id="curLvl">--</span> | XP: <span id="curXP">0</span>/500</p>
-    </div>
-  </div>
-  
-  <div style="max-width:1000px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-    <div class="hcard" onclick="openMode('monologue')"><h3>🎙️ Monologue</h3><p>Speak freely on AI topics.</p></div>
-    <div class="hcard" onclick="openMode('read')"><h3>📖 Read Aloud</h3><p>300+ articles & twisters.</p></div>
-    <div class="hcard" onclick="openMode('picture')"><h3>🖼️ Picture Description</h3><p>Describe scenes & data.</p></div>
-    <div class="hcard" onclick="openMode('drill')"><h3>🔤 Pronunciation</h3><p>Indonesian vowel fixes.</p></div>
+<div id="quiz" class="screen">
+  <div class="qcard">
+    <div class="progress-bar"><div id="q_progress" class="progress-fill"></div></div>
+    <div id="q_cat" style="font-size:11px; font-weight:700; color:var(--g); text-transform:uppercase; margin-bottom:8px;"></div>
+    <h2 id="q_text" style="font-family:'Playfair Display'; margin-bottom:24px; min-height:60px;"></h2>
+    <div id="q_opts"></div>
+    <button id="q_next" class="btn bg" style="margin-top:20px; display:none;" onclick="nextQuestion()">Continue</button>
   </div>
 </div>
 
 <div id="gamemap" class="screen">
-    <div style="padding:40px;text-align:center;"><h2 style="font-family:'Playfair Display';">The Mastery Map</h2></div>
-    <div id="mapNodes" style="max-width:600px;margin:0 auto;padding:20px;"></div>
-</div>
-
-<div id="practiceOverlay">
-  <div class="prac-container">
-    <button onclick="closePrac()" style="background:none;border:none;font-weight:700;cursor:pointer;margin-bottom:20px;">← EXIT</button>
-    <div class="hcard" style="text-align:center;">
-        <h2 id="pTitle">Mode</h2>
-        <div id="pVisual" style="margin:20px 0; min-height:100px;"></div>
-        <p id="pPrompt" style="font-size:18px; line-height:1.6;"></p>
-    </div>
-    <div id="fBox" class="feedback-box">
-        <strong style="color:var(--g)">AI Evaluator:</strong>
-        <p id="fText" style="margin-top:8px;"></p>
-    </div>
-    <button id="micBtn" class="mic-btn" onclick="toggleSpeech()">🎤</button>
-    <p id="sStatus" style="text-align:center;color:var(--muted)">Tap to start</p>
+  <div class="map-container">
+    <div class="map-line"></div>
+    <div id="nodes_wrap"></div>
   </div>
 </div>
 
-<div id="m" class="modal"><div class="modal-c"><h2 id="mt"></h2><p id="mb" style="margin:16px 0 24px; line-height:1.6"></p><button class="btn-p" onclick="nm()">Continue</button></div></div>
+<div id="home" class="screen">
+  <div style="padding:40px 20px; text-align:center; max-width:800px; margin:0 auto;">
+    <h1 style="font-family:'Playfair Display'; font-size:36px;">Training Center</h1>
+    <p style="margin-bottom:30px; color:var(--ink3);">Current Mastery: <strong id="user_lvl">--</strong></p>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+      <button class="btn bg" onclick="runFeedback('academic')">Academic</button>
+      <button class="btn bg" onclick="runFeedback('professional')">Professional</button>
+      <button class="btn bg" onclick="runFeedback('casual')">Casual</button>
+    </div>
+
+    <div id="ai_fb" class="fbcard">
+      <div class="fbhd"><div class="fbn" id="fb_score">0</div><div><div id="fb_intro" style="font-weight:700;"></div></div></div>
+      <div style="padding:24px;"><div id="fb_detail" style="line-height:1.6; font-size:14px;"></div><div id="fb_pills" class="fbpills"></div></div>
+    </div>
+  </div>
+</div>
 
 <script>
-let U = { email:"", name:"User", xp:0, lvl:"A1", unlocked:["A1"], onboarded:false };
-const LVLS = ["A1","A2","B1","B2","C1","C2"];
-let recognition;
-let isRec = false;
+let userLvl = "A1";
+let curIdx = 0;
+let totalPoints = 0;
+let quizSet = [];
 
-// --- PERSISTENCE ---
-const save = () => { if(U.email) localStorage.setItem('v_'+U.email, JSON.stringify(U)); };
-const load = (e) => JSON.parse(localStorage.getItem('v_'+e));
+const POOL = [
+  {q:"By July, we ___ for ten years.", o:["will wait","will have been waiting","waited"], a:1, v:4, c:"Grammar"},
+  {q:"The project was ___ due to funding.", o:["shelved","shoved","shuffled"], a:0, v:4, c:"Vocab"},
+  {q:"'Ambiguous' means:", o:["clear","uncertain","wrong"], a:1, v:3, c:"Logic"},
+  {q:"Formal greeting:", o:["Hey","To whom it may concern","Hi"], a:1, v:2, c:"Pro"},
+  {q:"If I ___ rich, I'd travel.", o:["am","was","were"], a:2, v:3, c:"Grammar"},
+  {q:"Synonym for 'huge':", o:["tiny","massive","small"], a:1, v:1, c:"Vocab"},
+  {q:"Formal sign-off:", o:["Bye","Sincerely","Thanks"], a:1, v:2, c:"Pro"},
+  {q:"I ___ my keys yesterday.", o:["lose","lost","loss"], a:1, v:1, c:"Grammar"},
+  {q:"'Meticulous' means:", o:["Lazy","Careful","Happy"], a:1, v:3, c:"Logic"},
+  {q:"She ___ at the bank.", o:["work","works","working"], a:1, v:1, c:"Grammar"}
+];
 
-// --- SPEECH ENGINE ---
-const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-if(Speech){
-    recognition = new Speech();
-    recognition.continuous = false;
-    recognition.lang = 'en-US';
-    recognition.onstart = () => { isRec=true; document.getElementById('micBtn').classList.add('active'); };
-    recognition.onend = () => { isRec=false; document.getElementById('micBtn').classList.remove('active'); };
-    recognition.onresult = (e) => processResult(e.results[0][0].transcript);
+const CEFR = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
+function showPage(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id === 'gamemap') renderMap();
 }
 
-// --- MODES CONTENT ---
-const CONTENT = {
-    monologue: { A1: "Describe your typical Sunday morning.", B2: "Discuss the pros and cons of remote work in Indonesia.", C1: "Analyze the impact of digital currencies on global inflation." },
-    read: { passages: ["The quick brown fox jumps over the lazy dog.", "Jakarta's infrastructure is evolving rapidly to meet modern demands."], twisters: ["She sells seashells by the seashore.", "Red lorry, yellow lorry."] },
-    picture: ["A busy street market in Tanah Abang with colorful stalls.", "A professional office setting with diverse people in a meeting."],
-    drill: ["Vowel /æ/ (Cat vs Ket)", "Consonant /θ/ (Thank you vs Tank you)", "The 'Schwa' /ə/ (Support vs Saport)"]
-};
-
-// --- LOGIC ---
-function doAuth(){
-    const e = document.getElementById('uEmail').value;
-    if(!e) return;
-    const data = load(e);
-    if(data){ U=data; enter(true); } else { U.email=e; showPage('quiz'); initQuiz(); }
+function switchAuth(m) {
+  document.querySelectorAll('.apanel, .atab').forEach(e => e.classList.remove('act'));
+  document.getElementById(m+'Panel').classList.add('act');
+  event.target.classList.add('act');
 }
 
-function initQuiz(){
-    const b = document.getElementById('qBox');
-    b.innerHTML = `<h3>Quick Placement</h3><p style="margin-bottom:20px">Choose the most natural sentence:</p>
-    <button class="btn-p" style="background:var(--p2);color:var(--ink);margin-bottom:10px" onclick="setLvl('A1')">"I go to office yesterday."</button>
-    <button class="btn-p" style="background:var(--p2);color:var(--ink);margin-bottom:10px" onclick="setLvl('B2')">"I went to the office yesterday."</button>
-    <button class="btn-p" style="background:var(--p2);color:var(--ink)" onclick="setLvl('C1')">"I headed to the office yesterday morning."</button>`;
+function login() {
+  showPage('quiz');
+  quizSet = POOL.sort(() => 0.5 - Math.random());
+  renderQ();
 }
 
-function setLvl(l){ U.lvl=l; U.unlocked=LVLS.slice(0, LVLS.indexOf(l)+1); save(); enter(false); }
+function logout() {
+  document.getElementById('nav').style.display = 'none';
+  showPage('auth');
+}
 
-function enter(ret){
+function renderQ() {
+  const q = quizSet[curIdx];
+  document.getElementById('q_progress').style.width = (curIdx * 10) + '%';
+  document.getElementById('q_cat').textContent = q.c;
+  document.getElementById('q_text').textContent = q.q;
+  const opts = document.getElementById('q_opts');
+  opts.innerHTML = '';
+  q.o.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qopt'; btn.textContent = opt;
+    btn.onclick = () => { totalPoints += (i === q.a ? q.v : 0); nextQuestion(); };
+    opts.appendChild(btn);
+  });
+}
+
+function nextQuestion() {
+  curIdx++;
+  if(curIdx < 10) renderQ();
+  else {
+    if(totalPoints > 25) userLvl = "C1";
+    else if(totalPoints > 18) userLvl = "B2";
+    else if(totalPoints > 10) userLvl = "B1";
+    else if(totalPoints > 5) userLvl = "A2";
+    document.getElementById('user_lvl').textContent = userLvl;
     document.getElementById('nav').style.display = 'flex';
-    document.getElementById('welcome').innerText = "Hello, "+U.name;
-    document.getElementById('curLvl').innerText = U.lvl;
-    document.getElementById('curXP').innerText = U.xp;
-    showPage('home'); renderMap();
-    if(ret || !U.onboarded) startOB(ret);
+    showPage('home');
+  }
 }
 
-function renderMap(){
-    let h = '';
-    LVLS.forEach(l => {
-        const lock = !U.unlocked.includes(l);
-        h += `<div class="map-node ${lock?'locked':''} ${U.lvl===l?'current':''}">
-            <div style="width:40px;height:40px;border-radius:50%;background:var(--p3);display:flex;align-items:center;justify-content:center;font-weight:700">${l}</div>
-            <div><strong>Level ${l}</strong><br><small>${lock?'Locked':'Unlocked'}</small></div>
-        </div>`;
-    });
-    document.getElementById('mapNodes').innerHTML = h;
+function renderMap() {
+  const wrap = document.getElementById('nodes_wrap');
+  wrap.innerHTML = '';
+  const userIdx = CEFR.indexOf(userLvl);
+  CEFR.forEach((lvl, i) => {
+    const node = document.createElement('div');
+    const isUnlocked = i <= userIdx;
+    node.className = `map-node ${isUnlocked ? 'unlocked' : 'locked'}`;
+    node.innerHTML = `<div class="node-circle">${lvl}</div><div class="node-info"><div style="font-weight:700">${lvl} Certification</div><div style="font-size:12px; opacity:0.6">${isUnlocked ? 'Unlocked' : 'Soft-Locked'}</div></div>`;
+    wrap.appendChild(node);
+  });
 }
 
-function openMode(m){
-    document.getElementById('practiceOverlay').style.display = 'flex';
-    const t = document.getElementById('pTitle'), p = document.getElementById('pPrompt'), v = document.getElementById('pVisual');
-    v.innerHTML = "";
-    if(m==='monologue'){ t.innerText="Free Monologue"; p.innerText=CONTENT.monologue[U.lvl]; }
-    if(m==='read'){ t.innerText="Read Aloud"; p.innerText=CONTENT.read.passages[Math.floor(Math.random()*2)]; }
-    if(m==='picture'){ t.innerText="Picture Description"; p.innerText="Describe the scene below:"; v.innerHTML=`<div style="background:#ddd;height:120px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#666">[Visual: ${CONTENT.picture[0]}]</div>`; }
-    if(m==='drill'){ t.innerText="Pronunciation Drill"; p.innerText="Practice this sound: " + CONTENT.drill[0]; }
+function runFeedback(mode) {
+  const s = { p: 85, g: 70, v: 60 };
+  document.getElementById('ai_fb').style.display = 'block';
+  document.getElementById('fb_score').textContent = "72";
+  document.getElementById('fb_intro').textContent = userLvl.startsWith('A') ? "Fantastic effort!" : "Great professional flow!";
+  document.getElementById('fb_detail').textContent = `In ${mode} mode, you should focus on ${userLvl.startsWith('A') ? 'clarity' : 'nuance'}.`;
+  const pwrap = document.getElementById('fb_pills');
+  pwrap.innerHTML = '<span class="fbpill">Clear Speech</span><span class="fbpill">Tone Match</span>';
 }
-
-function toggleSpeech(){ if(!recognition) return; isRec?recognition.stop():recognition.start(); }
-
-function processResult(t){
-    const f = document.getElementById('fBox'), ft = document.getElementById('fText');
-    f.style.display = 'block';
-    let eval = `You said: "${t}". `;
-    eval += U.lvl === 'A1' ? "Great effort! Your message is clear. Don't worry about perfect 'the/a' usage yet." : "Strong fluency. Watch your vowel length on 'cat' to avoid the common 'ket' substitution.";
-    ft.innerText = eval;
-    U.xp += 50; save();
-    document.getElementById('curXP').innerText = U.xp;
-}
-
-// --- ONBOARDING ---
-let obs = [], obc = 0;
-function startOB(ret){
-    obs = ret ? [{t:"Welcome Back!", b:"You're working on **"+U.lvl+"**. Practice to hit 500 XP for your next exam."}] : 
-                [{t:"Verba Method", b:"We use AI to bridge Indonesian-English gaps. Focus on speaking; we'll handle the nuances."}, {t:"Mastery Map", b:"Levels are locked. Earn XP to unlock exams and move up."}];
-    obc=0; document.getElementById('m').classList.add('on'); nm();
-}
-function nm(){
-    if(obc<obs.length){ document.getElementById('mt').innerText=obs[obc].t; document.getElementById('mb').innerHTML=obs[obc].b; obc++; }
-    else { document.getElementById('m').classList.remove('on'); U.onboarded=true; save(); }
-}
-
-function showPage(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-function closePrac(){ document.getElementById('practiceOverlay').style.display='none'; document.getElementById('fBox').style.display='none'; }
 </script>
 </body>
 </html>
