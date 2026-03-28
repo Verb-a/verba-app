@@ -16,179 +16,197 @@
   --muted:#6b8a6b;--bd:rgba(45,122,58,.11);--bd2:rgba(45,122,58,.2);
   --sh:rgba(20,31,20,.09);--r:12px;--r2:18px;--r3:24px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Outfit',sans-serif;background:var(--p);color:var(--ink);min-height:100vh;overflow-x:hidden;}
-.screen{display:none;position:relative;z-index:1;min-height:100vh;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Outfit',sans-serif;}
+body{background:var(--p);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;}
 .screen.active{display:block;}
 
-/* NAV */
-#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd2);padding:0 24px;display:flex;align-items:center;height:60px;gap:8px;}
-.nlogo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);margin-right:auto;}
-.nbtn{background:none;border:none;color:var(--ink3);font-size:13px;font-weight:500;padding:6px 13px;border-radius:8px;cursor:pointer;}
-.nbtn.act{background:var(--p3);color:var(--g);font-weight:600;}
+/* NAVIGATION */
+#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd2);padding:0 24px;display:none;align-items:center;height:60px;gap:8px;}
+.nlogo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-right:auto;}
+.nbtn{background:none;border:none;padding:8px 12px;cursor:pointer;font-weight:500;color:var(--ink3);}
+.nbtn.act{color:var(--g);font-weight:700;}
 
-/* AUTH */
-#auth{display:flex;flex-direction:column;min-height:100vh;background:#fff;}
+/* AUTH PANELS - FIX 1 */
+#auth{background:#fff;}
 .auth-body{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;}
-.auth-left{background:var(--ink);padding:44px;display:flex;flex-direction:column;justify-content:center;color:#fff;}
-.auth-right{padding:44px;display:flex;flex-direction:column;justify-content:center;}
-.atabs{display:flex;background:var(--p2);border-radius:10px;padding:3px;margin-bottom:24px;}
-.atab{flex:1;padding:9px;border:none;background:none;border-radius:8px;font-family:'Outfit';cursor:pointer;color:var(--muted);}
-.atab.act{background:#fff;color:var(--g);font-weight:700;box-shadow:0 1px 4px var(--sh);}
+.auth-left{background:var(--ink);color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:center;}
+.auth-right{padding:60px;display:flex;flex-direction:column;justify-content:center;}
+.atabs{display:flex;background:var(--p2);padding:4px;border-radius:12px;margin-bottom:32px;}
+.atab{flex:1;border:none;padding:10px;border-radius:10px;cursor:pointer;background:none;color:var(--muted);font-weight:600;}
+.atab.act{background:#fff;color:var(--g);box-shadow:0 2px 8px var(--sh);}
 .apanel{display:none;}
 .apanel.act{display:block;}
-.fgrp{margin-bottom:16px;}
-.flabel{font-size:12px;font-weight:600;margin-bottom:6px;display:block;}
-.finput{width:100%;padding:12px;border:1.5px solid var(--bd2);border-radius:10px;outline:none;}
-.btn{width:100%;padding:12px;border-radius:10px;border:none;background:var(--g);color:#fff;font-weight:600;cursor:pointer;}
 
-/* QUIZ VISUALS */
-#quiz{padding:60px 24px;text-align:center;}
-.qcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 4px 24px var(--sh);max-width:600px;margin:24px auto;padding:32px;}
-.qtext{font-family:'Playfair Display';font-size:20px;margin-bottom:20px;}
-.qopt{display:block;width:100%;padding:14px;margin-bottom:10px;border:1.5px solid var(--bd2);border-radius:10px;background:var(--p);cursor:pointer;text-align:left;font-family:'Outfit';}
+/* QUIZ VISUALS - FIX 2 */
+#quiz{padding:80px 24px;text-align:center;}
+.qcard{background:#fff;border:1px solid var(--bd);border-radius:var(--r3);padding:40px;max-width:560px;margin:32px auto;box-shadow:0 10px 40px var(--sh);}
+.qopt{display:block;width:100%;padding:20px;margin-bottom:12px;border:1.5px solid var(--bd2);border-radius:var(--r);background:var(--p);text-align:left;cursor:pointer;transition:0.2s;}
 .qopt:hover{border-color:var(--g);background:var(--gd);}
+.qopt b{display:block;color:var(--g);margin-bottom:4px;}
 
-/* HOME */
-.hbanner{background:var(--ink);padding:40px 24px;color:#fff;}
-.hbody{max-width:900px;margin:0 auto;padding:24px;}
-.hcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);padding:24px;margin-bottom:20px;}
-.examb{background:var(--gold);color:#fff;border:none;border-radius:9px;padding:12px 20px;font-weight:700;cursor:pointer;}
-.examb:disabled{background:var(--p3);color:var(--muted);cursor:not-allowed;}
+/* HOME & EXAM - FIX 3 */
+.hcard{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:24px;margin-bottom:20px;}
+.examb{width:100%;padding:16px;border-radius:var(--r);border:none;font-weight:700;cursor:pointer;transition:0.3s;}
+.examb.locked{background:var(--p2);color:var(--muted);cursor:not-allowed;}
+.examb.unlocked{background:var(--gold);color:#fff;box-shadow:0 4px 15px var(--goldd);}
+
+/* RESTORED: ABOUT MODAL */
+#aboutM{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(20,31,20,.4);z-index:1000;display:none;align-items:center;justify-content:center;}
+#aboutM.on{display:flex;}
+.about-c{background:#fff;padding:40px;border-radius:var(--r3);max-width:500px;position:relative;}
+
+.finput{width:100%;padding:14px;border:1.5px solid var(--bd2);border-radius:12px;margin-top:8px;outline:none;}
+.btn-primary{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:12px;font-weight:700;margin-top:20px;cursor:pointer;}
 </style>
 </head>
 <body>
 
-  <div id="nav" style="display:none;">
-    <div class="nlogo">Verba</div>
-    <button class="nbtn act">Home</button>
-    <button class="nbtn" onclick="logout()">Logout</button>
-  </div>
+<div id="nav">
+  <div class="nlogo">Verba</div>
+  <button class="nbtn act" onclick="showPage('home')">Home</button>
+  <button class="nbtn" onclick="showPage('gamemap')">Map</button>
+  <button class="nbtn" onclick="openAbout()">About</button>
+</div>
 
-  <div id="auth" class="screen active">
-    <div class="auth-body">
-      <div class="auth-left">
-        <h1 style="font-family:'Playfair Display';font-size:48px;">Master your <em>fluency</em>.</h1>
-      </div>
-      <div class="auth-right">
-        <div style="max-width:360px;margin:0 auto;width:100%;">
-          <div class="atabs">
-            <button id="tab-login" class="atab act" onclick="toggleAuth('login')">Login</button>
-            <button id="tab-signup" class="atab" onclick="toggleAuth('signup')">Create Account</button>
-          </div>
-          
-          <div id="lPanel" class="apanel act">
-            <div class="fgrp">
-              <label class="flabel">Email</label>
-              <input type="email" class="finput" placeholder="name@example.com">
-            </div>
-            <button class="btn" onclick="doLogin()">Sign In</button>
-          </div>
-
-          <div id="sPanel" class="apanel">
-            <div class="fgrp">
-              <label class="flabel">Full Name</label>
-              <input type="text" id="regName" class="finput" placeholder="John Doe">
-            </div>
-            <div class="fgrp">
-              <label class="flabel">Email</label>
-              <input type="email" class="finput" placeholder="name@example.com">
-            </div>
-            <button class="btn" onclick="doSignup()">Create Account</button>
-          </div>
+<div id="auth" class="screen active">
+  <div class="auth-body">
+    <div class="auth-left">
+      <h1 style="font-family:'Playfair Display';font-size:56px;line-height:1.1">Master your<br><em>fluency</em>.</h1>
+    </div>
+    <div class="auth-right">
+      <div style="max-width:380px;width:100%;margin:0 auto;">
+        <div class="atabs">
+          <button id="t-login" class="atab act" onclick="toggleAuth('login')">Login</button>
+          <button id="t-signup" class="atab" onclick="toggleAuth('signup')">Create Account</button>
+        </div>
+        <div id="lPanel" class="apanel act">
+          <label class="flabel">Email Address</label>
+          <input type="email" class="finput" placeholder="you@example.com">
+          <button class="btn-primary" onclick="handleLogin()">Sign In</button>
+        </div>
+        <div id="sPanel" class="apanel">
+          <label class="flabel">Full Name</label>
+          <input type="text" id="regName" class="finput" placeholder="Enter your name">
+          <label class="flabel" style="margin-top:16px;display:block">Email Address</label>
+          <input type="email" class="finput" placeholder="you@example.com">
+          <button class="btn-primary" onclick="handleSignup()">Create Account</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="quiz" class="screen">
-    <h2 style="font-family:'Playfair Display';font-size:32px;">Placement Quiz</h2>
-    <p style="color:var(--muted)">Let's find the right level for you.</p>
-    <div class="qcard">
-      <div class="qtext">Which of these best describes your goal?</div>
-      <button class="qopt" onclick="finishQuiz('A1')"><b>Beginner:</b> I want to learn the basics.</button>
-      <button class="qopt" onclick="finishQuiz('B2')"><b>Intermediate:</b> I want to speak fluently at work.</button>
-      <button class="qopt" onclick="finishQuiz('C1')"><b>Advanced:</b> I want to master complex debates.</button>
+<div id="quiz" class="screen">
+  <h2 style="font-family:'Playfair Display';font-size:36px">Placement Quiz</h2>
+  <p style="color:var(--muted);margin-top:8px">Help us tailor the experience to your current level.</p>
+  <div class="qcard">
+    <div class="qtext" style="font-size:20px;font-weight:600;margin-bottom:24px">How comfortable are you with English?</div>
+    <button class="qopt" onclick="finishQuiz('A1')">
+      <b>Beginner</b> I know basic words and can introduce myself.
+    </button>
+    <button class="qopt" onclick="finishQuiz('B2')">
+      <b>Intermediate</b> I can hold conversations but struggle with complex topics.
+    </button>
+    <button class="qopt" onclick="finishQuiz('C1')">
+      <b>Advanced</b> I can express myself fluently and understand nuances.
+    </button>
+  </div>
+</div>
+
+<div id="home" class="screen">
+  <div style="padding:40px 24px;background:var(--ink);color:#fff">
+    <h2 id="welcomeName">Welcome Back</h2>
+    <p>Current XP: <span id="xpDisplay">0</span></p>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:32px 24px;">
+    <div class="hcard">
+      <h3>Level Milestone</h3>
+      <p style="color:var(--muted);margin:8px 0 20px 0;font-size:14px">
+        The Level Exam unlocks automatically once you activate your learning features and reach 500 XP.
+      </p>
+      <button id="levelExamBtn" class="examb locked" disabled onclick="showPage('exam')">
+        Exam Locked (Need 500 XP)
+      </button>
+      <button class="nbtn" style="margin-top:12px;text-decoration:underline" onclick="debugAddXP()">Simulate +100 XP</button>
     </div>
   </div>
+</div>
 
-  <div id="home" class="screen">
-    <div class="hbanner">
-      <h2 id="welcomeMsg">Welcome!</h2>
-      <p>Your Current XP: <span id="xpCount">0</span></p>
-    </div>
-    <div class="hbody">
-      <div class="hcard">
-        <h3 style="margin-bottom:12px;">Level Progress</h3>
-        <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">
-          Collect 500 XP to unlock your first Level Exam.
-        </p>
-        <button id="levelExamBtn" class="examb" disabled>Level Exam Locked</button>
-        <button class="btn" style="margin-top:10px;background:var(--ink);" onclick="addXP()">Simulate Adding 100 XP</button>
-      </div>
-    </div>
+<div id="gamemap" class="screen">
+  <div style="padding:40px;text-align:center"><h2>Your Learning Map</h2></div>
+</div>
+
+<div id="aboutM">
+  <div class="about-c">
+    <h2 style="font-family:'Playfair Display';margin-bottom:16px">About Verba</h2>
+    <p style="color:var(--ink2);line-height:1.6">Verba is a professional language mastery platform designed to help adults achieve fluency through immersive practice and data-driven milestones.</p>
+    <button class="btn-primary" onclick="closeAbout()">Close</button>
   </div>
+</div>
 
 <script>
-let user = { xp: 0, name: "" };
+let U = { name: "", xp: 0, featuresActivated: false };
 
-// Issue 1: Account menu toggle logic
 function toggleAuth(mode) {
-  document.querySelectorAll('.atab').forEach(t => t.classList.remove('act'));
-  document.querySelectorAll('.apanel').forEach(p => p.classList.remove('act'));
-  
-  if(mode === 'login') {
-    document.getElementById('tab-login').classList.add('act');
-    document.getElementById('lPanel').classList.add('act');
-  } else {
-    document.getElementById('tab-signup').classList.add('act');
-    document.getElementById('sPanel').classList.add('act');
-  }
+  document.getElementById('t-login').classList.toggle('act', mode === 'login');
+  document.getElementById('t-signup').classList.toggle('act', mode === 'signup');
+  document.getElementById('lPanel').classList.toggle('act', mode === 'login');
+  document.getElementById('sPanel').classList.toggle('act', mode === 'signup');
 }
 
-// Issue 2: Sequence Fix - Signup leads to Quiz
-function doSignup() {
-  const nameInput = document.getElementById('regName').value;
-  if(!nameInput) return alert("Please enter your name");
-  user.name = nameInput;
-  showScreen('quiz');
+function handleLogin() {
+  U.name = "User";
+  enterSystem();
 }
 
-function doLogin() {
-  user.name = "User";
-  showScreen('home');
+function handleSignup() {
+  const name = document.getElementById('regName').value;
+  if(!name) return alert("Please enter your name");
+  U.name = name;
+  U.featuresActivated = true; // Activating features on signup
+  showPage('quiz');
 }
 
-function finishQuiz(level) {
-  alert("Level set to " + level);
-  showScreen('home');
-  document.getElementById('welcomeMsg').innerText = "Welcome, " + user.name + "!";
+function finishQuiz(lvl) {
+  enterSystem();
 }
 
-// Issue 3: Level exam activation logic
-function addXP() {
-  user.xp += 100;
-  document.getElementById('xpCount').innerText = user.xp;
-  
-  const examBtn = document.getElementById('levelExamBtn');
-  if(user.xp >= 500) {
-    examBtn.disabled = false;
-    examBtn.innerText = "Start Level Exam";
-    examBtn.style.background = "var(--g2)";
-  }
+function enterSystem() {
+  document.getElementById('welcomeName').innerText = "Hello, " + U.name + "!";
+  showPage('home');
+  updateExamStatus();
 }
 
-function showScreen(id) {
+function showPage(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.getElementById('nav').style.display = (id === 'auth') ? 'none' : 'flex';
+  document.getElementById('nav').style.display = (id === 'auth' || id === 'quiz') ? 'none' : 'flex';
 }
 
-function logout() {
-  user.xp = 0;
-  document.getElementById('xpCount').innerText = 0;
-  showScreen('auth');
+function updateExamStatus() {
+  const btn = document.getElementById('levelExamBtn');
+  if(U.xp >= 500 && U.featuresActivated) {
+    btn.classList.remove('locked');
+    btn.classList.add('unlocked');
+    btn.disabled = false;
+    btn.innerText = "Start Level Exam";
+  } else {
+    btn.classList.add('locked');
+    btn.disabled = true;
+    btn.innerText = `Exam Locked (${500 - U.xp} XP remaining)`;
+  }
 }
+
+function debugAddXP() {
+  U.xp += 100;
+  document.getElementById('xpDisplay').innerText = U.xp;
+  updateExamStatus();
+}
+
+function openAbout() { document.getElementById('aboutM').classList.add('on'); }
+function closeAbout() { document.getElementById('aboutM').classList.remove('on'); }
 </script>
+
 </body>
 </html>
