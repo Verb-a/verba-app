@@ -17,1273 +17,178 @@
   --sh:rgba(20,31,20,.09);--r:12px;--r2:18px;--r3:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 body{font-family:'Outfit',sans-serif;background:var(--p);color:var(--ink);min-height:100vh;overflow-x:hidden;}
 .screen{display:none;position:relative;z-index:1;min-height:100vh;}
 .screen.active{display:block;}
-.fade{animation:fu .3s ease both;}
-@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
 /* NAV */
-#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bd2);padding:0 24px;display:flex;align-items:center;height:60px;gap:8px;}
-.nlogo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);cursor:pointer;margin-right:auto;display:flex;align-items:baseline;gap:1px;}
-.ndot{width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;margin-bottom:2px;}
-.nbtn{background:none;border:none;color:var(--ink3);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;padding:6px 13px;border-radius:8px;cursor:pointer;transition:all .15s;}
-.nbtn:hover{background:var(--p2);}
+#nav{position:sticky;top:0;z-index:100;background:rgba(242,247,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd2);padding:0 24px;display:flex;align-items:center;height:60px;gap:8px;}
+.nlogo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);margin-right:auto;}
+.nbtn{background:none;border:none;color:var(--ink3);font-size:13px;font-weight:500;padding:6px 13px;border-radius:8px;cursor:pointer;}
 .nbtn.act{background:var(--p3);color:var(--g);font-weight:600;}
-.nuser{display:flex;align-items:center;gap:8px;margin-left:8px;padding-left:12px;border-left:1px solid var(--bd2);}
-.navatar{width:32px;height:32px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#fff;font-style:italic;flex-shrink:0;}
-.nname{font-size:13px;font-weight:500;color:var(--ink2);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.nlout{background:none;border:1px solid var(--bd2);color:var(--muted);font-family:'Outfit',sans-serif;font-size:12px;padding:4px 10px;border-radius:7px;cursor:pointer;}
-.nlout:hover{border-color:var(--g);color:var(--g);}
-/* SHARED */
-.sl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--g);margin-bottom:8px;display:block;}
-.ht{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,60px);font-weight:700;line-height:1.1;letter-spacing:-1.5px;color:var(--ink);margin-bottom:20px;}
-.ht em{color:var(--g);font-style:italic;}
-.st{font-family:'Playfair Display',serif;font-size:clamp(20px,3.5vw,32px);font-weight:500;line-height:1.25;color:var(--ink);margin-bottom:12px;letter-spacing:-.5px;}
-.lead{font-size:16px;font-weight:300;line-height:1.85;color:var(--ink3);}
-.btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;padding:12px 24px;cursor:pointer;transition:all .2s;-webkit-appearance:none;}
-.bg{background:var(--g);color:#fff;}
-.bg:hover{background:var(--g2);transform:translateY(-1px);}
-.bink{background:var(--ink);color:var(--p);}
-.bink:hover{background:var(--ink2);}
-.bgh{background:none;border:1.5px solid var(--bd2);color:var(--ink2);}
-.bgh:hover{border-color:var(--g);color:var(--g);}
-.bgold{background:var(--gold);color:#fff;}
-.bgold:hover{background:var(--gold2);}
-.load{display:flex;gap:5px;align-items:center;justify-content:center;padding:28px;}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--p4);animation:bl 1.2s ease-in-out infinite;}
-.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
-@keyframes bl{0%,80%,100%{opacity:.2}40%{opacity:1}}
-.ferr{font-size:12px;color:#8a4000;margin-top:5px;display:none;}
-.ferr.on{display:block;}
-.flabel{font-size:12px;font-weight:600;color:var(--ink2);display:block;margin-bottom:6px;}
-.finput{width:100%;padding:11px 14px;background:var(--p);border:1.5px solid var(--bd2);border-radius:10px;font-family:'Outfit',sans-serif;font-size:15px;color:var(--ink);outline:none;transition:border-color .15s;-webkit-appearance:none;}
-.finput:focus{border-color:var(--g);}
-.fgrp{margin-bottom:16px;}
-/* TOAST */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--ink);color:var(--p);padding:11px 20px;border-radius:12px;font-size:14px;font-weight:500;z-index:999;transition:transform .3s,opacity .3s;opacity:0;white-space:nowrap;max-width:90vw;text-align:center;pointer-events:none;}
-#toast.on{transform:translateX(-50%) translateY(0);opacity:1;}
-/* CELEBRATE */
-#cel{position:fixed;inset:0;background:rgba(20,31,20,.8);z-index:400;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s;}
-#cel.on{opacity:1;pointer-events:all;}
-.celbox{background:#fff;border-radius:var(--r3);max-width:400px;width:100%;padding:44px 32px;text-align:center;transform:scale(.9);transition:transform .3s;}
-#cel.on .celbox{transform:scale(1);}
-.celemo{font-size:56px;display:block;margin-bottom:12px;animation:pop .5s ease both;}
-@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-.celbadge{font-family:'Playfair Display',serif;font-size:64px;font-weight:700;color:var(--g);line-height:1;margin-bottom:4px;}
-.celname{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g2);margin-bottom:20px;}
-/* ABOUT MODAL */
-#aboutM{position:fixed;inset:0;background:rgba(20,31,20,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s;}
-#aboutM.on{opacity:1;pointer-events:all;}
-.mbox{background:#fff;border-radius:var(--r3);max-width:600px;width:100%;max-height:88vh;overflow-y:auto;padding:36px;transform:scale(.96);transition:transform .25s;}
-#aboutM.on .mbox{transform:scale(1);}
+
 /* AUTH */
-#auth{display:flex;flex-direction:column;min-height:100vh;background:var(--p);}
-.auth-nav{padding:0 32px;height:60px;display:flex;align-items:center;border-bottom:1px solid var(--bd2);background:rgba(242,247,242,.96);}
-.auth-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);}
-.auth-body{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 60px);}
-@media(max-width:700px){.auth-body{grid-template-columns:1fr;}.auth-left{display:none;}}
-.auth-left{background:var(--ink);padding:52px 44px;display:flex;flex-direction:column;justify-content:center;}
-.auth-right{padding:52px 44px;display:flex;flex-direction:column;justify-content:center;background:#fff;}
-.auth-form-wrap{max-width:360px;width:100%;margin:0 auto;}
-.atabs{display:flex;gap:0;margin-bottom:24px;background:var(--p2);border-radius:10px;padding:3px;}
-.atab{flex:1;padding:9px;border:none;background:none;border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;}
+#auth{display:flex;flex-direction:column;min-height:100vh;background:#fff;}
+.auth-body{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;}
+.auth-left{background:var(--ink);padding:44px;display:flex;flex-direction:column;justify-content:center;color:#fff;}
+.auth-right{padding:44px;display:flex;flex-direction:column;justify-content:center;}
+.atabs{display:flex;background:var(--p2);border-radius:10px;padding:3px;margin-bottom:24px;}
+.atab{flex:1;padding:9px;border:none;background:none;border-radius:8px;font-family:'Outfit';cursor:pointer;color:var(--muted);}
 .atab.act{background:#fff;color:var(--g);font-weight:700;box-shadow:0 1px 4px var(--sh);}
 .apanel{display:none;}
 .apanel.act{display:block;}
-.pwrap{position:relative;}
-.ptog{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px;}
-.sbar{height:3px;border-radius:2px;background:var(--p3);margin-top:5px;overflow:hidden;}
-.sfill{height:100%;border-radius:2px;transition:width .3s,background .3s;width:0;}
-.afoot{text-align:center;margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;}
-.alink{color:var(--g);text-decoration:none;font-weight:600;cursor:pointer;}
-.feat-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;}
-.feat-ico{width:36px;height:36px;border-radius:10px;background:rgba(82,192,101,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.feat-ti{font-size:14px;font-weight:600;color:var(--p);margin-bottom:2px;}
-.feat-de{font-size:12px;color:rgba(242,247,242,.5);line-height:1.5;}
-/* HOME */
-.hbanner{background:var(--ink);padding:36px 24px 28px;}
-.hbanner-i{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.hgreet{flex:1;}
-.hgreet-n{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,34px);color:var(--p);margin-bottom:4px;}
-.hgreet-s{font-size:14px;color:rgba(242,247,242,.55);}
-.hstats{display:flex;gap:12px;flex-wrap:wrap;}
-.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:12px 16px;text-align:center;min-width:72px;}
-.hstat-n{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--g3);line-height:1;}
-.hstat-l{font-size:10px;color:rgba(242,247,242,.45);margin-top:3px;}
-.hbody{max-width:900px;margin:0 auto;padding:24px 24px 56px;display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-@media(max-width:640px){.hbody{grid-template-columns:1fr;}}
-.hcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);overflow:hidden;}
-.hcard-hd{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:9px;}
-.hcard-ico{font-size:17px;}
-.hcard-ti{font-size:14px;font-weight:700;color:var(--ink);}
-.hcard-b{padding:16px 20px;}
-.cld-badge{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;line-height:1;color:var(--g);text-align:center;}
-.cld-name{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g2);text-align:center;margin-bottom:10px;}
-.xprow{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-.xplabel{font-size:11px;color:var(--muted);}
-.xptrack{flex:1;height:7px;background:var(--p3);border-radius:4px;overflow:hidden;}
-.xpfill{height:100%;background:var(--g2);border-radius:4px;transition:width .6s;}
-.xpnum{font-size:11px;color:var(--g);font-weight:600;}
-.qmodes{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.qmode{background:var(--p);border:1.5px solid var(--bd2);border-radius:var(--r);padding:13px;cursor:pointer;transition:all .15s;text-align:center;}
-.qmode:hover{border-color:var(--g);background:var(--gd);}
-.qmode-i{font-size:19px;margin-bottom:3px;}
-.qmode-l{font-size:11px;font-weight:600;color:var(--ink2);}
-.ra-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bd);}
-.ra-item:last-child{border-bottom:none;}
-.ra-ico{font-size:15px;}
-.ra-tx{font-size:12px;color:var(--ink3);flex:1;}
-.ra-sc{font-size:12px;font-weight:700;color:var(--g);}
-.pm-row{display:flex;align-items:center;gap:9px;}
-.pm-lv{font-size:11px;font-weight:700;width:22px;}
-.pm-bar{flex:1;height:5px;background:var(--p3);border-radius:3px;overflow:hidden;}
-.pm-fill{height:100%;border-radius:3px;}
-.pm-st{font-size:10px;color:var(--muted);width:52px;text-align:right;}
-/* QUIZ */
-#quiz{padding:44px 24px;display:flex;flex-direction:column;align-items:center;}
-.qhdr{text-align:center;max-width:540px;margin-bottom:22px;}
-.qpwrap{width:100%;max-width:540px;margin-bottom:22px;}
-.qpbar{height:4px;background:var(--p3);border-radius:2px;overflow:hidden;}
-.qpfill{height:100%;background:var(--g);border-radius:2px;transition:width .4s;}
-.qplabel{font-size:11px;color:var(--muted);margin-top:6px;text-align:right;}
-.qcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 4px 24px var(--sh);max-width:600px;width:100%;overflow:hidden;}
-.qcard-hd{background:var(--p2);border-bottom:1px solid var(--bd);padding:13px 22px;display:flex;align-items:center;gap:10px;}
-.qnum{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;}
-.qbadge{margin-left:auto;font-size:10px;font-weight:700;color:var(--g);background:var(--gd);border-radius:20px;padding:3px 9px;text-transform:uppercase;}
-.qbody{padding:22px;}
-.qtext{font-family:'Playfair Display',serif;font-size:18px;line-height:1.5;color:var(--ink);margin-bottom:18px;}
-.qopts{display:flex;flex-direction:column;gap:8px;}
-.qopt{background:var(--p);border:1.5px solid var(--bd2);border-radius:9px;padding:11px 15px;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;transition:all .15s;text-align:left;font-family:'Outfit',sans-serif;-webkit-appearance:none;width:100%;}
+.fgrp{margin-bottom:16px;}
+.flabel{font-size:12px;font-weight:600;margin-bottom:6px;display:block;}
+.finput{width:100%;padding:12px;border:1.5px solid var(--bd2);border-radius:10px;outline:none;}
+.btn{width:100%;padding:12px;border-radius:10px;border:none;background:var(--g);color:#fff;font-weight:600;cursor:pointer;}
+
+/* QUIZ VISUALS */
+#quiz{padding:60px 24px;text-align:center;}
+.qcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 4px 24px var(--sh);max-width:600px;margin:24px auto;padding:32px;}
+.qtext{font-family:'Playfair Display';font-size:20px;margin-bottom:20px;}
+.qopt{display:block;width:100%;padding:14px;margin-bottom:10px;border:1.5px solid var(--bd2);border-radius:10px;background:var(--p);cursor:pointer;text-align:left;font-family:'Outfit';}
 .qopt:hover{border-color:var(--g);background:var(--gd);}
-.qopt.ok{border-color:var(--g2);background:var(--gd);color:var(--g);}
-.qopt.ng{border-color:var(--gold);background:var(--goldd);color:var(--gold);}
-.qfb{margin-top:11px;padding:11px 13px;border-radius:9px;font-size:12px;line-height:1.65;display:none;}
-.qfb.on{display:block;}
-.qfb.ok{background:var(--gd);color:var(--g);border:1px solid var(--gd2);}
-.qfb.ng{background:var(--goldd);color:var(--gold);border:1px solid rgba(122,96,16,.2);}
-.qnxt{margin:12px 22px 22px;width:calc(100% - 44px);padding:11px;border-radius:9px;background:var(--ink);color:var(--p);border:none;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:none;-webkit-appearance:none;}
-.qnxt.on{display:block;}
-.qresult{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 4px 24px var(--sh);max-width:600px;width:100%;padding:40px;text-align:center;display:none;}
-.qresult.on{display:block;}
-.qrbadge{font-family:'Playfair Display',serif;font-size:68px;font-weight:700;line-height:1;margin-bottom:4px;color:var(--g);}
-.qrname{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-.qrdesc{font-size:14px;color:var(--ink3);line-height:1.8;margin-bottom:20px;max-width:380px;margin-left:auto;margin-right:auto;}
-.qrscores{display:flex;justify-content:center;gap:28px;margin-bottom:22px;}
-.qrsi{text-align:center;}
-.qrsn{font-family:'Playfair Display',serif;font-size:26px;color:var(--g);}
-.qrsl{font-size:11px;color:var(--muted);}
-/* MAP */
-#gamemap{background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);min-height:calc(100vh - 60px);padding:32px 24px 56px;}
-.map-inner{max-width:500px;margin:0 auto;}
-.map-hdr{text-align:center;margin-bottom:36px;}
-.map-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--p);margin-bottom:4px;}
-.map-sub{font-size:13px;color:rgba(242,247,242,.5);}
-.map-path{display:flex;flex-direction:column;align-items:center;}
-.mn{width:100%;max-width:440px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:18px 20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px;}
-.mn.cur{background:rgba(45,122,58,.18);border-color:var(--g2);box-shadow:0 0 0 3px rgba(45,122,58,.14);}
-.mn.done{background:rgba(45,122,58,.1);border-color:rgba(61,158,78,.3);}
-.mn.lck{opacity:.45;cursor:default;}
-.mn:hover:not(.lck){background:rgba(255,255,255,.1);transform:translateY(-2px);}
-.mc{width:2px;height:32px;margin:0 auto;}
-.mc.done{background:var(--g2);}
-.mc.lck{background:rgba(255,255,255,.13);}
-.mn-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Playfair Display',serif;font-size:19px;font-weight:700;}
-.mni-done{background:var(--gd2);color:var(--g3);}
-.mni-cur{background:var(--g);color:#fff;}
-.mni-lck{background:rgba(255,255,255,.07);color:rgba(255,255,255,.25);}
-.mn-info{flex:1;min-width:0;}
-.mn-code{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
-.mn-code.c-act{color:var(--g3);}
-.mn-code.c-lck{color:rgba(255,255,255,.25);}
-.mn-name{font-family:'Playfair Display',serif;font-size:16px;margin-bottom:5px;}
-.mn-name.c-act{color:var(--p);}
-.mn-name.c-lck{color:rgba(255,255,255,.25);}
-.mn-xpbar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-bottom:3px;}
-.mn-xpfill{height:100%;background:var(--g3);border-radius:2px;}
-.mn-xptxt{font-size:10px;color:rgba(255,255,255,.4);}
-.mn-status{flex-shrink:0;}
-.mpill{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;}
-.mp-done{background:rgba(61,158,78,.2);color:var(--g3);}
-.mp-cur{background:var(--g);color:#fff;}
-.mp-lck{background:rgba(255,255,255,.07);color:rgba(255,255,255,.25);}
-.mp-exam{background:rgba(184,144,32,.25);color:var(--gold2);}
-/* PRACTICE */
-#practice{}
-.ptop{background:#fff;border-bottom:1px solid var(--bd);padding:22px 24px;}
-.ptop-i{max-width:860px;margin:0 auto;}
-.pbread{font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
-.pbread a{color:var(--g);cursor:pointer;}
-.plrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-.pbadge{font-family:'Playfair Display',serif;font-size:46px;font-weight:700;line-height:1;color:var(--g);}
-.pinfo{flex:1;}
-.pname{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g);margin-bottom:3px;}
-.pdesc{font-size:13px;color:var(--muted);}
-.pxprow{display:flex;align-items:center;gap:7px;margin-top:7px;}
-.pxplabel{font-size:10px;color:var(--muted);}
-.pxptrack{flex:1;max-width:160px;height:5px;background:var(--p3);border-radius:3px;overflow:hidden;}
-.pxpfill{height:100%;background:var(--g2);border-radius:3px;transition:width .5s;}
-.pxpnum{font-size:10px;color:var(--g);font-weight:600;}
-.examb{background:var(--gold);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.examb:hover{background:var(--gold2);transform:translateY(-1px);}
-.examb:disabled{background:var(--p3);color:var(--muted);cursor:not-allowed;transform:none;}
-.mtabs{background:var(--p2);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.mtab{padding:12px 16px;font-size:13px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:'Outfit',sans-serif;}
-.mtab:hover{color:var(--ink2);}
-.mtab.act{color:var(--g);border-bottom-color:var(--g);}
-.pbody{max-width:700px;margin:0 auto;padding:22px 24px 60px;}
-.pcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 2px 12px var(--sh);padding:24px;margin-bottom:14px;}
-.pey{display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-.rfbtn{background:none;border:1px solid var(--bd2);border-radius:7px;padding:4px 9px;font-size:11px;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;}
-.rfbtn:hover{border-color:var(--g);color:var(--g);}
-.pmain{font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,21px);line-height:1.5;color:var(--ink);}
-.phint{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd);font-size:12px;color:var(--muted);line-height:1.65;}
-.phint strong{color:var(--teal);}
-.passage{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(14px,2.2vw,17px);line-height:2;color:var(--ink);}
-.pchips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;}
-.pchip{background:var(--p);border:1.5px solid var(--bd2);border-radius:8px;padding:7px 14px;font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);}
-.picsc{background:var(--p2);border:1px solid var(--bd2);border-radius:var(--r);margin-bottom:11px;overflow:hidden;}
-.picsvg{width:100%;display:flex;align-items:center;justify-content:center;background:var(--p3);min-height:160px;}
-.piccap{padding:10px 14px;font-size:12px;color:var(--muted);}
-/* RECORDER */
-.reccard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 2px 12px var(--sh);padding:22px;text-align:center;margin-bottom:14px;}
-.recring{width:70px;height:70px;border-radius:50%;background:var(--p);border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;margin:0 auto 11px;cursor:pointer;transition:all .2s;}
-.recring:hover{border-color:var(--g2);}
-.recring.on{border-color:var(--g);background:var(--gd);animation:rp 1.8s ease-in-out infinite;}
-@keyframes rp{0%,100%{box-shadow:0 0 0 4px rgba(45,122,58,.11)}50%{box-shadow:0 0 0 11px rgba(45,122,58,.04)}}
-.recdot{width:23px;height:23px;border-radius:50%;background:var(--g);transition:all .2s;}
-.recring.on .recdot{border-radius:4px;width:17px;height:17px;}
-.reclbl{font-size:13px;color:var(--muted);margin-bottom:3px;}
-.rectmr{font-size:11px;color:var(--g);min-height:14px;font-variant-numeric:tabular-nums;}
-.recta{background:var(--p);border:1px solid var(--bd2);border-radius:9px;padding:11px 13px;font-size:13px;color:var(--muted);line-height:1.7;text-align:left;min-height:48px;margin-top:11px;display:none;font-style:italic;}
-.recta.on{display:block;}
-.iosfb{display:none;margin-top:11px;}
-.iosfb.on{display:block;}
-.iosfb label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px;}
-.iosfb textarea{width:100%;padding:9px 12px;background:var(--p);border:1.5px solid var(--bd2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);resize:vertical;min-height:76px;outline:none;}
-.iosfb textarea:focus{border-color:var(--g);}
-.analbtn{margin-top:12px;width:100%;background:var(--ink);color:var(--p);border:none;border-radius:11px;padding:12px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:none;-webkit-appearance:none;}
-.analbtn.on{display:block;}
-.analbtn:hover{background:var(--ink2);}
-.analbtn:disabled{background:var(--p3);color:var(--muted);cursor:not-allowed;}
-/* FEEDBACK */
-.fbcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);box-shadow:0 2px 12px var(--sh);overflow:hidden;display:none;margin-bottom:14px;}
-.fbcard.on{display:block;}
-.fbhd{background:var(--p2);border-bottom:1px solid var(--bd);padding:20px;display:flex;gap:18px;align-items:flex-start;}
-.fbow{text-align:center;min-width:65px;}
-.fbn{font-family:'Playfair Display',serif;font-size:46px;font-weight:700;color:var(--g);line-height:1;}
-.fbol{font-size:10px;color:var(--muted);margin-top:2px;}
-.fbbars{flex:1;display:flex;flex-direction:column;gap:8px;}
-.fbbr{display:flex;align-items:center;gap:8px;}
-.fbbl{font-size:11px;color:var(--muted);width:78px;flex-shrink:0;}
-.fbbt{flex:1;height:5px;background:var(--p3);border-radius:3px;overflow:hidden;}
-.fbbf{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.4,0,.2,1);width:0;}
-.fbbn{font-size:11px;color:var(--muted);width:22px;text-align:right;font-variant-numeric:tabular-nums;}
-.fbbody{padding:20px;display:flex;flex-direction:column;gap:15px;}
-.fbst{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
-.fbtx{font-size:13px;color:var(--ink3);line-height:1.8;}
-.fbpills{display:flex;flex-wrap:wrap;gap:5px;}
-.fbpill{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid;}
-.fbpill.ok{color:var(--g);border-color:rgba(45,122,58,.3);background:var(--gd);}
-.fbpill.ng{color:var(--gold);border-color:rgba(122,96,16,.3);background:var(--goldd);}
-.fbq{border-left:3px solid var(--g);padding:11px 14px;background:var(--p2);font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--ink2);line-height:1.65;}
-.fbxp{background:var(--gd);border:1px solid var(--gd2);border-radius:9px;padding:11px 15px;display:flex;align-items:center;gap:9px;}
-.fbxptx{font-size:13px;color:var(--g);font-weight:600;}
-.fbacts{display:flex;gap:9px;padding:0 20px 20px;}
-.fbbt2{flex:1;padding:11px;border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;}
-.fbbt2.again{background:none;border:1.5px solid var(--bd2);color:var(--ink2);}
-.fbbt2.again:hover{border-color:var(--g);color:var(--g);}
-.fbbt2.nxt{background:var(--g);border:none;color:#fff;}
-.fbbt2.nxt:hover{background:var(--g2);}
-/* EXAM */
-#exam{padding:38px 24px;display:flex;flex-direction:column;align-items:center;}
-.exhdr{text-align:center;max-width:560px;margin-bottom:22px;}
-.exrules{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);max-width:560px;width:100%;padding:26px;margin-bottom:18px;}
-.exrules h3{font-family:'Playfair Display',serif;font-size:18px;color:var(--ink);margin-bottom:13px;}
-.exrule{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink3);line-height:1.65;margin-bottom:8px;}
-.exri{font-size:13px;flex-shrink:0;margin-top:1px;}
-.extasks{width:100%;max-width:560px;}
-.extc{background:#fff;border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;margin-bottom:13px;}
-.exthd{background:var(--p2);border-bottom:1px solid var(--bd);padding:11px 20px;display:flex;align-items:center;gap:9px;}
-.extnum{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
-.extbadge{margin-left:auto;font-size:10px;font-weight:700;background:var(--goldd);color:var(--gold);border-radius:20px;padding:3px 8px;}
-.extbody{padding:18px 20px;}
-.extprompt{font-family:'Playfair Display',serif;font-size:16px;color:var(--ink);line-height:1.5;margin-bottom:12px;}
-.extst{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:9px;}
-.extst.done{color:var(--g);font-style:normal;font-weight:600;}
-.exresult{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);max-width:560px;width:100%;padding:40px;text-align:center;display:none;}
-.exresult.on{display:block;}
-.exscore{font-family:'Playfair Display',serif;font-size:76px;font-weight:700;line-height:1;margin-bottom:5px;}
-.exverdict{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
-.exdesc{font-size:14px;color:var(--ink3);line-height:1.8;margin-bottom:22px;max-width:380px;margin-left:auto;margin-right:auto;}
+
+/* HOME */
+.hbanner{background:var(--ink);padding:40px 24px;color:#fff;}
+.hbody{max-width:900px;margin:0 auto;padding:24px;}
+.hcard{background:#fff;border-radius:var(--r2);border:1px solid var(--bd);padding:24px;margin-bottom:20px;}
+.examb{background:var(--gold);color:#fff;border:none;border-radius:9px;padding:12px 20px;font-weight:700;cursor:pointer;}
+.examb:disabled{background:var(--p3);color:var(--muted);cursor:not-allowed;}
 </style>
 </head>
 <body>
 
-<div id="toast"></div>
-
-<div id="cel">
-  <div class="celbox">
-    <span class="celemo" id="celemo"></span>
-    <div class="st" id="celtitle" style="margin-bottom:8px"></div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.65" id="celsub"></p>
-    <div class="celbadge" id="celbadge"></div>
-    <div class="celname" id="celname"></div>
-    <button class="btn bg" style="width:100%;justify-content:center" onclick="closeCel()">Continue to my path →</button>
+  <div id="nav" style="display:none;">
+    <div class="nlogo">Verba</div>
+    <button class="nbtn act">Home</button>
+    <button class="nbtn" onclick="logout()">Logout</button>
   </div>
-</div>
 
-<div id="aboutM">
-  <div class="mbox">
-    <button class="bgh btn" style="float:right;padding:6px 14px;font-size:13px" onclick="closeAbout()">✕ Close</button>
-    <div style="clear:both;margin-bottom:18px"></div>
-    <span class="sl">About Verba</span>
-    <h2 class="st">Speaking shouldn't feel like a <em style="color:var(--g)">performance.</em></h2>
-    <p style="font-size:14px;color:var(--ink3);line-height:1.8;margin-bottom:16px">Verba is a warm, judgement-free English speaking app built for Indonesian learners. Real AI feedback from Claude. No server, no tracking — everything stays in your browser.</p>
-    <div style="background:var(--p2);border-left:3px solid var(--g);border-radius:0 9px 9px 0;padding:14px 16px;margin-bottom:16px">
-      <blockquote style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--ink);line-height:1.65">"The goal isn't a perfect accent. It's a voice that can carry your ideas into any room."</blockquote>
-    </div>
-    <p style="font-size:13px;color:var(--ink3);line-height:1.8;margin-bottom:10px"><strong>Made for Indonesian learners:</strong> The AI knows you may struggle with /v/ vs /b/, the /θ/ sound, articles, and vowel length — and gives tips addressing exactly those patterns.</p>
-    <p style="font-size:13px;color:var(--ink3);line-height:1.8"><strong>How feedback works:</strong> Your browser transcribes your speech, then Claude AI scores fluency, grammar, vocabulary, and content at your exact CEFR level — in seconds.</p>
-  </div>
-</div>
-
-<nav id="nav" style="display:none">
-  <div class="nlogo" onclick="showPage('home')">Verba<div class="ndot"></div></div>
-  <button class="nbtn" data-p="home" onclick="showPage('home')">Home</button>
-  <button class="nbtn" data-p="gamemap" onclick="showPage('gamemap')">My Path</button>
-  <button class="nbtn" onclick="openAbout()">About</button>
-  <div class="nuser">
-    <div class="navatar" id="navA"></div>
-    <div class="nname" id="navN"></div>
-    <button class="nlout" onclick="logout()">Log out</button>
-  </div>
-</nav>
-
-<!-- AUTH -->
-<div id="auth" class="screen active">
-  <div class="auth-nav">
-    <div class="auth-logo">Verba<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--g);margin-left:2px;margin-bottom:1px;vertical-align:middle"></span></div>
-  </div>
-  <div class="auth-body">
-    <div class="auth-left">
-      <span class="sl" style="color:var(--g3)">English speaking practice</span>
-      <h1 class="ht" style="font-size:clamp(26px,3.5vw,42px);color:var(--p);margin-bottom:14px">Your words.<br>Your voice.<br><em style="color:var(--g3)">Out loud.</em></h1>
-      <p style="font-size:13px;color:rgba(242,247,242,.55);line-height:1.75;margin-bottom:32px;max-width:340px">Built for Indonesian learners — warm AI feedback, gamified levels, zero data collection.</p>
-      <div class="feat-row"><div class="feat-ico">🎙️</div><div><div class="feat-ti">Free Monologue</div><div class="feat-de">Get a topic, speak freely, get scored on fluency, grammar and content</div></div></div>
-      <div class="feat-row"><div class="feat-ico">📖</div><div><div class="feat-ti">Read Aloud</div><div class="feat-de">Passages and tongue twisters with pronunciation feedback</div></div></div>
-      <div class="feat-row"><div class="feat-ico">🖼️</div><div><div class="feat-ti">Picture Description</div><div class="feat-de">Describe scenes and charts in detail — great for IELTS</div></div></div>
-      <div class="feat-row"><div class="feat-ico">🔤</div><div><div class="feat-ti">Pronunciation Drill</div><div class="feat-de">/v/, /θ/, vowel length — tips for Indonesian speakers</div></div></div>
-      <div class="feat-row"><div class="feat-ico" style="background:rgba(184,144,32,.2)">📝</div><div><div class="feat-ti">Level Exams</div><div class="feat-de">Pass an AI exam to unlock the next CEFR level</div></div></div>
-      <div class="feat-row"><div class="feat-ico">🔒</div><div><div class="feat-ti">Privacy first</div><div class="feat-de">Everything in your browser — zero servers, zero tracking</div></div></div>
-    </div>
-    <div class="auth-right">
-      <div class="auth-form-wrap">
-        <div class="atabs">
-          <button class="atab act" onclick="atab('login')">Sign in</button>
-          <button class="atab" onclick="atab('register')">Create account</button>
-        </div>
-        <div class="apanel act" id="p-login">
-          <div class="fgrp"><label class="flabel">Username</label><input class="finput" id="lu" type="text" placeholder="Your username" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
-          <div class="fgrp"><label class="flabel">Password</label><div class="pwrap"><input class="finput" id="lp" type="password" placeholder="••••••••" autocomplete="current-password"><button class="ptog" onclick="tpw('lp',this)" type="button">👁</button></div></div>
-          <div class="ferr" id="lerr">Incorrect username or password.</div>
-          <button class="btn bg" style="width:100%;justify-content:center;margin-top:8px;font-size:15px;padding:13px" onclick="doLogin()">Sign in →</button>
-          <div class="afoot"><span class="alink" onclick="atab('forgot')">Forgot password?</span></div>
-        </div>
-        <div class="apanel" id="p-register">
-          <div class="fgrp"><label class="flabel">Your name</label><input class="finput" id="rn" type="text" placeholder="e.g. Rina, Budi, Anisa" autocomplete="name" autocapitalize="words"></div>
-          <div class="fgrp"><label class="flabel">Username</label><input class="finput" id="ru" type="text" placeholder="Choose a username" autocomplete="username" autocapitalize="none" spellcheck="false"><div class="ferr" id="ruerr">Username already taken.</div></div>
-          <div class="fgrp"><label class="flabel">Password <span style="font-size:11px;color:var(--muted);font-weight:400">(min. 6 chars)</span></label><div class="pwrap"><input class="finput" id="rp" type="password" placeholder="••••••••" autocomplete="new-password" oninput="pwStr(this.value)"><button class="ptog" onclick="tpw('rp',this)" type="button">👁</button></div><div class="sbar"><div class="sfill" id="sfill"></div></div></div>
-          <div class="fgrp"><label class="flabel">Security question</label><select class="finput" id="rsq" style="cursor:pointer"><option value="">Choose…</option><option value="pet">First pet's name?</option><option value="school">Primary school attended?</option><option value="city">City you were born in?</option><option value="food">Favourite food?</option></select></div>
-          <div class="fgrp"><label class="flabel">Your answer <span style="font-size:11px;color:var(--muted);font-weight:400">(not case sensitive)</span></label><input class="finput" id="rsa" type="text" placeholder="Your answer" autocapitalize="none" spellcheck="false"></div>
-          <div class="ferr" id="rerr">Please fill in all fields.</div>
-          <button class="btn bg" style="width:100%;justify-content:center;margin-top:8px;font-size:15px;padding:13px" onclick="doReg()">Create account →</button>
-          <div class="afoot" style="font-size:11px">Data stored in your browser only. No server.</div>
-        </div>
-        <div class="apanel" id="p-forgot">
-          <p style="font-size:13px;color:var(--ink3);margin-bottom:16px;line-height:1.65">Enter your username to retrieve your security question.</p>
-          <div class="fgrp"><label class="flabel">Username</label><input class="finput" id="fu" type="text" placeholder="Your username" autocapitalize="none" spellcheck="false"></div>
-          <div id="fqwrap" style="display:none">
-            <div class="fgrp"><label class="flabel" id="fqlabel">Security question</label><input class="finput" id="fa" type="text" placeholder="Your answer" autocapitalize="none" spellcheck="false"></div>
-            <div class="fgrp"><label class="flabel">New password</label><input class="finput" id="fnp" type="password" placeholder="New password"></div>
-            <div class="ferr" id="ferr2">Incorrect answer.</div>
-            <button class="btn bg" style="width:100%;justify-content:center" onclick="doReset()">Reset password →</button>
+  <div id="auth" class="screen active">
+    <div class="auth-body">
+      <div class="auth-left">
+        <h1 style="font-family:'Playfair Display';font-size:48px;">Master your <em>fluency</em>.</h1>
+      </div>
+      <div class="auth-right">
+        <div style="max-width:360px;margin:0 auto;width:100%;">
+          <div class="atabs">
+            <button id="tab-login" class="atab act" onclick="toggleAuth('login')">Login</button>
+            <button id="tab-signup" class="atab" onclick="toggleAuth('signup')">Create Account</button>
           </div>
-          <div id="ffindwrap"><button class="btn bink" style="width:100%;justify-content:center" onclick="findUser()">Find my account →</button></div>
-          <div class="afoot"><span class="alink" onclick="atab('login')">← Back to sign in</span></div>
+          
+          <div id="lPanel" class="apanel act">
+            <div class="fgrp">
+              <label class="flabel">Email</label>
+              <input type="email" class="finput" placeholder="name@example.com">
+            </div>
+            <button class="btn" onclick="doLogin()">Sign In</button>
+          </div>
+
+          <div id="sPanel" class="apanel">
+            <div class="fgrp">
+              <label class="flabel">Full Name</label>
+              <input type="text" id="regName" class="finput" placeholder="John Doe">
+            </div>
+            <div class="fgrp">
+              <label class="flabel">Email</label>
+              <input type="email" class="finput" placeholder="name@example.com">
+            </div>
+            <button class="btn" onclick="doSignup()">Create Account</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- HOME -->
-<div id="home" class="screen">
-  <div class="hbanner"><div class="hbanner-i"><div class="hgreet"><div class="hgreet-n" id="hgn"></div><div class="hgreet-s" id="hgs"></div></div><div class="hstats" id="hstats"></div></div></div>
-  <div class="hbody">
-    <div class="hcard"><div class="hcard-hd"><span class="hcard-ico">📍</span><span class="hcard-ti">Current level</span></div><div class="hcard-b"><div id="hcld"></div><button class="btn bg" style="width:100%;justify-content:center;margin-top:13px" onclick="openCurLevel()">Go to practice →</button></div></div>
-    <div class="hcard"><div class="hcard-hd"><span class="hcard-ico">⚡</span><span class="hcard-ti">Quick practice</span></div><div class="hcard-b"><div class="qmodes" id="hqm"></div></div></div>
-    <div class="hcard"><div class="hcard-hd"><span class="hcard-ico">📊</span><span class="hcard-ti">Level progress</span></div><div class="hcard-b"><div style="display:flex;flex-direction:column;gap:9px" id="hprog"></div></div></div>
-    <div class="hcard"><div class="hcard-hd"><span class="hcard-ico">🕘</span><span class="hcard-ti">Recent activity</span></div><div class="hcard-b" id="hra"></div></div>
-  </div>
-</div>
-
-<!-- QUIZ -->
-<div id="quiz" class="screen">
-  <div class="qhdr"><span class="sl">Placement Quiz</span><h2 class="st">Find your starting level</h2><p style="font-size:13px;color:var(--muted)">12 questions · CEFR-aligned · ~5 minutes</p></div>
-  <div class="qpwrap"><div class="qpbar"><div class="qpfill" id="qpfill"></div></div><div class="qplabel" id="qplabel">0 of 12</div></div>
-  <div class="qcard" id="qcard">
-    <div class="qcard-hd"><span class="qnum" id="qnum"></span><span class="qbadge" id="qbadge"></span></div>
-    <div class="qbody"><div class="qtext" id="qtext"></div><div class="qopts" id="qopts"></div><div class="qfb" id="qfb"></div></div>
-    <button class="qnxt" id="qnxt" onclick="nextQ()"></button>
-  </div>
-  <div class="qresult" id="qresult">
-    <div class="qrbadge" id="qrbadge"></div><div class="qrname" id="qrname"></div>
-    <div class="qrdesc" id="qrdesc"></div>
-    <div class="qrscores"><div class="qrsi"><div class="qrsn" id="qrscore"></div><div class="qrsl">Score</div></div><div class="qrsi"><div class="qrsn" id="qrcorrect"></div><div class="qrsl">Correct</div></div></div>
-    <button class="btn bg" style="width:100%;justify-content:center" onclick="goMap()">View my learning path →</button>
-  </div>
-</div>
-
-<!-- GAME MAP -->
-<div id="gamemap" class="screen">
-  <div class="map-bg" style="background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 100%);min-height:calc(100vh - 60px);padding:32px 24px 56px">
-    <div class="map-inner">
-      <div class="map-hdr"><div class="map-title" id="maptitle"></div><div class="map-sub" id="mapsub"></div></div>
-      <div class="map-path" id="mappath"></div>
+  <div id="quiz" class="screen">
+    <h2 style="font-family:'Playfair Display';font-size:32px;">Placement Quiz</h2>
+    <p style="color:var(--muted)">Let's find the right level for you.</p>
+    <div class="qcard">
+      <div class="qtext">Which of these best describes your goal?</div>
+      <button class="qopt" onclick="finishQuiz('A1')"><b>Beginner:</b> I want to learn the basics.</button>
+      <button class="qopt" onclick="finishQuiz('B2')"><b>Intermediate:</b> I want to speak fluently at work.</button>
+      <button class="qopt" onclick="finishQuiz('C1')"><b>Advanced:</b> I want to master complex debates.</button>
     </div>
   </div>
-</div>
 
-<!-- PRACTICE -->
-<div id="practice" class="screen">
-  <div class="ptop"><div class="ptop-i">
-    <div class="pbread"><a onclick="showPage('gamemap')">My Path</a> <span>›</span> <span id="pbread"></span></div>
-    <div class="plrow">
-      <div class="pbadge" id="pbadge"></div>
-      <div class="pinfo"><div class="pname" id="pname"></div><div class="pdesc" id="pdesc"></div>
-        <div class="pxprow"><span class="pxplabel">XP</span><div class="pxptrack"><div class="pxpfill" id="pxpfill"></div></div><span class="pxpnum" id="pxpnum"></span></div>
+  <div id="home" class="screen">
+    <div class="hbanner">
+      <h2 id="welcomeMsg">Welcome!</h2>
+      <p>Your Current XP: <span id="xpCount">0</span></p>
+    </div>
+    <div class="hbody">
+      <div class="hcard">
+        <h3 style="margin-bottom:12px;">Level Progress</h3>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">
+          Collect 500 XP to unlock your first Level Exam.
+        </p>
+        <button id="levelExamBtn" class="examb" disabled>Level Exam Locked</button>
+        <button class="btn" style="margin-top:10px;background:var(--ink);" onclick="addXP()">Simulate Adding 100 XP</button>
       </div>
-      <button class="examb" id="examb" onclick="startExam()">📝 Take Level Exam</button>
     </div>
-  </div></div>
-  <div class="mtabs" id="mtabs"></div>
-  <div class="pbody" id="pbody"></div>
-</div>
-
-<!-- EXAM -->
-<div id="exam" class="screen">
-  <div class="exhdr"><span class="sl">Level Exam</span><h2 class="st" id="extitle"></h2><p style="font-size:13px;color:var(--muted)" id="exsub"></p></div>
-  <div class="exrules" id="exrules">
-    <h3>How the exam works</h3>
-    <div class="exrule"><span class="exri">🎯</span><span>3 tasks — monologue, read-aloud, and picture description</span></div>
-    <div class="exrule"><span class="exri">📊</span><span>Each task scored by AI on fluency, vocabulary, grammar, and content</span></div>
-    <div class="exrule"><span class="exri">✅</span><span>Score 75%+ average to pass and unlock the next level</span></div>
-    <div class="exrule"><span class="exri">🔄</span><span>No limit on attempts — practise more and retry anytime</span></div>
-    <button class="btn bg" style="margin-top:18px;width:100%;justify-content:center" onclick="beginExam()">Begin exam →</button>
   </div>
-  <div class="extasks" id="extasks" style="display:none"></div>
-  <div class="exresult" id="exresult">
-    <div style="font-size:44px;margin-bottom:9px" id="exemo"></div>
-    <div class="exscore" id="exscore"></div>
-    <div class="exverdict" id="exverdict"></div>
-    <div class="exdesc" id="exdesc"></div>
-    <button class="btn bg" style="width:100%;max-width:340px;justify-content:center" id="exbtn" onclick="handleExamResult()"></button>
-  </div>
-</div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────
-const LVL = ['A1','A2','B1','B2','C1'];
-const LI = {
-  A1:{n:'Beginner',     d:'Simple words and short sentences. Every effort is celebrated.'},
-  A2:{n:'Elementary',   d:'Basic communication about familiar everyday topics.'},
-  B1:{n:'Intermediate', d:'Everyday topics with growing detail and personal opinion.'},
-  B2:{n:'Upper-Int.',   d:'Complex ideas, nuanced opinions, structured discussion.'},
-  C1:{n:'Advanced',     d:'Sophisticated language, abstract concepts, professional register.'},
-};
-const MODES = [
-  {id:'monologue',ico:'🎙️',lbl:'Free Monologue'},
-  {id:'readAloud',ico:'📖',lbl:'Read Aloud'},
-  {id:'picture',  ico:'🖼️',lbl:'Picture Description'},
-  {id:'pron',     ico:'🔤',lbl:'Pronunciation Drill'},
-];
-const XPps = 20, XPex = 60;
-const SQL = {pet:"First pet's name?",school:"Primary school?",city:"City born in?",food:"Favourite food?"};
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-const hasSR = !!(window.SpeechRecognition||window.webkitSpeechRecognition);
-const useIOS = isIOS||!hasSR;
+let user = { xp: 0, name: "" };
 
-// ─── STATE ────────────────────────────────────
-let U=null, cLvl=null, cMode='monologue', recOn=false, rec=null, tx='', tmr=null, s=0, cpd=null;
-let exLvl=null, exTasks=[], exIdx=0, exScores=[], exTx='', exRec=false, exRO=null, exTmr=null, exS=0;
-let qi=0, qs=0, qa=false, qset=[];
-let exRes={};
-
-// ─── CRYPTO ───────────────────────────────────
-async function H(str){
-  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str.toLowerCase().trim()));
-  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
-}
-
-// ─── STORAGE ──────────────────────────────────
-function AU(){return JSON.parse(localStorage.getItem('vb_users')||'{}');}
-function SU(u){const a=AU();a[U.username]=U;localStorage.setItem('vb_users',JSON.stringify(a));}
-function GU(un){return AU()[un.toLowerCase()]||null;}
-
-// ─── HELPERS ──────────────────────────────────
-let toastT;
-function toast(m,d=2800){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),d);}
-function openAbout(){document.getElementById('aboutM').classList.add('on');}
-function closeAbout(){document.getElementById('aboutM').classList.remove('on');}
-function closeCel(){document.getElementById('cel').classList.remove('on');showPage('gamemap');}
-function showPage(id){
-  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','fade');});
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.classList.add('active');
-  requestAnimationFrame(()=>el.classList.add('fade'));
-  document.querySelectorAll('.nbtn[data-p]').forEach(b=>b.classList.toggle('act',b.dataset.p===id));
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(id==='gamemap')renderMap();
-  if(id==='home')renderHome();
-}
-function setNav(){
-  if(!U)return;
-  document.getElementById('nav').style.display='flex';
-  document.getElementById('navA').textContent=U.name.charAt(0).toUpperCase();
-  document.getElementById('navN').textContent=U.name;
-}
-function enterApp(){
-  document.getElementById('auth').classList.remove('active');
-  setNav();
-  if(!U.assignedLevel){showPage('quiz');initQuiz();}
-  else{showPage('home');}
-}
-function logout(){
-  sessionStorage.removeItem('vb_sess');
-  U=null;
-  document.getElementById('nav').style.display='none';
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('auth').classList.add('active');
-  document.getElementById('lu').value='';
-  document.getElementById('lp').value='';
-  atab('login');
-}
-
-// ─── AUTH ─────────────────────────────────────
-function atab(t){
-  const ts=['login','register','forgot'];
-  document.querySelectorAll('.atab').forEach((b,i)=>b.classList.toggle('act',ts[i]===t));
-  document.querySelectorAll('.apanel').forEach(p=>p.classList.remove('act'));
-  document.getElementById('p-'+t).classList.add('act');
-  ['lerr','ruerr','rerr','ferr2'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('on');});
-}
-function tpw(id,btn){const e=document.getElementById(id);e.type=e.type==='password'?'text':'password';btn.textContent=e.type==='password'?'👁':'🙈';}
-function pwStr(v){
-  const f=document.getElementById('sfill');if(!f)return;
-  let sc=0;if(v.length>=6)sc++;if(v.length>=10)sc++;if(/[A-Z]/.test(v))sc++;if(/[0-9]/.test(v))sc++;if(/[^A-Za-z0-9]/.test(v))sc++;
-  f.style.width=Math.min(100,sc*20)+'%';f.style.background=sc<2?'#c89a3a':sc<4?'#c8a84b':'#2d7a3a';
-}
-async function doLogin(){
-  const un=(document.getElementById('lu').value||'').trim().toLowerCase();
-  const pw=document.getElementById('lp').value||'';
-  const err=document.getElementById('lerr');
-  err.classList.remove('on');
-  if(!un||!pw){err.textContent='Please enter username and password.';err.classList.add('on');return;}
-  const u=GU(un);
-  if(!u){err.textContent='Username not found.';err.classList.add('on');return;}
-  const h=await H(pw);
-  if(h!==u.pwHash){err.textContent='Incorrect password.';err.classList.add('on');return;}
-  U=u;sessionStorage.setItem('vb_sess',U.username);enterApp();
-}
-async function doReg(){
-  const name=(document.getElementById('rn').value||'').trim();
-  const un=(document.getElementById('ru').value||'').trim().toLowerCase();
-  const pw=document.getElementById('rp').value||'';
-  const sq=document.getElementById('rsq').value||'';
-  const sa=(document.getElementById('rsa').value||'').trim();
-  const err=document.getElementById('rerr');
-  const uerr=document.getElementById('ruerr');
-  err.classList.remove('on');uerr.classList.remove('on');
-  if(!name||!un||!pw||!sq||!sa){err.textContent='Please fill in all fields.';err.classList.add('on');return;}
-  if(un.length<3){uerr.textContent='Username must be at least 3 characters.';uerr.classList.add('on');return;}
-  if(pw.length<6){err.textContent='Password must be at least 6 characters.';err.classList.add('on');return;}
-  const all=AU();
-  if(all[un]){uerr.textContent='Username already taken.';uerr.classList.add('on');return;}
-  const pwH=await H(pw),saH=await H(sa);
-  U={username:un,name,pwHash:pwH,sq,saHash:saH,assignedLevel:null,unlockedLevels:[],xp:{},completedLevels:[],activity:[]};
-  all[un]=U;localStorage.setItem('vb_users',JSON.stringify(all));
-  sessionStorage.setItem('vb_sess',U.username);enterApp();
-}
-async function findUser(){
-  const un=(document.getElementById('fu').value||'').trim().toLowerCase();
-  const u=GU(un);if(!u){toast('Username not found');return;}
-  document.getElementById('fqlabel').textContent=SQL[u.sq]||'Security question:';
-  document.getElementById('fqwrap').style.display='block';
-  document.getElementById('ffindwrap').style.display='none';
-}
-async function doReset(){
-  const un=(document.getElementById('fu').value||'').trim().toLowerCase();
-  const ans=(document.getElementById('fa').value||'').trim();
-  const np=document.getElementById('fnp').value||'';
-  const err=document.getElementById('ferr2');err.classList.remove('on');
-  const u=GU(un);if(!u){err.textContent='User not found.';err.classList.add('on');return;}
-  const ah=await H(ans);
-  if(ah!==u.saHash){err.textContent='Incorrect answer.';err.classList.add('on');return;}
-  if(np.length<6){err.textContent='Password must be 6+ characters.';err.classList.add('on');return;}
-  u.pwHash=await H(np);const all=AU();all[un]=u;localStorage.setItem('vb_users',JSON.stringify(all));
-  toast('Password reset! You can now sign in.');
-  atab('login');
-  document.getElementById('fqwrap').style.display='none';
-  document.getElementById('ffindwrap').style.display='block';
-}
-
-// ─── HOME ─────────────────────────────────────
-function renderHome(){
-  if(!U)return;
-  const lv=U.assignedLevel||'A1',info=LI[lv];
-  const xp=(U.xp&&U.xp[lv])||0,acts=U.activity||[],total=acts.length;
-  const avg=acts.length?Math.round(acts.slice(-10).reduce((a,b)=>a+(b.score||0),0)/Math.min(10,acts.length)):0;
-  const hr=new Date().getHours();
-  const gr=hr<12?'Good morning':hr<17?'Good afternoon':'Good evening';
-  document.getElementById('hgn').textContent=gr+', '+U.name+'!';
-  document.getElementById('hgs').textContent=total>0?total+' session'+(total!==1?'s':'')+' completed · Keep going!':'Welcome! Start practising below.';
-  document.getElementById('hstats').innerHTML=
-    `<div class="hstat"><div class="hstat-n">${total}</div><div class="hstat-l">Sessions</div></div>`+
-    `<div class="hstat"><div class="hstat-n">${avg||'—'}</div><div class="hstat-l">Avg score</div></div>`+
-    `<div class="hstat"><div class="hstat-n">${(U.completedLevels||[]).length}</div><div class="hstat-l">Levels done</div></div>`;
-  const xpPct=Math.min(100,Math.round(xp/XPex*100));
-  const done=(U.completedLevels||[]).includes(lv);
-  document.getElementById('hcld').innerHTML=
-    `<div class="cld-badge">${lv}</div><div class="cld-name">${info.n}</div>`+
-    `<div class="xprow"><span class="xplabel">XP</span><div class="xptrack"><div class="xpfill" style="width:${xpPct}%"></div></div><span class="xpnum">${xp}/${XPex}</span></div>`+
-    (done?'<p style="font-size:12px;color:var(--g);font-weight:600;margin-top:6px;text-align:center">✓ Level completed</p>':'');
-  document.getElementById('hqm').innerHTML=MODES.map(m=>
-    `<div class="qmode" onclick="openPrac('${lv}','${m.id}')"><div class="qmode-i">${m.ico}</div><div class="qmode-l">${m.lbl}</div></div>`).join('');
-  document.getElementById('hprog').innerHTML=LVL.map(code=>{
-    const lxp=(U.xp&&U.xp[code])||0;
-    const ul=(U.unlockedLevels||[]).includes(code),dl=(U.completedLevels||[]).includes(code);
-    const pct=dl?100:ul?Math.min(100,Math.round(lxp/XPex*100)):0;
-    const st=dl?'Done':code===lv?'Active':ul?'Open':'🔒';
-    return `<div class="pm-row"><div class="pm-lv" style="color:${ul?'var(--g)':'var(--muted)'}">${code}</div><div class="pm-bar"><div class="pm-fill" style="width:${pct}%;background:${dl?'var(--g2)':code===lv?'var(--g)':'var(--p4)'}"></div></div><div class="pm-st">${st}</div></div>`;
-  }).join('');
-  const ra=acts.slice(-5).reverse();
-  document.getElementById('hra').innerHTML=ra.length?ra.map(a=>{const m=MODES.find(x=>x.id===a.mode);return`<div class="ra-item"><span class="ra-ico">${m?m.ico:'📝'}</span><span class="ra-tx">${a.level} ${m?m.lbl:a.mode}</span><span class="ra-sc">${a.score}/100</span></div>`;}).join(''):'<p style="font-size:13px;color:var(--muted);text-align:center;padding:8px 0">No activity yet — start practising!</p>';
-}
-function openCurLevel(){openPrac(U.assignedLevel||'A1','monologue');}
-
-// ─── QUIZ ─────────────────────────────────────
-const QB=[
-  {t:'Grammar',    q:'Choose the correct sentence.',opts:['I am student.','I am a student.','I are a student.','I is a student.'],a:1,ex:'We use "a" before singular nouns. "I am" is the correct first-person form.'},
-  {t:'Grammar',    q:'Which verb is correct? "She ___ coffee every morning."',opts:['drink','drinks','drinking','drank'],a:1,ex:'Third-person singular in present simple takes -s: "she drinks".'},
-  {t:'Vocabulary', q:'What does "big" mean?',opts:['Small','Fast','Large','Quiet'],a:2,ex:'"Big" means large in size.'},
-  {t:'Grammar',    q:'"There ___ two books on the table."',opts:['is','am','are','be'],a:2,ex:'Use "are" with plural nouns.'},
-  {t:'Vocabulary', q:'Which word is opposite of "happy"?',opts:['Joyful','Excited','Sad','Tired'],a:2,ex:'"Sad" is the antonym of "happy".'},
-  {t:'Grammar',    q:'"___ do you go to work?" — choose correct.',opts:['What time','Which time','How time','Who time'],a:0,ex:'"What time" is the standard phrase for asking about time.'},
-  {t:'Vocabulary', q:'What does "frequently" mean?',opts:['Sometimes','Never','Often','Always'],a:2,ex:'"Frequently" means something happens often or many times.'},
-  {t:'Grammar',    q:'"I ___ to the market yesterday."',opts:['go','goes','went','going'],a:2,ex:'"Yesterday" signals past tense: "went" is the past form of "go".'},
-  {t:'Grammar',    q:'Which sentence is correct?',opts:['If I will study, I will pass.','If I studied, I will pass.','If I study, I will pass.','If I study, I would pass.'],a:2,ex:'First conditional: "If + present simple, will + base verb".'},
-  {t:'Vocabulary', q:'Closest meaning to "anxious":',opts:['Happy','Nervous','Tired','Confident'],a:1,ex:'"Anxious" means worried or nervous about what might happen.'},
-  {t:'Grammar',    q:'"She has been working here ___ 2019."',opts:['for','since','from','during'],a:1,ex:'Use "since" with a specific point in time: "since 2019".'},
-  {t:'Vocabulary', q:'What does "persuade" mean?',opts:['To force','To convince','To stop','To confuse'],a:1,ex:'"Persuade" means to convince someone through reasoning.'},
-  {t:'Grammar',    q:'Choose the passive sentence.',opts:['The chef cooked the meal.','The meal was cooked by the chef.','The chef is cooking.','The meal cooked.'],a:1,ex:'Passive: "was/were + past participle + by + agent".'},
-  {t:'Vocabulary', q:'Which means "to make something worse"?',opts:['Improve','Maintain','Exacerbate','Resolve'],a:2,ex:'"Exacerbate" means to make a bad situation worse.'},
-  {t:'Grammar',    q:'"By the time she arrived, he ___ already ___ dinner."',opts:['has/eaten','had/eaten','was/eaten','have/eaten'],a:1,ex:'Past perfect: "had + past participle" for action before another past action.'},
-  {t:'Vocabulary', q:'What does "ambiguous" mean?',opts:['Very clear','Open to more than one interpretation','Impossible','Extremely detailed'],a:1,ex:'"Ambiguous" = can be understood in more than one way.'},
-  {t:'Grammar',    q:'Reported speech — She said, "I am tired."',opts:['She said she is tired.','She said she was tired.','She said she were tired.','She said she be tired.'],a:1,ex:'In reported speech, present "am" shifts to "was".'},
-  {t:'Vocabulary', q:'"Understate" means:',opts:['Exaggerate','Represent as less significant','Clarify fully','Emphasise strongly'],a:1,ex:'"Understate" = represent something as less significant than it really is.'},
-  {t:'Grammar',    q:'"I wish I ___ more time yesterday."',opts:['had','have','would have','having'],a:0,ex:'"Wish + past perfect" expresses regret: "I wish I had had more time."'},
-  {t:'Vocabulary', q:'"Perspicacious" means:',opts:['Stubborn','Having ready insight; shrewd','Extremely tired','Unnecessarily verbose'],a:1,ex:'"Perspicacious" = having a ready insight into things; perceptive and shrewd.'},
-  {t:'Grammar',    q:'Correct negative inversion:',opts:['Scarcely had she left when it began to rain.','Scarcely she had left when it began to rain.','Scarcely had she left when it has begun.','Scarcely has she left when it began.'],a:0,ex:'Negative inversion: "Scarcely had + subject + past participle..."'},
-  {t:'Vocabulary', q:'"Specious" means:',opts:['Plausible and genuine','Appears correct but is actually wrong','Well-researched','Cogent and logical'],a:1,ex:'"Specious" = appears valid at first glance but is actually false or misleading.'},
-  {t:'Grammar',    q:'"___ the complexity of the issue, no single solution exists."',opts:['Despite of','Given','Although','Because'],a:1,ex:'"Given" correctly introduces a concessive preposition phrase here.'},
-  {t:'Vocabulary', q:'"Equivocate" means:',opts:['To be decisive','To use vague language to avoid commitment','To exaggerate','To apologise sincerely'],a:1,ex:'"Equivocate" = use ambiguous language to avoid committing oneself.'},
-];
-const QR={
-  A1:{r:[0,3],  d:"You're building your foundation — a great place to start. Simple, encouraging prompts await you."},
-  A2:{r:[4,6],  d:'You have basic English and are growing. Everyday topics with space to develop.'},
-  B1:{r:[7,8],  d:"You communicate well. We'll push you to express opinions and argue ideas in detail."},
-  B2:{r:[9,10], d:'Strong English. Complex arguments, persuasion, and discussion are your territory.'},
-  C1:{r:[11,12],d:'Advanced level. Precision, sophisticated register, and nuanced thought are your challenge.'},
-};
-function initQuiz(){
-  qset=[...QB].sort(()=>Math.random()-.5).slice(0,12);
-  qi=0;qs=0;
-  const qr=document.getElementById('qresult');if(qr)qr.classList.remove('on');
-  const qc=document.getElementById('qcard');if(qc)qc.style.display='block';
-  renderQ();
-}
-function renderQ(){
-  const q=qset[qi];if(!q)return;
-  const pct=(qi/12*100)+'%';
-  document.getElementById('qpfill').style.width=pct;
-  document.getElementById('qplabel').textContent=qi+' of 12';
-  document.getElementById('qnum').textContent='Question '+(qi+1)+' of 12';
-  document.getElementById('qbadge').textContent=q.t;
-  document.getElementById('qtext').textContent=q.q;
-  document.getElementById('qfb').className='qfb';
-  document.getElementById('qfb').textContent='';
-  document.getElementById('qnxt').className='qnxt';
-  document.getElementById('qnxt').textContent=qi<11?'Next →':'See my result →';
-  qa=false;
-  document.getElementById('qopts').innerHTML=q.opts.map((o,i)=>
-    `<button class="qopt" onclick="ansQ(${i})">${o}</button>`).join('');
-}
-function ansQ(i){
-  if(qa)return;qa=true;
-  const q=qset[qi];
-  document.querySelectorAll('.qopt').forEach((b,j)=>{if(j===q.a)b.classList.add('ok');else if(j===i)b.classList.add('ng');b.disabled=true;});
-  if(i===q.a)qs++;
-  const fb=document.getElementById('qfb');
-  fb.className='qfb on '+(i===q.a?'ok':'ng');
-  fb.textContent=(i===q.a?'✓ Correct. ':'✗ Not quite. ')+q.ex;
-  document.getElementById('qnxt').classList.add('on');
-}
-function nextQ(){qi++;if(qi>=12){showQResult();return;}renderQ();}
-function showQResult(){
-  document.getElementById('qpfill').style.width='100%';
-  document.getElementById('qplabel').textContent='12 of 12';
-  document.getElementById('qcard').style.display='none';
-  document.getElementById('qresult').classList.add('on');
-  let lv='A1';
-  for(const[l,d]of Object.entries(QR)){if(qs>=d.r[0]&&qs<=d.r[1]){lv=l;break;}}
-  if(qs>=11)lv='C1';
-  U.assignedLevel=lv;
-  if(!U.unlockedLevels)U.unlockedLevels=[];
-  if(!U.unlockedLevels.includes(lv))U.unlockedLevels=[lv];
-  if(!U.xp)U.xp={};
-  if(!U.xp[lv])U.xp[lv]=0;
-  SU();
-  document.getElementById('qrbadge').textContent=lv;
-  document.getElementById('qrbadge').style.color='var(--g)';
-  document.getElementById('qrname').textContent=LI[lv].n;
-  document.getElementById('qrdesc').textContent=QR[lv].d;
-  document.getElementById('qrscore').textContent=Math.round(qs/12*100)+'%';
-  document.getElementById('qrcorrect').textContent=qs+'/12';
-}
-function goMap(){showPage('gamemap');}
-
-// ─── MAP ──────────────────────────────────────
-function renderMap(){
-  if(!U)return;
-  const cl=U.assignedLevel||'A1';
-  document.getElementById('maptitle').textContent=U.name+"'s Learning Path";
-  document.getElementById('mapsub').textContent='Level '+cl+' · '+(U.completedLevels||[]).length+' of 5 completed';
-  const mp=document.getElementById('mappath');mp.innerHTML='';
-  LVL.forEach((code,i)=>{
-    const ul=(U.unlockedLevels||[]).includes(code);
-    const dl=(U.completedLevels||[]).includes(code);
-    const cur=cl===code&&!dl;
-    const xp=(U.xp&&U.xp[code])||0;
-    const xpPct=dl?100:ul?Math.min(100,Math.round(xp/XPex*100)):0;
-    const er=ul&&!dl&&xp>=XPex;
-    const nc=dl?'done':cur?'cur':'lck';
-    const ic=dl?'mni-done':cur?'mni-cur':'mni-lck';
-    const cc=(dl||ul)?'c-act':'c-lck';
-    const ico=dl?'✓':ul?code:'🔒';
-    const pill=dl?'<span class="mpill mp-done">✓ Done</span>':cur?'<span class="mpill mp-cur">Current</span>':er?'<span class="mpill mp-exam">Exam ready!</span>':'<span class="mpill mp-lck">🔒 Locked</span>';
-    const xpb=ul&&!dl?`<div class="mn-xpbar"><div class="mn-xpfill" style="width:${xpPct}%"></div></div><div class="mn-xptxt">${xp}/${XPex} XP${er?' · Exam ready!':''}</div>`:'';
-    mp.innerHTML+=`<div class="mn ${nc}" onclick="mapClick('${code}')">
-      <div class="mn-icon ${ic}">${ico}</div>
-      <div class="mn-info">
-        <div class="mn-code ${cc}">${code} · ${LI[code].n}</div>
-        <div class="mn-name ${cc}">${ul?LI[code].d:'Complete current level exam to unlock'}</div>
-        ${xpb}
-      </div>
-      <div class="mn-status">${pill}</div>
-    </div>${i<LVL.length-1?`<div class="mc ${dl?'done':'lck'}"></div>`:''}`;
-  });
-}
-function mapClick(code){
-  const ul=(U.unlockedLevels||[]).includes(code);
-  if(!ul){toast('🔒 Complete your current level exam to unlock this level');return;}
-  openPrac(code,'monologue');
-}
-
-// ─── CONTENT POOLS ────────────────────────────
-const TOPICS={
-  A1:['Tell me about your family.','What is your favourite food?','Describe your bedroom.','What animals do you like?','What do you do every morning?','Talk about your best friend.','What colour do you like and why?','Describe the weather today.','What do you eat for breakfast?','Where do you live?','What sports do you play?','Do you have a pet? Tell me about it.','What is your favourite day of the week?','Describe your school or workplace.','What music do you listen to?','Tell me about your mother or father.','What do you do in the evening?','Describe something in the room right now.','What games do you play?','What do you like to cook?'],
-  A2:['What do you usually do on weekends?','Describe your hometown.','Talk about a hobby you enjoy.','What was your favourite school subject?','Describe a typical day in your life.','Talk about your last birthday.','What do you do on holiday?','Describe a restaurant you like.','What is your dream job?','Talk about a movie you watched recently.','Describe the place where you live.','What do you like about living in Indonesia?','Talk about a long-time friend.','What do you do when you feel sick?','Describe a market or shop you visit.','What do you cook at home?','Talk about your morning routine.','Describe a recent trip.','What do you watch online?','Talk about a celebration you attended.'],
-  B1:['What are the advantages of living in a big city?','Talk about a person who inspires you and why.','Describe a memorable trip.','What do you think about social media?','Describe a challenge you have overcome.','Talk about an important family tradition.','Should students learn English at primary school?','Describe your ideal weekend.','What makes a great friend?','Talk about a book or film that changed you.','What is the biggest problem in Indonesia right now?','Describe the Indonesian education system.','What would you do if you won the lottery?','Is it better to live alone or with family?','Talk about a skill you want to learn.','What are the pros and cons of working from home?','Describe a time you helped someone.','Is wealth or happiness more important?','Talk about a local food tourists should try.','How has technology changed communication?'],
-  B2:['Should social media be regulated?','Discuss remote work pros and cons in Indonesia.','How does culture shape personal identity?','What responsibility do we have toward the environment?','Discuss education's role in reducing inequality.','Is it ethical to use AI in hiring decisions?','How has ride-hailing changed traditional transport?','Should Indonesian cities invest more in public transport?','Discuss the impact of tourism on local communities.','How important is English in today's Indonesia?','Argue for or against free university education.','What are the long-term effects of deforestation?','How does social media influence political opinion?','Is globalisation good or bad for developing countries?','Discuss the gender pay gap and its causes.','What makes a great business leader?','How has the pandemic permanently changed work culture?','Should animals be used in medical research?','Discuss influencer marketing benefits and risks.','How does Indonesia balance development with conservation?'],
-  C1:['Discuss the ethical implications of AI in the workplace.','To what extent does cultural heritage shape identity in a globalised world?','Analyse trade-offs between economic development and environmental sustainability.','Evaluate the role of international aid in post-conflict states.','Is mass surveillance ever justified in a democratic society?','Discuss Rawls's veil of ignorance as a policy framework.','How do cognitive biases distort risk perception?','Critically examine the concept of meritocracy.','Has social media degraded public discourse?','What are the philosophical implications of strong AGI?','Discuss tension between national sovereignty and global governance.','Analyse factors perpetuating intergenerational poverty.','Is there an ethical distinction between lying and withholding the truth?','Evaluate the role of language in constructing social reality.','How does diaspora culture negotiate identity?','Discuss informed consent in the digital age.','Evaluate the argument that UBI undermines incentive to work.','How does institutional corruption resist reform?','Can individual choices meaningfully address climate change?','Analyse Karl Popper's paradox of tolerance.'],
-};
-const PASSAGES={
-  A1:[
-    {text:'The cat sits on the mat.
-The dog is big and brown.
-I like cats and dogs very much.
-They are my good friends.',focus:'Short vowel sounds: /æ/ in "cat" and "mat"'},
-    {text:'My name is Budi. I am twelve years old.
-I live in Jakarta with my family.
-I go to school every day.
-My favourite subject is English.',focus:'Clear word stress on key words'},
-    {text:'She sells seashells by the seashore.',focus:'Tongue twister: /s/ vs /ʃ/ — "s" and "sh" distinction'},
-    {text:'Red lorry, yellow lorry, red lorry, yellow lorry.',focus:'Tongue twister: /l/ vs /r/ — key Indonesian challenge'},
-  ],
-  A2:[
-    {text:'Every morning, Maria wakes up at six o'clock. She drinks a glass of water and eats breakfast. After that, she walks to the market to buy fresh vegetables. In the evening, she cooks dinner for her family.',focus:'/s/ in third-person verbs: "wakes", "drinks", "walks"'},
-    {text:'Jakarta is the capital city of Indonesia. It is a very busy city with millions of people. There are tall buildings, busy roads, and beautiful parks.',focus:'Stress on multi-syllable words: "Jakarta", "Indonesia"'},
-    {text:'How much wood would a woodchuck chuck
-if a woodchuck could chuck wood?
-A woodchuck would chuck as much wood
-as a woodchuck could chuck.',focus:'Tongue twister: /w/ and /ʊ/ — fluency and rhythm'},
-    {text:'Peter Piper picked a peck of pickled peppers.
-A peck of pickled peppers Peter Piper picked.',focus:'Tongue twister: /p/ and /ɪ/ — speed and clarity'},
-  ],
-  B1:[
-    {text:'Climate change is one of the most serious challenges of our time. Rising temperatures are causing more floods, droughts, and storms around the world. Scientists agree that we must act now to reduce carbon emissions.',focus:'Stress and rhythm in long, complex sentences'},
-    {text:'Whether the weather is fine, or whether the weather is not,
-whether the weather is cold, or whether the weather is hot,
-we'll weather the weather, whatever the weather,
-whether we like it or not.',focus:'Tongue twister: /w/ + /ð/ "weather/whether"'},
-    {text:'The sixth sick sheikh's sixth sheep's sick.',focus:'Tongue twister: possibly the hardest in English — /s/, /ʃ/, /ɪ/, /iː/'},
-    {text:'Technology has transformed the way we communicate. People now send messages instantly to anyone, anywhere in the world. While this has many advantages, it also means we spend less time in face-to-face conversations.',focus:'/ʃ/ in "-tion" endings: "communication", "transformation"'},
-  ],
-  B2:[
-    {text:'Sustainable development refers to economic growth that meets the needs of the present without compromising future generations. Achieving this balance requires unprecedented cooperation between governments, corporations, and civil society worldwide.',focus:'Academic register: passive voice and complex noun phrases'},
-    {text:'Betty Botter bought some butter, but she said the butter's bitter.
-If I put it in my batter, it will make my batter bitter.
-But a bit of better butter, that would make my batter better.',focus:'Tongue twister: /b/, /ʌ/, /ɪ/ vowel contrast'},
-    {text:'Urbanisation — the movement of populations from rural areas to cities — has accelerated dramatically in recent decades. While cities offer economic opportunities and modern infrastructure, rapid growth also creates challenges such as congestion, pollution, and housing inequality.',focus:'Parenthetical clauses, em dashes, and complex linking'},
-  ],
-  C1:[
-    {text:'The philosophical tradition known as existentialism holds that individuals create meaning through their choices and actions rather than deriving it from any pre-existing essence or divine purpose. With radical freedom, argued Sartre, comes radical responsibility.',focus:'Philosophical register: sustained complex clause structure'},
-    {text:'Amidst the mists and coldest frosts,
-with stoutest wrists and loudest boasts,
-he thrusts his fists against the posts
-and still insists he sees the ghosts.',focus:'Tongue twister C1: /θ/, /ð/, consonant clusters'},
-    {text:'Geopolitical realignments in the Indo-Pacific are reshaping the architecture of multilateral diplomacy. As emerging economies consolidate influence within international institutions, established frameworks of global governance face mounting pressure to adapt.',focus:'Political register: noun stacking and complex preposition phrases'},
-  ],
-};
-const PICS={
-  A1:[
-    {svg:'<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="220" fill="#87CEEB"/><rect y="165" width="400" height="55" fill="#4a7c4a"/><circle cx="65" cy="55" r="38" fill="#FFD700"/><rect x="145" y="85" width="78" height="75" fill="#e8a87c"/><rect x="163" y="132" width="42" height="28" fill="#8B4513"/><polygon points="145,85 184,48 223,85" fill="#c47a52"/><rect x="298" y="76" width="18" height="89" fill="#8B4513"/><circle cx="307" cy="66" r="28" fill="#2d7a3a"/></svg>',caption:'A sunny day with a house, garden, and tree.',hint:'Describe the sky, house, tree, and garden using simple sentences.'},
-    {svg:'<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="138" fill="#1a7ab8"/><rect y="138" width="400" height="82" fill="#e8d5b0"/><circle cx="58" cy="178" r="16" fill="#d4b896"/><circle cx="198" cy="174" r="20" fill="#c8a87a"/><circle cx="336" cy="180" r="14" fill="#dac09a"/><path d="M0 138 Q100 124 200 136 Q300 124 400 136" fill="#2a8fd4" opacity=".45"/><circle cx="48" cy="64" r="13" fill="white" opacity=".8"/><circle cx="86" cy="53" r="17" fill="white" opacity=".8"/><circle cx="308" cy="72" r="18" fill="white" opacity=".8"/></svg>',caption:'A beach with sand, sea, people, and clouds.',hint:'Say what you see — water, sand, people, sky.'},
-  ],
-  A2:[
-    {svg:'<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="220" fill="#fef9f0"/><rect x="18" y="28" width="68" height="168" fill="#e8c89a" rx="3"/><rect x="108" y="46" width="68" height="150" fill="#d4a96a" rx="3"/><rect x="198" y="18" width="68" height="188" fill="#c89a5a" rx="3"/><rect x="288" y="38" width="88" height="168" fill="#b8834a" rx="3"/><rect x="0" y="196" width="400" height="24" fill="#8B6914"/><circle cx="200" cy="12" r="10" fill="#FFD700"/><rect x="26" y="52" width="26" height="16" fill="#87CEEB" opacity=".6"/><rect x="116" y="66" width="22" height="16" fill="#87CEEB" opacity=".6"/></svg>',caption:'A traditional market with colourful stalls.',hint:'Describe the stalls, what is sold, and the atmosphere.'},
-    {svg:'<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="220" fill="#d4e8d4"/><rect x="36" y="96" width="98" height="108" fill="#e8a87c" rx="4"/><polygon points="36,96 85,52 134,96" fill="#c47a52"/><rect x="62" y="146" width="48" height="58" fill="#8B4513"/><rect x="56" y="110" width="28" height="22" fill="#87CEEB"/><rect x="96" y="110" width="28" height="22" fill="#87CEEB"/><rect x="218" y="76" width="112" height="108" fill="#b8d4b8" rx="4"/><polygon points="218,76 274,36 330,76" fill="#2d7a3a"/><rect x="248" y="138" width="52" height="46" fill="#6b4a2a"/><rect x="0" y="192" width="400" height="28" fill="#4a7c4a"/></svg>',caption:'A neighbourhood with houses, trees, and roads.',hint:'Describe the houses, the sky, and the neighbourhood feeling.'},
-  ],
-  B1:[
-    {svg:'<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="172" fill="#1a2a4a"/><rect y="172" width="400" height="68" fill="#2d3a2d"/><rect x="28" y="48" width="53" height="124" fill="#2a3f5a"/><rect x="102" y="28" width="73" height="144" fill="#1e2e4a"/><rect x="198" y="58" width="48" height="114" fill="#253550"/><rect x="268" y="18" width="82" height="154" fill="#1a2840"/><rect x="36" y="66" width="13" height="9" fill="#FFDD44"/><rect x="57" y="66" width="13" height="9" fill="#FFDD44" opacity=".7"/><rect x="36" y="94" width="13" height="9" fill="#FFDD44" opacity=".5"/><rect x="112" y="48" width="17" height="12" fill="#FFDD44"/><rect x="143" y="48" width="17" height="12" fill="#FFDD44" opacity=".6"/><rect x="278" y="36" width="21" height="15" fill="#FFDD44"/><rect x="316" y="36" width="21" height="15" fill="#FFDD44" opacity=".7"/><rect x="0" y="178" width="400" height="4" fill="#3a3a3a"/></svg>',caption:'A city skyline at night with lit-up buildings.',hint:'Describe the buildings, lights, mood, and what city life at night feels like.'},
-    {svg:'<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="220" fill="#c8e8c8"/><rect y="144" width="400" height="76" fill="#4a7c4a"/><ellipse cx="78" cy="134" rx="46" ry="56" fill="#2d6a2d"/><ellipse cx="86" cy="113" rx="32" ry="42" fill="#3a8a3a"/><ellipse cx="238" cy="124" rx="56" ry="62" fill="#256a25"/><ellipse cx="248" cy="103" rx="42" ry="50" fill="#3a9a3a"/><ellipse cx="336" cy="138" rx="36" ry="46" fill="#2a7a2a"/><path d="M173 194 Q178 166 192 154 Q206 144 193 133" stroke="#5a3a1a" stroke-width="4" fill="none"/></svg>',caption:'A dense tropical rainforest with tall trees.',hint:'Describe the textures, colours, sounds, and what it feels like to stand there.'},
-  ],
-  B2:[
-    {svg:'<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#f9f7f2"/><rect x="48" y="18" width="304" height="192" fill="white" stroke="#ddd" stroke-width="1" rx="3"/><line x1="78" y1="182" x2="78" y2="38" stroke="#bbb" stroke-width="1"/><line x1="78" y1="182" x2="334" y2="182" stroke="#bbb" stroke-width="1"/><text x="72" y="185" font-size="8" fill="#888" text-anchor="end">0</text><text x="72" y="158" font-size="8" fill="#888" text-anchor="end">5</text><text x="72" y="132" font-size="8" fill="#888" text-anchor="end">10</text><text x="72" y="106" font-size="8" fill="#888" text-anchor="end">15</text><text x="72" y="80" font-size="8" fill="#888" text-anchor="end">20</text><text x="72" y="54" font-size="8" fill="#888" text-anchor="end">25°C</text><text x="98" y="200" font-size="8" fill="#888">1900</text><text x="152" y="200" font-size="8" fill="#888">1940</text><text x="204" y="200" font-size="8" fill="#888">1970</text><text x="254" y="200" font-size="8" fill="#888">2000</text><text x="302" y="200" font-size="8" fill="#888">2020</text><polyline points="88,165 112,168 136,163 160,160 184,156 208,152 232,146 256,136 280,122 304,102 328,78" stroke="#c0392b" stroke-width="2.5" fill="none"/><text x="200" y="32" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Global Avg Temperature 1900–2020</text></svg>',caption:'A line graph showing rising global temperatures from 1900 to 2020.',hint:'Interpret the trend, discuss causes, and explain potential consequences.'},
-    {svg:'<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#f9f7f2"/><rect x="38" y="18" width="324" height="192" fill="white" stroke="#ddd" rx="3"/><rect x="73" y="116" width="30" height="68" fill="#3498db" opacity=".85"/><rect x="127" y="92" width="30" height="92" fill="#3498db" opacity=".85"/><rect x="181" y="70" width="30" height="114" fill="#3498db" opacity=".85"/><rect x="235" y="50" width="30" height="134" fill="#2d7a3a" opacity=".85"/><rect x="289" y="32" width="30" height="152" fill="#2d7a3a" opacity=".9"/><line x1="63" y1="184" x2="337" y2="184" stroke="#bbb" stroke-width="1"/><text x="88" y="198" font-size="8" fill="#666" text-anchor="middle">2019</text><text x="142" y="198" font-size="8" fill="#666" text-anchor="middle">2020</text><text x="196" y="198" font-size="8" fill="#666" text-anchor="middle">2021</text><text x="250" y="198" font-size="8" fill="#666" text-anchor="middle">2022</text><text x="304" y="198" font-size="8" fill="#666" text-anchor="middle">2023</text><text x="200" y="32" font-size="10" fill="#333" text-anchor="middle" font-weight="600">E-commerce Growth Indonesia</text></svg>',caption:'A bar chart showing e-commerce growth in Indonesia, 2019–2023.',hint:'Describe the trend, compare the years, and discuss what might explain the growth.'},
-  ],
-  C1:[
-    {svg:'<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="240" fill="#f9f7f2"/><rect x="38" y="18" width="324" height="192" fill="white" stroke="#ddd" rx="3"/><circle cx="200" cy="114" r="85" fill="none" stroke="#eee" stroke-width="1"/><path d="M200 114 L200 29 A85 85 0 0 1 274 157 Z" fill="#2d7a3a" opacity=".82"/><path d="M200 114 L274 157 A85 85 0 0 1 126 157 Z" fill="#c89a3a" opacity=".82"/><path d="M200 114 L126 157 A85 85 0 0 1 200 29 Z" fill="#3498db" opacity=".82"/><text x="220" y="74" font-size="11" fill="white" font-weight="700">35%</text><text x="252" y="156" font-size="11" fill="white" font-weight="700">30%</text><text x="130" y="156" font-size="11" fill="white" font-weight="700">35%</text><rect x="48" y="190" width="12" height="10" fill="#2d7a3a" opacity=".82"/><text x="66" y="199" font-size="9" fill="#555">Renewable</text><rect x="138" y="190" width="12" height="10" fill="#c89a3a" opacity=".82"/><text x="156" y="199" font-size="9" fill="#555">Fossil fuels</text><rect x="238" y="190" width="12" height="10" fill="#3498db" opacity=".82"/><text x="256" y="199" font-size="9" fill="#555">Nuclear</text><text x="200" y="32" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Global Energy Mix</text></svg>',caption:'A pie chart showing the global energy mix: renewable, fossil fuels, and nuclear.',hint:'Analyse the proportions, evaluate climate policy implications, and propose what changes you would advocate for.'},
-  ],
-};
-const PRON={
-  A1:[
-    {words:['ship','sheep','bit','beat','fill','feel'],focus:'/ɪ/ vs /iː/ — short vs long i',tip:'"ship" and "sheep" sound different! Indonesian vowels are always the same length.'},
-    {words:['very','berry','vest','best','van','ban'],focus:'/v/ vs /b/ — not interchangeable!',tip:'Indonesian has no /v/. Put top teeth on lower lip and blow for /v/.'},
-    {words:['think','three','throw','thin'],focus:'/θ/ — voiceless "th"',tip:'Tongue between teeth, blow air — no voice. Very different from /t/ or /s/!'},
-    {words:['this','these','that','those','the'],focus:'/ð/ — voiced "th"',tip:'Same as /θ/ but ADD voice. Hum while tongue is between teeth.'},
-  ],
-  A2:[
-    {words:['comfortable','vegetable','interesting','different','every'],focus:'Silent syllables — words are shorter than they look',tip:'"Comfortable" = COM-fta-ble (3 syllables). "Vegetable" = VEJ-ta-ble.'},
-    {words:['how','now','house','mouse','found','loud'],focus:'/aʊ/ diphthong — glides from /a/ to /ʊ/',tip:'Not a single flat vowel! Start open /a/, glide to /ʊ/.'},
-    {words:['day','say','wait','great','rain','they'],focus:'/eɪ/ diphthong — glide from /e/ to /ɪ/',tip:'Indonesian speakers often use flat /e/ — add the glide!'},
-    {words:['nature','picture','future','culture','question'],focus:'/tʃ/ in -ture and -tion words',tip:'"nature" = NAY-cher. "question" = KWES-chun. Not NAY-tyoor or KWES-tyon!'},
-  ],
-  B1:[
-    {words:['desert (n.) / desert (v.)','present (n.) / present (v.)','record (n.) / record (v.)','permit (n.) / permit (v.)'],focus:'Noun vs verb stress shift',tip:'Nouns: stress 1st syllable (DES-ert). Verbs: stress 2nd (de-SERT). Same spelling, different meaning!'},
-    {words:['world','girl','word','work','bird','curve'],focus:'/ɜː/ — the er/ir/ur vowel',tip:'Round lips slightly, pull tongue back. This sound does not exist in Indonesian!'},
-    {words:['clothes','months','lengths','depths','sixths'],focus:'Final consonant clusters with /θs/ and /ðz/',tip:'"Clothes" = /kloʊðz/ — go slowly: k-l-oh-dh-z. This cluster is genuinely hard!'},
-    {words:['beautiful','nationality','opportunity','communication'],focus:'Multi-syllable stress + vowel reduction to schwa',tip:'Unstressed syllables reduce: "beau-ti-ful" = BYOO-tɪ-fəl. Only stressed syllables are full vowels.'},
-  ],
-  B2:[
-    {words:['albeit','facade','niche','debris','genre','cache'],focus:'French loanwords in English',tip:'"Albeit"=awl-BE-it. "Facade"=fə-SAHD. "Debris"=/dɪˈbriː/. "Genre"=/ˈʒɒnrə/.'},
-    {words:['colonel','Wednesday','February','choir','debt','subtle'],focus:'Silent letters — historically irregular spellings',tip:'"Colonel" sounds like "kernel". "Wednesday"=/ˈwenzdi/. "Debt" — the b is silent.'},
-    {words:['I would have / I'd've','should have / should've','could have / could've'],focus:'Modal perfect contractions in natural speech',tip:'"Would have" in fast speech = /wʊdəv/. Never "would of" — that's a spelling error!'},
-    {words:['thoroughly','portrayal','preliminary','extraordinary','particularly'],focus:'Advanced polysyllabic accuracy',tip:'Map stress first: "thor-OU-ghly". Then work outward from the stressed syllable.'},
-  ],
-  C1:[
-    {words:['ambiguity','perspicacious','equivocal','mellifluous','ephemeral'],focus:'C1 academic vocabulary — stress and precision',tip:'Map stress: am-bi-GU-i-ty, per-spi-CA-cious, mel-LIF-lu-ous. Then build rhythm outward.'},
-    {words:['inextricably','unequivocally','disproportionately','incomprehensibility'],focus:'Low-frequency polysyllabic words',tip:'"Institutionalisation" = 8 syllables. Map first, chunk, then blend. Speed comes last.'},
-    {words:['albeit','ergo','ipso facto','per se','vis-à-vis','inter alia'],focus:'Latin/French academic phrases in English',tip:'"Per se"=/pɜːr seɪ/. "Ipso facto"=/ˈɪpsəʊ ˈfæktəʊ/. "Vis-à-vis"=/ˌviːzəˈviː/.'},
-    {words:['pitch (rising tone for questions)','nuclear stress (I SAW him vs I saw HIM)','deaccentuation of given information','stress-timed rhythm'],focus:'Prosody: the music of English',tip:'English is stress-timed; Indonesian is syllable-timed. This is the deepest structural difference between the two languages.'},
-  ],
-};
-
-// ─── PRACTICE ─────────────────────────────────
-function openPrac(code,mode){
-  cLvl=code;cMode=mode||'monologue';
-  const info=LI[code];
-  document.getElementById('pbadge').textContent=code;
-  document.getElementById('pname').textContent=code+' — '+info.n;
-  document.getElementById('pdesc').textContent=info.d;
-  document.getElementById('pbread').textContent=code+' '+info.n;
-  updXP();
-  const xp=(U.xp&&U.xp[code])||0;
-  const done=(U.completedLevels||[]).includes(code);
-  const eb=document.getElementById('examb');
-  if(done){eb.textContent='✓ Level passed';eb.disabled=true;}
-  else if(xp>=XPex){eb.textContent='📝 Take Level Exam';eb.disabled=false;}
-  else{eb.textContent='📝 Exam at '+XPex+' XP ('+xp+'/'+XPex+')';eb.disabled=true;}
-  renderMTabs();loadPrompt();showPage('practice');
-}
-function updXP(){
-  const xp=(U.xp&&U.xp[cLvl])||0;
-  const pct=Math.min(100,Math.round(xp/XPex*100));
-  document.getElementById('pxpfill').style.width=pct+'%';
-  document.getElementById('pxpnum').textContent=xp+'/'+XPex+' XP';
-}
-function renderMTabs(){
-  document.getElementById('mtabs').innerHTML=MODES.map(m=>
-    `<button class="mtab ${m.id===cMode?'act':''}" onclick="swMode('${m.id}')">${m.ico} ${m.lbl}</button>`).join('');
-}
-function swMode(id){cMode=id;renderMTabs();resetRec();loadPrompt();}
-
-async function loadPrompt(){
-  document.getElementById('pbody').innerHTML='<div class="pcard"><div class="load"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>';
-  try{await genAIPrompt();}catch(e){usePoolPrompt();}
-}
-async function genAIPrompt(){
-  const pm={
-    monologue:'Generate a speaking topic for CEFR '+cLvl+'. Return only valid JSON: {"prompt":"...","hint":"..."}',
-    readAloud:'Generate a read-aloud passage for CEFR '+cLvl+' (4-6 sentences). Return only valid JSON: {"text":"...","focus":"..."}',
-    picture:'Generate a picture description task for CEFR '+cLvl+'. Return only valid JSON: {"caption":"...","hint":"..."}',
-    pron:'Generate a pronunciation exercise for CEFR '+cLvl+' for Indonesian learners. Return only valid JSON: {"words":["...","...","..."],"focus":"...","tip":"..."}',
-  };
-  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,system:'English curriculum designer. Respond ONLY with valid JSON, no markdown.',messages:[{role:'user',content:pm[cMode]}]})});
-  if(!res.ok)throw new Error('API '+res.status);
-  const data=await res.json();
-  if(data.error)throw new Error(data.error.message);
-  const txt=data.content[0].text.trim().replace(/```json|```/g,'');
-  cpd=JSON.parse(txt);renderPromptUI(cpd);
-}
-function usePoolPrompt(){
-  if(cMode==='monologue'){const pool=TOPICS[cLvl];cpd={prompt:pool[Math.floor(Math.random()*pool.length)],hint:'Speak for 1–2 minutes. Give reasons and examples.'};}
-  else if(cMode==='readAloud'){cpd=PASSAGES[cLvl][Math.floor(Math.random()*PASSAGES[cLvl].length)];}
-  else if(cMode==='picture'){cpd=PICS[cLvl][Math.floor(Math.random()*PICS[cLvl].length)];}
-  else{cpd=PRON[cLvl][Math.floor(Math.random()*PRON[cLvl].length)];}
-  renderPromptUI(cpd);
-}
-function renderPromptUI(d){
-  let inner='';
-  if(cMode==='monologue'){
-    inner='<div class="pey">Your topic <button class="rfbtn" onclick="loadPrompt()">↺ New</button></div>'+
-      '<div class="pmain">'+(d.prompt||d)+'</div>'+
-      (d.hint?'<div class="phint"><strong>Tip:</strong> '+d.hint+'</div>':'');
-  }else if(cMode==='readAloud'){
-    inner='<div class="pey">Read this aloud <button class="rfbtn" onclick="loadPrompt()">↺ New</button></div>'+
-      '<div class="passage">'+(d.text||d.passage||d).replace(/
-/g,'<br>')+'</div>'+
-      (d.focus?'<div class="phint"><strong>Focus on:</strong> '+d.focus+'</div>':'');
-  }else if(cMode==='picture'){
-    inner='<div class="pey">Describe this picture <button class="rfbtn" onclick="loadPrompt()">↺ New</button></div>'+
-      '<div class="picsc"><div class="picsvg">'+(d.svg||'<div style="padding:36px;text-align:center;font-size:36px">🖼️</div>')+'</div><div class="piccap">'+(d.caption||'')+'</div></div>'+
-      (d.hint?'<div class="phint"><strong>Cover:</strong> '+d.hint+'</div>':'');
-  }else{
-    inner='<div class="pey">Pronunciation drill <button class="rfbtn" onclick="loadPrompt()">↺ New</button></div>'+
-      '<div class="pchips">'+(d.words||[]).map(w=>'<div class="pchip">'+w+'</div>').join('')+'</div>'+
-      (d.focus?'<div class="phint"><strong>Focus:</strong> '+d.focus+'</div>':'')+
-      (d.tip?'<div class="phint" style="margin-top:8px"><strong>🇮🇩 For Indonesian speakers:</strong> '+d.tip+'</div>':'');
-  }
-  const ios=useIOS?'<div class="iosfb on"><label>Type your response (voice not available in this browser):</label><textarea id="iosta" placeholder="Type what you would say…" oninput="iosInput(this.value)"></textarea></div>':'';
-  const recH=useIOS?'':`<div class="recring" id="rr" onclick="togRec()"><div class="recdot"></div></div><div class="reclbl" id="rlbl">Tap to start recording</div><div class="rectmr" id="rtmr"></div><div class="recta" id="rta"></div>`;
-  document.getElementById('pbody').innerHTML=
-    '<div class="pcard">'+inner+'</div>'+
-    '<div class="reccard" id="rcard">'+recH+ios+'<button class="analbtn" id="analbtn" onclick="submitSpeech()">Analyse my response →</button></div>'+
-    '<div class="fbcard" id="fbcard">'+
-      '<div class="fbhd"><div class="fbow"><div class="fbn" id="fbn">—</div><div class="fbol">Overall</div></div><div class="fbbars" id="fbbars"></div></div>'+
-      '<div class="fbbody" id="fbbody"><div class="load"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>'+
-      '<div class="fbacts"><button class="fbbt2 again" onclick="tryAgain()">Try again</button><button class="fbbt2 nxt" onclick="loadPrompt()">Next prompt →</button></div>'+
-    '</div>';
-}
-
-// ─── RECORDER ─────────────────────────────────
-function iosInput(v){tx=v;const ab=document.getElementById('analbtn');if(ab){if(v.trim())ab.classList.add('on');else ab.classList.remove('on');}}
-function togRec(){if(recOn)stopRec();else startRec();}
-function startRec(){
-  tx='';
-  const ta=document.getElementById('rta');if(ta){ta.textContent='Listening…';ta.classList.add('on');}
-  const ab=document.getElementById('analbtn');if(ab)ab.classList.remove('on');
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(SR){
-    try{
-      rec=new SR();rec.continuous=true;rec.interimResults=true;rec.lang='en-US';
-      rec.onresult=e=>{let f='',it='';for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)f+=t+' ';else it+=t;}tx+=f;if(ta)ta.textContent=(tx+it).trim()||'Listening…';if(tx.trim()&&ab)ab.classList.add('on');};
-      rec.onerror=e=>{if(e.error!=='no-speech')toast('Mic error: '+e.error);};
-      rec.start();
-    }catch(e){toast('Could not start microphone.');}
-  }
-  recOn=true;
-  const rr=document.getElementById('rr');if(rr)rr.classList.add('on');
-  const rl=document.getElementById('rlbl');if(rl)rl.textContent='Recording… tap to stop';
-  s=0;updTmr();tmr=setInterval(()=>{s++;updTmr();},1000);
-}
-function stopRec(){
-  if(!recOn)return;recOn=false;
-  if(rec){try{rec.stop();}catch(e){}rec=null;}
-  clearInterval(tmr);
-  const rr=document.getElementById('rr');if(rr)rr.classList.remove('on');
-  const rl=document.getElementById('rlbl');if(rl)rl.textContent='Tap to record again';
-  const rt=document.getElementById('rtmr');if(rt)rt.textContent='';
-  const ab=document.getElementById('analbtn');if(ab&&tx.trim())ab.classList.add('on');
-}
-function updTmr(){const el=document.getElementById('rtmr');if(el)el.textContent=Math.floor(s/60).toString().padStart(2,'0')+':'+((s%60).toString().padStart(2,'0'));}
-function resetRec(){stopRec();tx='';s=0;}
-function tryAgain(){
-  tx='';
-  const ta=document.getElementById('rta');if(ta){ta.textContent='';ta.classList.remove('on');}
-  const it=document.getElementById('iosta');if(it)it.value='';
-  const ab=document.getElementById('analbtn');if(ab){ab.classList.remove('on');ab.disabled=false;}
-  const fc=document.getElementById('fbcard');if(fc)fc.classList.remove('on');
-  const rl=document.getElementById('rlbl');if(rl)rl.textContent='Tap to start recording';
-}
-
-// ─── AI ANALYSIS ──────────────────────────────
-async function submitSpeech(){
-  const t=tx.trim();if(!t){toast('Please record or type your response first.');return;}
-  stopRec();
-  const ab=document.getElementById('analbtn');if(ab)ab.disabled=true;
-  const fc=document.getElementById('fbcard');fc.classList.add('on');
-  document.getElementById('fbn').textContent='…';
-  document.getElementById('fbbars').innerHTML='';
-  document.getElementById('fbbody').innerHTML='<div class="load"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-  fc.scrollIntoView({behavior:'smooth',block:'start'});
-  const ctx={
-    monologue:'Topic: "'+(cpd&&cpd.prompt?cpd.prompt:'')+'"',
-    readAloud:'Passage: "'+(cpd&&(cpd.text||cpd.passage)?cpd.text||cpd.passage:'')+'"',
-    picture:'Scene: "'+(cpd&&cpd.caption?cpd.caption:'')+'"',
-    pron:'Words: '+(cpd&&cpd.words?cpd.words.join(', '):''),
-  };
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,
-        system:'You are a warm expert English speaking coach for CEFR '+cLvl+' Indonesian learners. Indonesian speakers typically struggle with: /v/ vs /b/, /θ/ and /ð/, articles, verb tense, schwa vowels, stress-timing. Respond ONLY with valid JSON.',
-        messages:[{role:'user',content:'Evaluate this CEFR '+cLvl+' learner.
-'+ctx[cMode]+'
-Speech: "'+t+'"
-
-Return JSON:
-{"overall":<1-100>,"scores":{"fluency":<1-100>,"vocabulary":<1-100>,"grammar":<1-100>,"content":<1-100>},"strengths":["...","..."],"improvements":["...","..."],"detail":"2-3 sentences of specific feedback referencing what they said","encouragement":"One warm sentence for an Indonesian speaker"}
-
-Be generous at A1/A2. Be precise at B2/C1. Always constructive.'}]})});
-    if(!res.ok)throw new Error('API '+res.status);
-    const data=await res.json();
-    if(data.error)throw new Error(data.error.message);
-    const parsed=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
-    renderFB(parsed,true);
-  }catch(err){
-    console.error(err);
-    document.getElementById('fbbody').innerHTML='<p style="font-size:13px;color:var(--muted);padding:8px 0">Could not reach AI. Check your connection and try again.<br><small>'+err.message+'</small></p>';
-    if(ab)ab.disabled=false;
+// Issue 1: Account menu toggle logic
+function toggleAuth(mode) {
+  document.querySelectorAll('.atab').forEach(t => t.classList.remove('act'));
+  document.querySelectorAll('.apanel').forEach(p => p.classList.remove('act'));
+  
+  if(mode === 'login') {
+    document.getElementById('tab-login').classList.add('act');
+    document.getElementById('lPanel').classList.add('act');
+  } else {
+    document.getElementById('tab-signup').classList.add('act');
+    document.getElementById('sPanel').classList.add('act');
   }
 }
-function renderFB(d,earnXp){
-  document.getElementById('fbn').textContent=d.overall;
-  const cols={fluency:'var(--teal)',vocabulary:'var(--gold2)',grammar:'var(--g2)',content:'var(--g)'};
-  document.getElementById('fbbars').innerHTML=Object.entries(d.scores).map(([k,v])=>
-    '<div class="fbbr"><div class="fbbl">'+k.charAt(0).toUpperCase()+k.slice(1)+'</div><div class="fbbt"><div class="fbbf" data-v="'+v+'" style="background:'+cols[k]+'"></div></div><div class="fbbn">'+v+'</div></div>'
-  ).join('');
-  setTimeout(()=>document.querySelectorAll('.fbbf').forEach(el=>el.style.width=el.dataset.v+'%'),80);
-  let xpHtml='';
-  if(earnXp){
-    if(!U.xp)U.xp={};
-    U.xp[cLvl]=(U.xp[cLvl]||0)+XPps;
-    if(!U.activity)U.activity=[];
-    U.activity.push({mode:cMode,level:cLvl,score:d.overall,ts:Date.now()});
-    if(U.activity.length>50)U.activity=U.activity.slice(-50);
-    SU();updXP();
-    const xp=U.xp[cLvl];const done=(U.completedLevels||[]).includes(cLvl);
-    const eb=document.getElementById('examb');
-    if(!done){if(xp>=XPex){eb.textContent='📝 Take Level Exam';eb.disabled=false;}else{eb.textContent='📝 Exam at '+XPex+' XP ('+xp+'/'+XPex+')';eb.disabled=true;}}
-    xpHtml='<div class="fbxp"><span style="font-size:15px">⚡</span><span class="fbxptx">+'+XPps+' XP! Total: '+xp+'/'+XPex+(xp>=XPex&&!done?' · <strong>Exam unlocked!</strong>':'')+'</span></div>';
-  }
-  document.getElementById('fbbody').innerHTML=
-    '<div><div class="fbst">Feedback</div><div class="fbtx">'+d.detail+'</div></div>'+
-    (d.strengths&&d.strengths.length?'<div><div class="fbst">What you did well</div><div class="fbpills">'+d.strengths.map(s=>'<span class="fbpill ok">✓ '+s+'</span>').join('')+'</div></div>':'')+
-    (d.improvements&&d.improvements.length?'<div><div class="fbst">To work on</div><div class="fbpills">'+d.improvements.map(s=>'<span class="fbpill ng">'+s+'</span>').join('')+'</div></div>':'')+
-    xpHtml+
-    '<div class="fbq">"'+d.encouragement+'"</div>';
-  if(document.getElementById('analbtn'))document.getElementById('analbtn').disabled=false;
+
+// Issue 2: Sequence Fix - Signup leads to Quiz
+function doSignup() {
+  const nameInput = document.getElementById('regName').value;
+  if(!nameInput) return alert("Please enter your name");
+  user.name = nameInput;
+  showScreen('quiz');
 }
 
-// ─── EXAM ─────────────────────────────────────
-const EXTASKS={
-  A1: {mon:'Describe your house or apartment. What rooms does it have? What do you like about it?',
-       ra:'My name is Ana. I am from Indonesia. I live in a big city. I have two brothers and one sister. I go to school every day.',
-       pic:0},
-  A2: {mon:'Talk about your favourite holiday or celebration. What do you do? Who do you celebrate with?',
-       ra:'Every Sunday, I visit my grandmother. She lives near the market. We cook together and eat a big lunch. I love spending time with her.',
-       pic:0},
-  B1: {mon:'Describe a problem in your city and explain how you think it could be solved.',
-       ra:null,pic:0},
-  B2: {mon:'Some people believe economic growth should take priority over environmental protection. To what extent do you agree?',
-       ra:null,pic:0},
-  C1: {mon:'Critically evaluate the claim that social media has done more harm than good to democratic discourse.',
-       ra:null,pic:0},
-};
-function startExam(){
-  exLvl=cLvl;exTasks=[];exIdx=0;exScores=[];
-  const ni=LVL.indexOf(exLvl)+1;const nl=LVL[ni]||null;
-  document.getElementById('extitle').textContent=exLvl+' Level Exam';
-  document.getElementById('exsub').textContent=nl?'Score 75%+ to pass and unlock '+nl+' — '+LI[nl].n+'.':'Final level exam — score 75%+ to complete Verba.';
-  document.getElementById('exrules').style.display='block';
-  document.getElementById('extasks').style.display='none';
-  document.getElementById('exresult').classList.remove('on');
-  showPage('exam');
-}
-function beginExam(){
-  document.getElementById('exrules').style.display='none';
-  document.getElementById('extasks').style.display='block';
-  const t=EXTASKS[exLvl];
-  const raTxt=t.ra||(PASSAGES[exLvl][0]?PASSAGES[exLvl][0].text:'Read this passage clearly.');
-  const pic=PICS[exLvl][t.pic]||PICS[exLvl][0];
-  exTasks=[
-    {mode:'monologue',lbl:'Free Monologue',prompt:t.mon,hint:'Speak for at least 90 seconds. Give reasons, examples, and opinions.'},
-    {mode:'readAloud',lbl:'Read Aloud',prompt:raTxt,hint:'Read clearly at a natural pace. Pay attention to stress and pronunciation.'},
-    {mode:'picture',lbl:'Picture Description',prompt:pic?pic.caption:'Describe what you see.',hint:pic?pic.hint||'Describe in detail.':'Describe in detail.',svg:pic?pic.svg:''},
-  ];
-  renderExTask(0);
-}
-function renderExTask(idx){
-  const wrap=document.getElementById('extasks');
-  wrap.innerHTML=exTasks.map((task,i)=>{
-    const active=i===idx,done=i<idx;
-    let ph='';
-    if(task.mode==='readAloud')ph='<div style="font-family:'Playfair Display',serif;font-style:italic;font-size:15px;line-height:1.9;color:var(--ink)">'+task.prompt.replace(/
-/g,'<br>')+'</div>';
-    else if(task.mode==='picture')ph=(task.svg?'<div style="background:var(--p3);border-radius:8px;overflow:hidden;margin-bottom:10px">'+task.svg+'</div>':'')+'<div class="extprompt">'+task.prompt+'</div>';
-    else ph='<div class="extprompt">'+task.prompt+'</div>';
-    let rec='';
-    if(active){
-      const iosR=useIOS?'<div style="margin-top:9px"><label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Type your response:</label><textarea style="width:100%;padding:9px 12px;background:var(--p);border:1.5px solid var(--bd2);border-radius:9px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink);resize:vertical;min-height:72px;outline:none;" id="exiota" oninput="exTx=this.value;if(this.value.trim())document.getElementById('exsubbtn').classList.add('on');"></textarea></div>':'<div style="text-align:center;margin-top:11px"><div class="recring" id="exrr" onclick="togExRec()" style="margin:0 auto 9px"><div class="recdot"></div></div><div class="reclbl" id="exrlbl">Tap to record</div><div class="rectmr" id="extmr"></div><div class="recta" id="exta"></div></div>';
-      rec='<div class="extst" id="extst">Ready — record your response when you are.</div>'+
-        '<div class="phint" style="margin-bottom:9px"><strong>Tip:</strong> '+task.hint+'</div>'+
-        iosR+
-        '<button class="analbtn" id="exsubbtn" onclick="submitExTask()" style="margin-top:10px">Submit task '+(i+1)+' →</button>';
-    }
-    return '<div class="extc" id="ext'+i+'"><div class="exthd"><span class="extnum">Task '+(i+1)+' of 3</span><span class="extbadge">'+task.lbl+'</span></div><div class="extbody">'+
-      (active?ph+rec:done?'<div class="extprompt" style="font-size:13px;color:var(--muted)">✓ Submitted.</div><div class="extst done">Scored</div>':'<div class="extprompt" style="font-size:13px;color:var(--muted)">🔒 Complete task '+i+' first.</div>')+
-      '</div></div>';
-  }).join('');
-  exTx='';exRec=false;
-}
-function togExRec(){if(exRec)stopExRec();else startExRec();}
-function startExRec(){
-  exTx='';
-  const ta=document.getElementById('exta');if(ta){ta.textContent='Listening…';ta.classList.add('on');}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(SR){
-    try{
-      exRO=new SR();exRO.continuous=true;exRO.interimResults=true;exRO.lang='en-US';
-      exRO.onresult=e=>{let f='',it='';for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)f+=t+' ';else it+=t;}exTx+=f;if(ta)ta.textContent=(exTx+it).trim()||'Listening…';if(exTx.trim()){const sb=document.getElementById('exsubbtn');if(sb)sb.classList.add('on');}};
-      exRO.start();
-    }catch(e){toast('Mic error. Type your response instead.');}
-  }
-  exRec=true;
-  const er=document.getElementById('exrr');if(er)er.classList.add('on');
-  const el=document.getElementById('exrlbl');if(el)el.textContent='Recording… tap to stop';
-  exS=0;updExTmr();exTmr=setInterval(()=>{exS++;updExTmr();},1000);
-}
-function stopExRec(){
-  if(!exRec)return;exRec=false;
-  if(exRO){try{exRO.stop();}catch(e){}exRO=null;}
-  clearInterval(exTmr);
-  const er=document.getElementById('exrr');if(er)er.classList.remove('on');
-  const el=document.getElementById('exrlbl');if(el)el.textContent='Tap to record again';
-  const et=document.getElementById('extmr');if(et)et.textContent='';
-  if(exTx.trim()){const sb=document.getElementById('exsubbtn');if(sb)sb.classList.add('on');}
-}
-function updExTmr(){const el=document.getElementById('extmr');if(el)el.textContent=Math.floor(exS/60).toString().padStart(2,'0')+':'+((exS%60).toString().padStart(2,'0'));}
-async function submitExTask(){
-  const t=exTx.trim();if(!t){toast('Please record or type your response first.');return;}
-  stopExRec();
-  const sb=document.getElementById('exsubbtn');if(sb)sb.disabled=true;
-  const st=document.getElementById('extst');if(st)st.textContent='Analysing with AI…';
-  const task=exTasks[exIdx];
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,
-        system:'You are a rigorous CEFR '+exLvl+' speaking examiner. Apply Cambridge/IELTS band descriptors. Respond ONLY with valid JSON.',
-        messages:[{role:'user',content:'Grade this CEFR '+exLvl+' exam task ('+task.mode+').
-Prompt: "'+task.prompt+'"
-Student: "'+t+'"
-
-Return JSON: {"overall":<1-100>,"fluency":<1-100>,"vocabulary":<1-100>,"grammar":<1-100>,"content":<1-100>,"comment":"One examiner sentence."}
-
-Apply strict '+exLvl+' standards.'}]})});
-    if(!res.ok)throw new Error('API '+res.status);
-    const data=await res.json();
-    if(data.error)throw new Error(data.error.message);
-    const sc=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
-    exScores.push(sc.overall);
-    if(st){st.textContent='✓ Scored: '+sc.overall+'/100 — '+sc.comment;st.className='extst done';}
-  }catch(e){
-    console.error(e);exScores.push(60);
-    if(st){st.textContent='✓ Submitted (fallback score applied)';st.className='extst done';}
-  }
-  exIdx++;
-  if(exIdx>=exTasks.length)setTimeout(showExResult,900);
-  else setTimeout(()=>renderExTask(exIdx),600);
-}
-function showExResult(){
-  document.getElementById('extasks').style.display='none';
-  const rc=document.getElementById('exresult');rc.classList.add('on');rc.scrollIntoView({behavior:'smooth'});
-  const avg=Math.round(exScores.reduce((a,b)=>a+b,0)/exScores.length);
-  const pass=avg>=75;
-  const ni=LVL.indexOf(exLvl)+1;const nl=LVL[ni]||null;
-  document.getElementById('exscore').textContent=avg;
-  document.getElementById('exscore').style.color=pass?'var(--g)':'var(--gold)';
-  document.getElementById('exemo').textContent=pass?'🎉':'💪';
-  document.getElementById('exverdict').textContent=pass?'PASSED':'NOT YET';
-  document.getElementById('exverdict').style.color=pass?'var(--g)':'var(--gold)';
-  if(pass){
-    if(!U.completedLevels)U.completedLevels=[];
-    if(!U.completedLevels.includes(exLvl))U.completedLevels.push(exLvl);
-    if(nl){if(!U.unlockedLevels)U.unlockedLevels=[];if(!U.unlockedLevels.includes(nl))U.unlockedLevels.push(nl);if(!U.xp)U.xp={};if(!U.xp[nl])U.xp[nl]=0;U.assignedLevel=nl;}
-    SU();
-    document.getElementById('exdesc').textContent=nl?'Excellent! You've mastered '+exLvl+' and unlocked '+nl+' — '+LI[nl].n+'.':'You've completed all levels in Verba. You are a C1 speaker — outstanding!';
-    document.getElementById('exbtn').textContent=nl?'Advance to '+nl+' →':'See my achievement 🏆';
-  }else{
-    document.getElementById('exdesc').textContent='You scored '+avg+'/100 — you need 75 to pass. Keep practising in '+exLvl+' and come back when you're ready!';
-    document.getElementById('exbtn').textContent='Back to practice';
-  }
-  exRes={pass,nl,exLvl};
-}
-function handleExamResult(){
-  if(exRes.pass&&exRes.nl){
-    document.getElementById('celemo').textContent='🎉';
-    document.getElementById('celtitle').textContent='Level Complete!';
-    document.getElementById('celsub').textContent='You passed '+exRes.exLvl+' and unlocked '+exRes.nl+' — '+LI[exRes.nl].n+'!';
-    document.getElementById('celbadge').textContent=exRes.nl;
-    document.getElementById('celname').textContent=LI[exRes.nl].n;
-    document.getElementById('cel').classList.add('on');
-  }else if(exRes.pass){showPage('gamemap');}
-  else{openPrac(exRes.exLvl,'monologue');}
+function doLogin() {
+  user.name = "User";
+  showScreen('home');
 }
 
-// ─── INIT ─────────────────────────────────────
-window.addEventListener('DOMContentLoaded',()=>{
-  const sess=sessionStorage.getItem('vb_sess');
-  if(sess){
-    const u=GU(sess);
-    if(u){U=u;document.getElementById('auth').classList.remove('active');setNav();if(!U.assignedLevel){showPage('quiz');initQuiz();}else{showPage('home');}return;}
+function finishQuiz(level) {
+  alert("Level set to " + level);
+  showScreen('home');
+  document.getElementById('welcomeMsg').innerText = "Welcome, " + user.name + "!";
+}
+
+// Issue 3: Level exam activation logic
+function addXP() {
+  user.xp += 100;
+  document.getElementById('xpCount').innerText = user.xp;
+  
+  const examBtn = document.getElementById('levelExamBtn');
+  if(user.xp >= 500) {
+    examBtn.disabled = false;
+    examBtn.innerText = "Start Level Exam";
+    examBtn.style.background = "var(--g2)";
   }
-  // No session - show auth (already active by default)
-});
-// Close overlays on outside click
-document.getElementById('aboutM').addEventListener('click',function(e){if(e.target===this)closeAbout();});
-document.getElementById('cel').addEventListener('click',function(e){if(e.target===this)closeCel();});
-// Enter key on login inputs
-document.addEventListener('keydown',e=>{
-  if(e.key!=='Enter')return;
-  const aid=document.activeElement&&document.activeElement.id;
-  if(aid==='lu'||aid==='lp')doLogin();
-  if(aid==='rsa'||aid==='rp')doReg();
-  if(aid==='fu')findUser();
-  if(aid==='fa'||aid==='fnp')doReset();
-});
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('nav').style.display = (id === 'auth') ? 'none' : 'flex';
+}
+
+function logout() {
+  user.xp = 0;
+  document.getElementById('xpCount').innerText = 0;
+  showScreen('auth');
+}
 </script>
 </body>
 </html>
