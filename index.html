@@ -2,281 +2,205 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verba | English Speaking Practice</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Verba | English Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #141f14; --p: #f2f7f2; --p2: #e6f0e6; --g: #2d7a3a; --g2: #3d9e4e; --bd2: rgba(45,122,58,.2); --sh: rgba(20,31,20,.1);
+            --ink: #141f14; --p: #f2f7f2; --p2: #e6f0e6; --g: #2d7a3a; --g2: #3d9e4e; --bd: rgba(45,122,58,.15); --sh: rgba(20,31,20,.08);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
-        body { background: var(--p); color: var(--ink); min-height: 100vh; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--p); color: var(--ink); line-height: 1.5; }
         
         /* HEADER */
-        header { background: #fff; padding: 15px 40px; border-bottom: 1px solid var(--bd2); display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Playfair Display'; font-size: 32px; font-weight: 700; color: var(--ink); }
+        header { 
+            background: #fff; padding: 0 40px; border-bottom: 1px solid var(--bd); 
+            display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; height: 72px; 
+        }
+        .logo { font-family: 'Playfair Display'; font-size: 32px; font-weight: 700; }
         .logo span { color: var(--g); }
 
-        .screen { display: none; min-height: calc(100vh - 72px); }
+        .screen { display: none; min-height: calc(100vh - 72px); width: 100%; }
         .screen.active { display: flex; flex-direction: column; }
 
-        /* AUTH SPLIT */
+        /* AUTH GRID - ADAPTIVE */
         .auth-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; width: 100%; flex: 1; }
-        @media(max-width:900px){ .auth-grid { grid-template-columns: 1fr; } .auth-left { display: none; } }
         .auth-left { background: var(--ink); padding: 60px 80px; color: #fff; display: flex; flex-direction: column; justify-content: center; }
         .auth-right { padding: 60px 80px; background: #fff; display: flex; flex-direction: column; justify-content: center; }
         
-        .hero-tag { color: var(--g2); font-weight: 700; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
         .hero-title { font-family: 'Playfair Display'; font-size: 64px; line-height: 1.1; margin-bottom: 20px; }
         .hero-title em { font-style: italic; color: var(--g2); }
         
-        .feat-row { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; opacity: 0.9; }
-        .feat-icon { width: 42px; height: 42px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        /* MOBILE OVERRIDES */
+        @media (max-width: 900px) {
+            header { padding: 0 20px; height: 64px; }
+            .logo { font-size: 26px; }
+            .auth-grid { grid-template-columns: 1fr; }
+            .auth-left { padding: 40px 20px; text-align: center; }
+            .auth-right { padding: 40px 20px; border-radius: 30px 30px 0 0; margin-top: -30px; }
+            .hero-title { font-size: 42px; }
+            .dashboard-grid { grid-template-columns: 1fr !export; }
+        }
 
         .tabs { display: flex; background: var(--p2); padding: 5px; border-radius: 14px; margin-bottom: 30px; }
-        .tab { flex: 1; padding: 12px; border: none; background: none; font-weight: 700; cursor: pointer; border-radius: 10px; transition: 0.2s; }
+        .tab { flex: 1; padding: 12px; border: none; background: none; font-weight: 700; cursor: pointer; border-radius: 10px; }
         .tab.active { background: #fff; color: var(--g); box-shadow: 0 4px 12px var(--sh); }
 
         .f-group { margin-bottom: 20px; }
         label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
-        input { width: 100%; padding: 14px; border: 1.5px solid var(--bd2); border-radius: 12px; background: var(--p); outline: none; font-size: 15px; }
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; background: var(--g); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: var(--g2); }
+        input { width: 100%; padding: 16px; border: 1.5px solid var(--bd); border-radius: 12px; background: var(--p); outline: none; font-size: 16px; }
+        .btn { width: 100%; padding: 18px; border: none; border-radius: 12px; background: var(--g); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; }
 
-        /* CONTENT CONTAINERS */
-        .container { max-width: 900px; margin: 40px auto; padding: 20px; width: 100%; }
-        .card { background: #fff; padding: 35px; border-radius: 24px; border: 1px solid var(--bd2); box-shadow: 0 10px 30px var(--sh); margin-bottom: 25px; }
-        .opt { width: 100%; padding: 16px; margin-bottom: 12px; border: 1.5px solid var(--bd2); border-radius: 12px; background: var(--p); text-align: left; cursor: pointer; font-weight: 500; }
-        .opt:hover { border-color: var(--g); background: #fff; }
-
-        /* DASHBOARD ELEMENTS */
+        /* DASHBOARD */
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; width: 100%; }
         .dashboard-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
-        @media(max-width:800px){ .dashboard-grid { grid-template-columns: 1fr; } }
         
-        .mode-card { background: #fff; border: 1px solid var(--bd2); padding: 20px; border-radius: 18px; cursor: pointer; transition: 0.3s; margin-bottom: 15px; }
-        .mode-card:hover { transform: translateY(-3px); border-color: var(--g); }
+        .card { background: #fff; padding: 30px; border-radius: 24px; border: 1px solid var(--bd); box-shadow: 0 10px 30px var(--sh); margin-bottom: 25px; }
+        .mode-card { background: #fff; border: 1px solid var(--bd); padding: 20px; border-radius: 18px; cursor: pointer; margin-bottom: 15px; transition: 0.2s; }
+        .mode-card:hover { border-color: var(--g); transform: translateY(-2px); }
 
-        /* VOICE AI UI */
-        #mic-btn { width: 70px; height: 70px; border-radius: 50%; background: var(--g); border: none; color: #fff; font-size: 24px; cursor: pointer; margin: 20px auto; display: block; transition: 0.3s; }
+        /* AI & SPEECH UI */
+        #mic-btn { width: 80px; height: 80px; border-radius: 50%; background: var(--g); border: none; color: #fff; font-size: 28px; cursor: pointer; margin: 20px auto; display: block; }
         #mic-btn.recording { background: #e74c3c; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231,76,60,0.7); } 70% { box-shadow: 0 0 0 15px rgba(231,76,60,0); } 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231,76,60,0.6); } 70% { box-shadow: 0 0 0 20px rgba(231,76,60,0); } 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); } }
         
-        /* PATH TRACKER */
-        .step { display: flex; align-items: center; gap: 15px; padding: 15px; background: var(--p); border-radius: 14px; margin-bottom: 10px; border: 1px solid transparent; }
+        .transcript-box { padding: 15px; background: var(--p); border-radius: 12px; margin: 15px 0; min-height: 60px; font-size: 15px; border: 1px dashed var(--g); }
+        .practice-img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
+        
+        .step { display: flex; align-items: center; gap: 15px; padding: 15px; background: var(--p); border-radius: 14px; margin-bottom: 10px; }
         .step.active { border-color: var(--g); background: #fff; }
-        .step.locked { opacity: 0.4; filter: grayscale(1); }
         .s-num { width: 32px; height: 32px; border-radius: 50%; background: var(--g); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
-
-        /* IMAGE FOR DESCRIPTION */
-        .practice-img { width: 100%; border-radius: 15px; margin-bottom: 20px; border: 1px solid var(--bd2); }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">Verba<span>.</span></div>
-</header>
+<header><div class="logo">Verba<span>.</span></div></header>
 
 <div id="auth-screen" class="screen active">
     <div class="auth-grid">
         <div class="auth-left">
-            <p class="hero-tag">English Speaking Practice</p>
-            <h1 class="hero-title">Your words.<br>Your voice.<br><em>Out loud.</em></h1>
-            <p style="opacity: 0.7; margin-bottom: 40px; line-height: 1.6;">Built for Indonesian learners — warm AI feedback, gamified levels, zero data collection.</p>
-            
-            <div class="feat-row"><div class="feat-icon">🎙️</div><div><strong>Free Monologue</strong><br><small>Speak freely, get scored on fluency.</small></div></div>
-            <div class="feat-row"><div class="feat-icon">📖</div><div><strong>Read Aloud</strong><br><small>Passages with pronunciation feedback.</small></div></div>
-            <div class="feat-row"><div class="feat-icon">🖼️</div><div><strong>Picture Description</strong><br><small>Describe scenes in detail — great for IELTS.</small></div></div>
-            <div class="feat-row"><div class="feat-icon">🗣️</div><div><strong>Pronunciation Drill</strong><br><small>Vowel length tips for Indonesians.</small></div></div>
+            <h1 class="hero-title">Your voice.<br><em>Out loud.</em></h1>
+            <p style="opacity:0.7">The first English practice tool built for the Indonesian context.</p>
         </div>
         <div class="auth-right">
             <div class="tabs">
-                <button id="tab-login" class="tab active" onclick="setAuthMode('login')">Sign in</button>
-                <button id="tab-signup" class="tab" onclick="setAuthMode('signup')">Create account</button>
+                <button id="t-login" class="tab active" onclick="setMode('login')">Sign in</button>
+                <button id="t-signup" class="tab" onclick="setMode('signup')">Sign up</button>
             </div>
-            <div id="auth-ui">
-                <div class="f-group"><label>Username</label><input type="text" id="auth-user" placeholder="Your username"></div>
-                <div class="f-group"><label>Password</label><input type="password" id="auth-pass" placeholder="••••••••"></div>
-                <button class="btn" onclick="handleAuth()">Sign in →</button>
-                <p style="text-align: center; margin-top: 20px;"><a href="#" style="color:var(--g); font-size:13px; font-weight:700; text-decoration:none;">Forgot password?</a></p>
-            </div>
+            <div class="f-group"><label>Username</label><input type="text" id="user-in"></div>
+            <div class="f-group"><label>Password</label><input type="password" id="pass-in"></div>
+            <button class="btn" onclick="submitAuth()">Continue →</button>
         </div>
     </div>
 </div>
 
 <div id="quiz-screen" class="screen">
-    <div class="container">
-        <div class="card">
-            <p id="q-category" style="color:var(--g2); font-weight:700; font-size:11px; text-transform:uppercase; margin-bottom:10px;"></p>
-            <h2 id="q-text" style="font-family:'Playfair Display'; margin-bottom:30px; min-height:80px;"></h2>
-            <div id="q-options"></div>
-        </div>
-    </div>
+    <div class="container"><div class="card"><h2 id="q-txt" style="margin-bottom:30px; font-family:'Playfair Display';"></h2><div id="q-opts"></div></div></div>
 </div>
 
 <div id="dashboard" class="screen">
     <div class="container">
-        <div style="margin-bottom: 40px;">
-            <h1 style="font-family:'Playfair Display'; font-size:42px;">Hello, <span id="user-name-label">Learner</span></h1>
-            <p>Level: <strong id="level-label" style="color:var(--g)">A1 Beginner</strong></p>
-        </div>
-
+        <h1 style="font-family:'Playfair Display'; margin-bottom:30px;">Hi, <span id="u-display">Learner</span></h1>
         <div class="dashboard-grid">
             <div>
-                <div class="mode-card" onclick="openMode('Free Monologue')">
-                    <h3>🎙️ Free Monologue</h3>
-                    <p>Speak for 2 minutes on a random topic.</p>
-                </div>
-                <div class="mode-card" onclick="openMode('Read Aloud')">
-                    <h3>📖 Read Aloud</h3>
-                    <p>Practice timing and intonation with text.</p>
-                </div>
-                <div class="mode-card" onclick="openMode('Picture Description')">
-                    <h3>🖼️ Picture Description</h3>
-                    <p>Describe high-res scenes for IELTS practice.</p>
-                </div>
+                <div class="mode-card" onclick="openMode('Free Monologue')"><h3>🎙️ Free Monologue</h3><p>Real-time speech feedback.</p></div>
+                <div class="mode-card" onclick="openMode('Picture Description')"><h3>🖼️ Picture Description</h3><p>Describe scenes for IELTS.</p></div>
             </div>
-
-            <div class="card" style="padding: 25px;">
-                <h4 style="margin-bottom: 15px;">Learning Path</h4>
-                <div id="path-render"></div>
-            </div>
+            <div class="card"><h4>Progress Path</h4><div id="path-box" style="margin-top:20px;"></div></div>
         </div>
 
         <div id="ai-panel" class="card" style="display:none; margin-top:30px; text-align:center;">
-            <h3 id="mode-title">Feature</h3>
-            <div id="mode-extra-content"></div>
-            <p id="mode-instruction" style="margin: 20px 0; color: #666;"></p>
-            <button id="mic-btn" onclick="toggleMic()">🎤</button>
-            <div id="feedback-box" style="margin-top:20px; padding:15px; background:var(--p); border-radius:12px; display:none;">
-                <strong style="color:var(--g)">AI Feedback:</strong>
-                <p id="feedback-text" style="font-size:14px; margin-top:5px;"></p>
+            <h3 id="mode-title"></h3>
+            <div id="mode-content"></div>
+            <p id="mode-inst" style="margin:15px 0;"></p>
+            
+            <div class="transcript-box" id="transcript"><em>Your speech will appear here...</em></div>
+            
+            <button id="mic-btn" onclick="toggleSpeech()">🎤</button>
+            
+            <div id="fb-box" style="margin-top:20px; padding:20px; background:var(--p2); border-radius:12px; display:none; text-align:left;">
+                <strong style="color:var(--g)">AI Analysis:</strong>
+                <p id="fb-txt" style="font-size:14px; margin-top:10px;"></p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let authMode = 'login';
-    let quizIdx = 0;
-    let score = 0;
-    let recording = false;
-    let progress = 1;
+    let authMode = 'login'; let qIdx = 0; let progress = 1;
+    let recognition;
+    
+    // INITIALIZE SPEECH RECOGNITION
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
 
-    const QUIZ = [
-        { c: "Grammar", q: "I ___ to the market yesterday.", o: ["go", "gone", "went"], a: 2 },
-        { c: "Vocabulary", q: "A 'meticulous' person pays attention to:", o: ["Details", "Speed", "Money"], a: 0 },
-        { c: "Business", q: "How do you start a formal inquiry?", o: ["What's up?", "I am writing to inquire...", "Tell me about..."], a: 1 },
-        { c: "Grammar", q: "If it rains, we ___ inside.", o: ["stay", "will stay", "stayed"], a: 1 },
-        { c: "Vocabulary", q: "What is the synonym of 'Robust'?", o: ["Weak", "Strong", "Flexible"], a: 1 },
-        { c: "Logic", q: "An 'inevitable' event is one that:", o: ["Cannot be avoided", "Happens rarely", "Is impossible"], a: 0 },
-        { c: "Grammar", q: "They have ___ English for three years.", o: ["study", "studied", "studying"], a: 1 },
-        { c: "Business", q: "Best closing for someone you don't know:", o: ["Cheers", "Yours faithfully", "Best"], a: 1 },
-        { c: "Vocabulary", q: "To 'shelve' a project means to:", o: ["Finish it", "Postpone it", "Speed it up"], a: 1 },
-        { c: "Grammar", q: "By next year, I ___ my degree.", o: ["finish", "will have finished", "finished"], a: 1 }
-    ];
-
-    function setAuthMode(m) {
-        authMode = m;
-        document.getElementById('tab-login').className = m === 'login' ? 'tab active' : 'tab';
-        document.getElementById('tab-signup').className = m === 'signup' ? 'tab active' : 'tab';
-        document.querySelector('.btn').innerText = m === 'login' ? 'Sign in →' : 'Create account →';
+        recognition.onresult = (event) => {
+            let interim_transcript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                interim_transcript += event.results[i][0].transcript;
+            }
+            document.getElementById('transcript').innerText = interim_transcript;
+        };
     }
 
-    function handleAuth() {
-        const user = document.getElementById('auth-user').value || "Learner";
-        document.getElementById('user-name-label').innerText = user;
-        if(authMode === 'signup') {
-            showScreen('quiz-screen');
-            loadQuiz();
-        } else {
-            showScreen('dashboard');
-            renderPath();
-        }
+    function setMode(m) { authMode = m; document.getElementById('t-login').className = m==='login'?'tab active':'tab'; document.getElementById('t-signup').className = m==='signup'?'tab active':'tab'; }
+    
+    function submitAuth() { 
+        document.getElementById('u-display').innerText = document.getElementById('user-in').value || "Learner";
+        if(authMode==='signup') { show('quiz-screen'); renderQuiz(); } else { show('dashboard'); renderPath(); }
     }
 
-    function loadQuiz() {
-        const data = QUIZ[quizIdx];
-        document.getElementById('q-category').innerText = `Step ${quizIdx + 1}: ${data.c}`;
-        document.getElementById('q-text').innerText = data.q;
-        const options = document.getElementById('q-options');
-        options.innerHTML = '';
-        data.o.forEach((text, i) => {
-            const b = document.createElement('button');
-            b.className = 'opt';
-            b.innerText = text;
-            b.onclick = () => { if(i === data.a) score++; nextQuiz(); };
-            options.appendChild(b);
-        });
+    function renderQuiz() {
+        const QUIZ = [{q:"I ___ to work yesterday.", o:["go","went","gone"], a:1}, {q:"Formal closing?", o:["Bye","Sincerely","Sup"], a:1}];
+        const d = QUIZ[qIdx]; document.getElementById('q-txt').innerText = d.q;
+        const o = document.getElementById('q-opts'); o.innerHTML = '';
+        d.o.forEach((t, i) => { const b = document.createElement('button'); b.className='opt'; b.innerText=t; b.onclick=()=>{ qIdx++; if(qIdx<QUIZ.length)renderQuiz(); else { show('dashboard'); renderPath(); }}; o.appendChild(b); });
     }
 
-    function nextQuiz() {
-        quizIdx++;
-        if(quizIdx < QUIZ.length) loadQuiz();
-        else {
-            const lvl = score > 8 ? "C1 Advanced" : score > 5 ? "B2 Intermediate" : "A1 Beginner";
-            document.getElementById('level-label').innerText = lvl;
-            showScreen('dashboard');
-            renderPath();
-        }
+    function openMode(m) {
+        document.getElementById('ai-panel').style.display='block'; 
+        document.getElementById('mode-title').innerText = m;
+        const c = document.getElementById('mode-content');
+        c.innerHTML = m === 'Picture Description' ? `<img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80" class="practice-img">` : '';
+        document.getElementById('fb-box').style.display='none';
+        document.getElementById('transcript').innerText = 'Tap the mic and start speaking...';
+        window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
     }
 
-    function openMode(mode) {
-        const panel = document.getElementById('ai-panel');
-        const extra = document.getElementById('mode-extra-content');
-        const inst = document.getElementById('mode-instruction');
-        panel.style.display = 'block';
-        document.getElementById('mode-title').innerText = mode;
-        document.getElementById('feedback-box').style.display = 'none';
-        extra.innerHTML = '';
-
-        if(mode === 'Picture Description') {
-            extra.innerHTML = `<img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" class="practice-img">`;
-            inst.innerText = "Describe this scene in detail for 60 seconds.";
-        } else if(mode === 'Read Aloud') {
-            inst.innerHTML = `<em style="font-size:18px; color:var(--ink)">"In today's fast-paced world, effective communication is the cornerstone of professional success."</em>`;
-        } else {
-            inst.innerText = "Topic: Talk about your favorite childhood memory.";
-        }
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-
-    function toggleMic() {
+    function toggleSpeech() {
         const btn = document.getElementById('mic-btn');
-        const fb = document.getElementById('feedback-box');
-        recording = !recording;
-        if(recording) {
-            btn.classList.add('recording');
-            fb.style.display = 'none';
-        } else {
+        if (!recognition) return alert("Speech recognition not supported in this browser.");
+
+        if (btn.classList.contains('recording')) {
+            recognition.stop();
             btn.classList.remove('recording');
-            fb.style.display = 'block';
-            document.getElementById('feedback-text').innerText = "Good clarity. You noticed a slight hesitation on the word 'Cornerstone'. Your pace was 140 words per minute—perfect for B2 level.";
-            progress++;
-            renderPath();
+            analyzeSpeech();
+        } else {
+            recognition.start();
+            btn.classList.add('recording');
         }
+    }
+
+    function analyzeSpeech() {
+        const fb = document.getElementById('fb-box');
+        fb.style.display = 'block';
+        document.getElementById('fb-txt').innerText = "AI Analysis: Your word choice is solid. Note: Focus on the 'th' sound in 'the' and 'through'. Your current fluency score: 7.5/9.";
+        progress++;
+        renderPath();
     }
 
     function renderPath() {
-        const wrap = document.getElementById('path-render');
-        const steps = ["Placement", "Basics", "Fluency", "IELTS Mastery", "Professional"];
-        wrap.innerHTML = '';
-        steps.forEach((s, i) => {
-            const isDone = i < progress;
-            const isLock = i > progress;
-            wrap.innerHTML += `
-                <div class="step ${isDone ? 'active' : ''} ${isLock ? 'locked' : ''}">
-                    <div class="s-num">${isDone ? '✓' : i+1}</div>
-                    <div><small>${isLock ? '🔒 Locked' : 'Level'}</small><br><strong>${s}</strong></div>
-                </div>
-            `;
+        const w = document.getElementById('path-box'); w.innerHTML = '';
+        ["Placement", "Basics", "Fluency", "Mastery"].forEach((s, i) => {
+            const active = i < progress;
+            w.innerHTML += `<div class="step ${active?'active':''}"><div class="s-num">${active?'✓':i+1}</div><strong>${s}</strong></div>`;
         });
     }
 
-    function showScreen(id) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
+    function show(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 </script>
 </body>
 </html>
