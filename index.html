@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Verba Mastery | Pro Edition</title>
+<title>Verba | English Speaking Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -11,98 +11,110 @@
   --p:#f2f7f2; --p2:#e6f0e6; --p3:#d4e8d4; --p4:#b8d4b8;
   --g:#2d7a3a; --g2:#3d9e4e; --g3:#52c065;
   --gd:rgba(45,122,58,.12); --gd2:rgba(45,122,58,.22);
-  --gold:#7a6010; --gold2:#b89020; --goldd:rgba(122,96,16,.13);
-  --sh:rgba(20,31,20,.09); --r:12px; --r2:18px; --r3:24px; --bd2:rgba(45,122,58,.2);
+  --sh:rgba(20,31,20,.12); --r:12px; --r2:18px; --r3:24px; --bd2:rgba(45,122,58,.2);
 }
 *{box-sizing:border-box; margin:0; padding:0; font-family:'Outfit',sans-serif;}
 body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;}
-.screen{display:none; min-height:100vh; padding-top:80px;}
-.screen.active{display:block;}
+.screen{display:none; min-height:100vh;}
+.screen.active{display:flex; flex-direction:column;}
 
 /* NAVIGATION */
-#nav{position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(242,247,242,.9); backdrop-filter:blur(12px); border-bottom:1px solid var(--bd2); padding:0 24px; display:none; align-items:center; height:70px; justify-content:space-between;}
+#nav{position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(242,247,242,.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--bd2); padding:0 24px; display:none; align-items:center; height:70px; justify-content:space-between;}
 .nlogo{font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--g);}
-.nlinks{display:flex; gap:20px;}
+.nlinks{display:flex; gap:20px; align-items:center;}
 .nbtn{background:none; border:none; color:var(--ink2); font-weight:600; cursor:pointer; font-size:14px;}
-.nbtn.logout{border:1.5px solid var(--g); padding:6px 16px; border-radius:8px; color:var(--g);}
+.logout-btn{border:1.5px solid var(--g); color:var(--g); padding:6px 16px; border-radius:8px;}
 
-/* AUTH SCREEN */
-#auth{padding-top:0; display:flex; align-items:center; justify-content:center; background:var(--p);}
-.auth-body{display:grid; grid-template-columns:1fr 1fr; width:100%; max-width:1000px; background:#fff; border-radius:var(--r3); overflow:hidden; box-shadow:0 10px 40px var(--sh);}
-@media(max-width:768px){.auth-body{grid-template-columns:1fr;} .auth-left{display:none;}}
-.auth-left{background:var(--ink); padding:60px; color:#fff; display:flex; flex-direction:column; justify-content:center;}
-.auth-right{padding:60px; display:flex; flex-direction:column; justify-content:center;}
-.atabs{display:flex; background:var(--p2); padding:4px; border-radius:12px; margin-bottom:24px;}
-.atab{flex:1; border:none; background:none; padding:10px; font-weight:600; color:var(--ink3); cursor:pointer; border-radius:8px;}
-.atab.act{background:#fff; color:var(--g); box-shadow:0 2px 8px var(--sh);}
-.apanel{display:none;}.apanel.act{display:block;}
-.fgrp{margin-bottom:18px;}
-.flabel{display:block; font-size:12px; font-weight:700; margin-bottom:8px; color:var(--ink2);}
-.finput{width:100%; padding:12px; border:1.5px solid var(--bd2); border-radius:10px; outline:none;}
-.btn{width:100%; padding:14px; border:none; border-radius:12px; font-weight:700; cursor:pointer; transition:0.2s;}
-.bg{background:var(--g); color:#fff;}
+/* AUTH LAYOUT (MATCHING IMAGE) */
+.auth-body{display:grid; grid-template-columns:1.1fr 0.9fr; width:100%; min-height:100vh;}
+@media(max-width:900px){.auth-body{grid-template-columns:1fr;} .auth-left{display:none;}}
+.auth-left{background:var(--ink); padding:80px; color:#fff; display:flex; flex-direction:column; justify-content:center;}
+.auth-right{padding:80px; display:flex; flex-direction:column; justify-content:center; background:#fff;}
 
-/* GAME MAP VISUALS */
-.map-container{max-width:600px; margin:0 auto; padding:40px 20px; position:relative;}
-.map-node{display:flex; align-items:center; gap:20px; margin-bottom:40px; position:relative; z-index:2;}
-.node-circle{width:60px; height:60px; border-radius:50%; background:#fff; border:3px solid var(--p4); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:18px; color:var(--p4); transition:0.3s;}
-.node-info{text-align:left;}
-.map-node.unlocked .node-circle{border-color:var(--g); color:var(--g); box-shadow:0 0 15px var(--gd2);}
-.map-node.locked{opacity:0.5; filter:grayscale(1);}
-.map-node.locked .node-circle::after{content:'🔒'; font-size:12px; position:absolute; bottom:0; right:20px;}
-.map-line{position:absolute; left:48px; top:40px; bottom:40px; width:4px; background:var(--p3); z-index:1;}
+.hero-tag{color:var(--g2); font-weight:700; font-size:12px; margin-bottom:15px; text-transform:uppercase; letter-spacing:1px;}
+.hero-title{font-family:'Playfair Display'; font-size:62px; line-height:1.1; margin-bottom:20px;}
+.hero-title span{font-style:italic; color:var(--g2);}
+.hero-sub{opacity:0.7; line-height:1.6; max-width:420px; margin-bottom:45px; font-size:15px;}
 
-/* QUIZ */
-.qcard{max-width:600px; margin:0 auto; background:#fff; border-radius:var(--r2); padding:40px; box-shadow:0 4px 20px var(--sh);}
-.qopt{width:100%; padding:14px; margin-bottom:10px; border:1.5px solid var(--bd2); border-radius:10px; background:var(--p); text-align:left; cursor:pointer;}
-.qopt:hover{border-color:var(--g);}
-.progress-bar{height:6px; background:var(--p3); border-radius:3px; margin-bottom:30px; overflow:hidden;}
-.progress-fill{height:100%; background:var(--g); width:0%; transition:0.3s;}
+.feat{display:flex; gap:18px; margin-bottom:30px;}
+.f-icon{width:42px; height:42px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;}
+.f-txt h4{font-size:16px; margin-bottom:4px; font-weight:600;}
+.f-txt p{font-size:13px; opacity:0.5; line-height:1.4;}
 
-/* FEEDBACK */
-.fbcard{background:#fff; border-radius:var(--r2); border:1px solid var(--bd2); margin-top:30px; display:none;}
-.fbhd{padding:24px; background:var(--p2); display:flex; align-items:center; gap:20px;}
-.fbn{font-family:'Playfair Display'; font-size:42px; font-weight:700; color:var(--g);}
-.fbpills{display:flex; flex-wrap:wrap; gap:8px; margin-top:15px;}
-.fbpill{font-size:11px; padding:5px 12px; border-radius:20px; font-weight:600; background:var(--gd); color:var(--g); border:1px solid var(--g);}
+/* AUTH FORMS */
+.tabs-wrap{background:var(--p2); padding:5px; border-radius:14px; display:flex; margin-bottom:35px;}
+.tab-btn{flex:1; border:none; background:none; padding:12px; font-weight:700; color:var(--ink3); cursor:pointer; border-radius:10px; transition:0.2s;}
+.tab-btn.active{background:#fff; color:var(--g); box-shadow:0 4px 12px var(--sh);}
+.f-group{margin-bottom:22px;}
+.f-label{display:block; font-size:13px; font-weight:700; margin-bottom:10px;}
+.f-input{width:100%; padding:14px; border:1.5px solid var(--bd2); border-radius:12px; background:var(--p); outline:none; transition:0.2s;}
+.f-input:focus{border-color:var(--g); background:#fff;}
+.btn-submit{width:100%; padding:16px; border:none; border-radius:12px; background:var(--g); color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:0.3s;}
+.btn-submit:hover{background:var(--ink); transform:translateY(-1px);}
+
+/* QUIZ & MAP */
+.content-area{max-width:700px; margin:110px auto; padding:20px; width:100%;}
+.q-card{background:#fff; padding:40px; border-radius:var(--r3); border:1px solid var(--bd2); box-shadow:0 10px 30px var(--sh);}
+.opt-btn{width:100%; padding:16px; margin-bottom:12px; border:1.5px solid var(--bd2); border-radius:12px; background:var(--p); text-align:left; cursor:pointer; font-weight:500; transition:0.2s;}
+.opt-btn:hover{border-color:var(--g); background:#fff;}
+
+.map-track{position:relative; padding-left:40px;}
+.map-track::before{content:''; position:absolute; left:64px; top:0; bottom:0; width:4px; background:var(--p3); z-index:1;}
+.node{display:flex; align-items:center; gap:25px; margin-bottom:45px; position:relative; z-index:2;}
+.node-circle{width:54px; height:54px; border-radius:50%; background:#fff; border:3px solid var(--p4); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--p4); transition:0.4s;}
+.node.unlocked .node-circle{border-color:var(--g); color:var(--g); background:var(--gd); box-shadow:0 0 15px var(--gd2);}
+.node.locked{opacity:0.5;}
+
+/* FEEDBACK CARD */
+.fb-card{background:#fff; border-radius:var(--r2); border:1px solid var(--bd2); margin-top:30px; display:none; overflow:hidden;}
+.fb-head{padding:24px; background:var(--p2); display:flex; align-items:center; gap:20px;}
+.fb-score{font-family:'Playfair Display'; font-size:48px; font-weight:700; color:var(--g);}
 </style>
 </head>
 <body>
 
 <div id="nav">
-  <div class="nlogo">Verba Mastery</div>
+  <div class="nlogo">Verba</div>
   <div class="nlinks">
-    <button class="nbtn" onclick="showPage('home')">Home</button>
-    <button class="nbtn" onclick="showPage('gamemap')">Map</button>
-    <button class="nbtn logout" onclick="logout()">Logout</button>
+    <button class="nbtn" onclick="showPage('home')">Dashboard</button>
+    <button class="nbtn" onclick="showPage('map')">My Map</button>
+    <button class="nbtn logout-btn" onclick="logout()">Logout</button>
   </div>
 </div>
 
 <div id="auth" class="screen active">
   <div class="auth-body">
     <div class="auth-left">
-      <h1 style="font-family:'Playfair Display'; font-size:48px;">Verba</h1>
-      <p style="margin-top:20px; opacity:0.8; line-height:1.6;">Precision English assessment. Your progress and level are synced across devices.</p>
+      <p class="hero-tag">English Speaking Practice</p>
+      <h1 class="hero-title">Your words.<br>Your voice.<br><span>Out loud.</span></h1>
+      <p class="hero-sub">Built for Indonesian learners — warm AI feedback, gamified levels, zero data collection.</p>
+      
+      <div class="feat"><div class="f-icon">🎙️</div><div class="f-txt"><h4>Free Monologue</h4><p>Get a topic, speak freely, get scored on fluency and grammar.</p></div></div>
+      <div class="feat"><div class="f-icon">📖</div><div class="f-txt"><h4>Read Aloud</h4><p>Passages and tongue twisters with pronunciation feedback.</p></div></div>
+      <div class="feat"><div class="f-icon">🖼️</div><div class="f-txt"><h4>Picture Description</h4><p>Describe scenes and charts in detail — great for IELTS.</p></div></div>
     </div>
+    
     <div class="auth-right">
-      <div class="atabs">
-        <button class="atab act" onclick="switchAuth('login')">Login</button>
-        <button class="atab" onclick="switchAuth('signup')">Sign Up</button>
+      <div class="tabs-wrap">
+        <button id="tab-l" class="tab-btn active" onclick="setAuthMode('login')">Sign in</button>
+        <button id="tab-s" class="tab-btn" onclick="setAuthMode('signup')">Create account</button>
       </div>
-      <div id="loginPanel" class="apanel act">
-        <form onsubmit="event.preventDefault(); login();">
-          <div class="fgrp"><label class="flabel">Email</label><input type="email" name="username" class="finput" autocomplete="username" required></div>
-          <div class="fgrp"><label class="flabel">Password</label><input type="password" name="password" class="finput" autocomplete="current-password" required></div>
-          <button type="submit" class="btn bg">Login</button>
-          <span class="alink" onclick="alert('Reset email sent.')">Forgot Password?</span>
+
+      <div id="form-login">
+        <form onsubmit="event.preventDefault(); startApp();">
+          <div class="f-group"><label class="f-label">Username</label><input type="text" class="f-input" placeholder="Your username" required></div>
+          <div class="f-group"><label class="f-label">Password</label><input type="password" class="f-input" placeholder="••••••••" required></div>
+          <button type="submit" class="btn-submit">Sign in →</button>
+          <p style="text-align:center; margin-top:25px;"><a href="#" onclick="alert('Reset link sent to your email.')" style="color:var(--g); font-size:13px; font-weight:700; text-decoration:none;">Forgot password?</a></p>
         </form>
       </div>
-      <div id="signupPanel" class="apanel">
-        <form onsubmit="event.preventDefault(); login();">
-          <div class="fgrp"><label class="flabel">Full Name</label><input type="text" class="finput" required></div>
-          <div class="fgrp"><label class="flabel">Email</label><input type="email" name="username" class="finput" autocomplete="username" required></div>
-          <div class="fgrp"><label class="flabel">Password</label><input type="password" name="password" class="finput" autocomplete="new-password" required></div>
-          <button type="submit" class="btn bg">Create Account</button>
+
+      <div id="form-signup" style="display:none;">
+        <form onsubmit="event.preventDefault(); startApp();">
+          <div class="f-group"><label class="f-label">Full Name</label><input type="text" class="f-input" placeholder="Enter your name" required></div>
+          <div class="f-group"><label class="f-label">Email</label><input type="email" class="f-input" placeholder="email@example.com" required></div>
+          <div class="f-group"><label class="f-label">Password</label><input type="password" class="f-input" placeholder="Create password" required></div>
+          <button type="submit" class="btn-submit">Create account →</button>
         </form>
       </div>
     </div>
@@ -110,134 +122,139 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
 </div>
 
 <div id="quiz" class="screen">
-  <div class="qcard">
-    <div class="progress-bar"><div id="q_progress" class="progress-fill"></div></div>
-    <div id="q_cat" style="font-size:11px; font-weight:700; color:var(--g); text-transform:uppercase; margin-bottom:8px;"></div>
-    <h2 id="q_text" style="font-family:'Playfair Display'; margin-bottom:24px; min-height:60px;"></h2>
-    <div id="q_opts"></div>
-    <button id="q_next" class="btn bg" style="margin-top:20px; display:none;" onclick="nextQuestion()">Continue</button>
-  </div>
-</div>
-
-<div id="gamemap" class="screen">
-  <div class="map-container">
-    <div class="map-line"></div>
-    <div id="nodes_wrap"></div>
+  <div class="content-area">
+    <div class="q-card">
+      <p id="q-category" style="color:var(--g); font-weight:700; font-size:11px; text-transform:uppercase; margin-bottom:10px;"></p>
+      <h2 id="q-text" style="font-family:'Playfair Display'; margin-bottom:30px; min-height:80px;"></h2>
+      <div id="q-options"></div>
+    </div>
   </div>
 </div>
 
 <div id="home" class="screen">
-  <div style="padding:40px 20px; text-align:center; max-width:800px; margin:0 auto;">
-    <h1 style="font-family:'Playfair Display'; font-size:36px;">Training Center</h1>
-    <p style="margin-bottom:30px; color:var(--ink3);">Current Mastery: <strong id="user_lvl">--</strong></p>
+  <div class="content-area" style="text-align:center;">
+    <h1 style="font-family:'Playfair Display'; font-size:42px; margin-bottom:10px;">Progress Dashboard</h1>
+    <p>Current CEFR Mastery: <strong id="user-lvl-display" style="color:var(--g);">--</strong></p>
     
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
-      <button class="btn bg" onclick="runFeedback('academic')">Academic</button>
-      <button class="btn bg" onclick="runFeedback('professional')">Professional</button>
-      <button class="btn bg" onclick="runFeedback('casual')">Casual</button>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:15px; margin-top:40px;">
+      <button class="btn-submit" onclick="runAI('Academic')">Academic Mode</button>
+      <button class="btn-submit" onclick="runAI('Professional')">Business Pitch</button>
+      <button class="btn-submit" onclick="runAI('Casual')">Casual Chat</button>
     </div>
 
-    <div id="ai_fb" class="fbcard">
-      <div class="fbhd"><div class="fbn" id="fb_score">0</div><div><div id="fb_intro" style="font-weight:700;"></div></div></div>
-      <div style="padding:24px;"><div id="fb_detail" style="line-height:1.6; font-size:14px;"></div><div id="fb_pills" class="fbpills"></div></div>
+    <div id="ai-feedback" class="fb-card">
+      <div class="fb-head"><div class="fb-score" id="res-score">0</div><div><div id="res-intro" style="font-weight:700;"></div><div style="font-size:12px; opacity:0.6;">Warm AI Assessment</div></div></div>
+      <div style="padding:24px; text-align:left;"><p id="res-detail" style="line-height:1.6; font-size:14px;"></p></div>
     </div>
   </div>
 </div>
 
-<script>
-let userLvl = "A1";
-let curIdx = 0;
-let totalPoints = 0;
-let quizSet = [];
+<div id="map" class="screen">
+  <div class="content-area">
+    <h2 style="font-family:'Playfair Display'; margin-bottom:40px; font-size:32px;">Learning Path</h2>
+    <div class="map-track" id="map-render"></div>
+  </div>
+</div>
 
-const POOL = [
-  {q:"By July, we ___ for ten years.", o:["will wait","will have been waiting","waited"], a:1, v:4, c:"Grammar"},
-  {q:"The project was ___ due to funding.", o:["shelved","shoved","shuffled"], a:0, v:4, c:"Vocab"},
-  {q:"'Ambiguous' means:", o:["clear","uncertain","wrong"], a:1, v:3, c:"Logic"},
-  {q:"Formal greeting:", o:["Hey","To whom it may concern","Hi"], a:1, v:2, c:"Pro"},
-  {q:"If I ___ rich, I'd travel.", o:["am","was","were"], a:2, v:3, c:"Grammar"},
-  {q:"Synonym for 'huge':", o:["tiny","massive","small"], a:1, v:1, c:"Vocab"},
-  {q:"Formal sign-off:", o:["Bye","Sincerely","Thanks"], a:1, v:2, c:"Pro"},
-  {q:"I ___ my keys yesterday.", o:["lose","lost","loss"], a:1, v:1, c:"Grammar"},
-  {q:"'Meticulous' means:", o:["Lazy","Careful","Happy"], a:1, v:3, c:"Logic"},
-  {q:"She ___ at the bank.", o:["work","works","working"], a:1, v:1, c:"Grammar"}
+<script>
+let userLevel = "A1";
+let score = 0;
+let qIdx = 0;
+const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
+const QUESTIONS = [
+  {c:"Grammar", q:"By next year, I ___ my degree.", o:["finish","will have finished","finished"], a:1, v:4},
+  {c:"Vocab", q:"To 'shelve' a project means to:", o:["Start it","Delay/Postpone it","Finish it"], a:1, v:3},
+  {c:"Pro English", q:"Most appropriate email sign-off:", o:["Later!","Sincerely,","Thanks a lot"], a:1, v:2},
+  {c:"Logic", q:"If the results are 'ambiguous', they are:", o:["Clear","Uncertain","Incorrect"], a:1, v:4},
+  {c:"Grammar", q:"If I ___ you, I would take the job.", o:["am","was","were"], a:2, v:3},
+  {c:"Vocab", q:"A 'meticulous' person is:", o:["Careless","Very careful","Fast"], a:1, v:3},
+  {c:"Pro English", q:"Correct way to ask for a meeting:", o:["I want meeting.","I would like to schedule a meeting.","Meeting now?"], a:1, v:2},
+  {c:"Grammar", q:"She ___ here for five years.", o:["work","works","has worked"], a:2, v:2},
+  {c:"Logic", q:"'Inevitable' means something is:", o:["Impossible","Unavoidable","Rare"], a:1, v:4},
+  {c:"Vocab", q:"Synonym for 'Robust':", o:["Weak","Strong/Durable","Small"], a:1, v:3}
 ];
 
-const CEFR = ["A1", "A2", "B1", "B2", "C1", "C2"];
-
-function showPage(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if(id === 'gamemap') renderMap();
+function setAuthMode(m) {
+  document.getElementById('form-login').style.display = m === 'login' ? 'block' : 'none';
+  document.getElementById('form-signup').style.display = m === 'signup' ? 'block' : 'none';
+  document.getElementById('tab-l').className = 'tab-btn' + (m === 'login' ? ' active' : '');
+  document.getElementById('tab-s').className = 'tab-btn' + (m === 'signup' ? ' active' : '');
 }
 
-function switchAuth(m) {
-  document.querySelectorAll('.apanel, .atab').forEach(e => e.classList.remove('act'));
-  document.getElementById(m+'Panel').classList.add('act');
-  event.target.classList.add('act');
-}
-
-function login() {
+function startApp() {
   showPage('quiz');
-  quizSet = POOL.sort(() => 0.5 - Math.random());
-  renderQ();
+  loadQuestion();
 }
 
-function logout() {
-  document.getElementById('nav').style.display = 'none';
-  showPage('auth');
-}
-
-function renderQ() {
-  const q = quizSet[curIdx];
-  document.getElementById('q_progress').style.width = (curIdx * 10) + '%';
-  document.getElementById('q_cat').textContent = q.c;
-  document.getElementById('q_text').textContent = q.q;
-  const opts = document.getElementById('q_opts');
-  opts.innerHTML = '';
+function loadQuestion() {
+  const q = QUESTIONS[qIdx];
+  document.getElementById('q-category').innerText = `Step ${qIdx+1} • ${q.c}`;
+  document.getElementById('q-text').innerText = q.q;
+  const wrap = document.getElementById('q-options');
+  wrap.innerHTML = '';
   q.o.forEach((opt, i) => {
     const btn = document.createElement('button');
-    btn.className = 'qopt'; btn.textContent = opt;
-    btn.onclick = () => { totalPoints += (i === q.a ? q.v : 0); nextQuestion(); };
-    opts.appendChild(btn);
+    btn.className = 'opt-btn';
+    btn.innerText = opt;
+    btn.onclick = () => { if(i === q.a) score += q.v; next(); };
+    wrap.appendChild(btn);
   });
 }
 
-function nextQuestion() {
-  curIdx++;
-  if(curIdx < 10) renderQ();
-  else {
-    if(totalPoints > 25) userLvl = "C1";
-    else if(totalPoints > 18) userLvl = "B2";
-    else if(totalPoints > 10) userLvl = "B1";
-    else if(totalPoints > 5) userLvl = "A2";
-    document.getElementById('user_lvl').textContent = userLvl;
-    document.getElementById('nav').style.display = 'flex';
-    showPage('home');
-  }
+function next() {
+  qIdx++;
+  if(qIdx < QUESTIONS.length) loadQuestion();
+  else calcLevel();
+}
+
+function calcLevel() {
+  if(score > 25) userLevel = "C1";
+  else if(score > 18) userLevel = "B2";
+  else if(score > 10) userLevel = "B1";
+  else if(score > 5) userLevel = "A2";
+  else userLevel = "A1";
+
+  document.getElementById('user-lvl-display').innerText = userLevel;
+  document.getElementById('nav').style.display = 'flex';
+  showPage('home');
 }
 
 function renderMap() {
-  const wrap = document.getElementById('nodes_wrap');
+  const wrap = document.getElementById('map-render');
   wrap.innerHTML = '';
-  const userIdx = CEFR.indexOf(userLvl);
-  CEFR.forEach((lvl, i) => {
+  const currentIdx = LEVELS.indexOf(userLevel);
+  LEVELS.forEach((lvl, i) => {
+    const unlocked = i <= currentIdx;
     const node = document.createElement('div');
-    const isUnlocked = i <= userIdx;
-    node.className = `map-node ${isUnlocked ? 'unlocked' : 'locked'}`;
-    node.innerHTML = `<div class="node-circle">${lvl}</div><div class="node-info"><div style="font-weight:700">${lvl} Certification</div><div style="font-size:12px; opacity:0.6">${isUnlocked ? 'Unlocked' : 'Soft-Locked'}</div></div>`;
+    node.className = `node ${unlocked ? 'unlocked' : 'locked'}`;
+    node.innerHTML = `
+      <div class="node-circle">${unlocked ? lvl : '🔒'}</div>
+      <div><strong style="display:block;">${lvl} Mastery</strong>
+      <span style="font-size:12px; opacity:0.6;">${unlocked ? 'Unlocked & Ready' : 'Soft-Locked'}</span></div>
+    `;
     wrap.appendChild(node);
   });
 }
 
-function runFeedback(mode) {
-  const s = { p: 85, g: 70, v: 60 };
-  document.getElementById('ai_fb').style.display = 'block';
-  document.getElementById('fb_score').textContent = "72";
-  document.getElementById('fb_intro').textContent = userLvl.startsWith('A') ? "Fantastic effort!" : "Great professional flow!";
-  document.getElementById('fb_detail').textContent = `In ${mode} mode, you should focus on ${userLvl.startsWith('A') ? 'clarity' : 'nuance'}.`;
-  const pwrap = document.getElementById('fb_pills');
-  pwrap.innerHTML = '<span class="fbpill">Clear Speech</span><span class="fbpill">Tone Match</span>';
+function runAI(mode) {
+  const card = document.getElementById('ai-feedback');
+  card.style.display = 'block';
+  document.getElementById('res-score').innerText = userLevel === "A1" ? "68" : "92";
+  document.getElementById('res-intro').innerText = userLevel.startsWith('A') ? "Fantastic courage!" : "Expert articulation!";
+  document.getElementById('res-detail').innerText = `Your ${mode} performance was analyzed. Focus on ${userLevel.startsWith('A') ? 'basic sentence rhythm' : 'sophisticated lexical variety'}.`;
+}
+
+function showPage(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id === 'map') renderMap();
+}
+
+function logout() {
+  document.getElementById('nav').style.display = 'none';
+  qIdx = 0; score = 0;
+  showPage('auth');
 }
 </script>
 </body>
