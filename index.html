@@ -25,7 +25,7 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
 .nbtn{background:none; border:none; color:var(--ink2); font-weight:600; cursor:pointer; font-size:14px;}
 .logout-btn{border:1.5px solid var(--g); color:var(--g); padding:6px 16px; border-radius:8px;}
 
-/* AUTH LAYOUT (MATCHING IMAGE) */
+/* AUTH LAYOUT */
 .auth-body{display:grid; grid-template-columns:1.1fr 0.9fr; width:100%; min-height:100vh;}
 @media(max-width:900px){.auth-body{grid-template-columns:1fr;} .auth-left{display:none;}}
 .auth-left{background:var(--ink); padding:80px; color:#fff; display:flex; flex-direction:column; justify-content:center;}
@@ -41,7 +41,7 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
 .f-txt h4{font-size:16px; margin-bottom:4px; font-weight:600;}
 .f-txt p{font-size:13px; opacity:0.5; line-height:1.4;}
 
-/* AUTH FORMS */
+/* AUTH INTERACTIVE ELEMENTS */
 .tabs-wrap{background:var(--p2); padding:5px; border-radius:14px; display:flex; margin-bottom:35px;}
 .tab-btn{flex:1; border:none; background:none; padding:12px; font-weight:700; color:var(--ink3); cursor:pointer; border-radius:10px; transition:0.2s;}
 .tab-btn.active{background:#fff; color:var(--g); box-shadow:0 4px 12px var(--sh);}
@@ -50,25 +50,18 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
 .f-input{width:100%; padding:14px; border:1.5px solid var(--bd2); border-radius:12px; background:var(--p); outline:none; transition:0.2s;}
 .f-input:focus{border-color:var(--g); background:#fff;}
 .btn-submit{width:100%; padding:16px; border:none; border-radius:12px; background:var(--g); color:#fff; font-weight:700; font-size:16px; cursor:pointer; transition:0.3s;}
-.btn-submit:hover{background:var(--ink); transform:translateY(-1px);}
 
 /* QUIZ & MAP */
 .content-area{max-width:700px; margin:110px auto; padding:20px; width:100%;}
 .q-card{background:#fff; padding:40px; border-radius:var(--r3); border:1px solid var(--bd2); box-shadow:0 10px 30px var(--sh);}
-.opt-btn{width:100%; padding:16px; margin-bottom:12px; border:1.5px solid var(--bd2); border-radius:12px; background:var(--p); text-align:left; cursor:pointer; font-weight:500; transition:0.2s;}
-.opt-btn:hover{border-color:var(--g); background:#fff;}
+.opt-btn{width:100%; padding:16px; margin-bottom:12px; border:1.5px solid var(--bd2); border-radius:12px; background:var(--p); text-align:left; cursor:pointer; font-weight:500;}
 
 .map-track{position:relative; padding-left:40px;}
 .map-track::before{content:''; position:absolute; left:64px; top:0; bottom:0; width:4px; background:var(--p3); z-index:1;}
 .node{display:flex; align-items:center; gap:25px; margin-bottom:45px; position:relative; z-index:2;}
-.node-circle{width:54px; height:54px; border-radius:50%; background:#fff; border:3px solid var(--p4); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--p4); transition:0.4s;}
-.node.unlocked .node-circle{border-color:var(--g); color:var(--g); background:var(--gd); box-shadow:0 0 15px var(--gd2);}
+.node-circle{width:54px; height:54px; border-radius:50%; background:#fff; border:3px solid var(--p4); display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--p4);}
+.node.unlocked .node-circle{border-color:var(--g); color:var(--g); background:var(--gd);}
 .node.locked{opacity:0.5;}
-
-/* FEEDBACK CARD */
-.fb-card{background:#fff; border-radius:var(--r2); border:1px solid var(--bd2); margin-top:30px; display:none; overflow:hidden;}
-.fb-head{padding:24px; background:var(--p2); display:flex; align-items:center; gap:20px;}
-.fb-score{font-family:'Playfair Display'; font-size:48px; font-weight:700; color:var(--g);}
 </style>
 </head>
 <body>
@@ -77,7 +70,7 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
   <div class="nlogo">Verba</div>
   <div class="nlinks">
     <button class="nbtn" onclick="showPage('home')">Dashboard</button>
-    <button class="nbtn" onclick="showPage('map')">My Map</button>
+    <button class="nbtn" onclick="showPage('map')">My Path</button>
     <button class="nbtn logout-btn" onclick="logout()">Logout</button>
   </div>
 </div>
@@ -88,10 +81,8 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
       <p class="hero-tag">English Speaking Practice</p>
       <h1 class="hero-title">Your words.<br>Your voice.<br><span>Out loud.</span></h1>
       <p class="hero-sub">Built for Indonesian learners — warm AI feedback, gamified levels, zero data collection.</p>
-      
-      <div class="feat"><div class="f-icon">🎙️</div><div class="f-txt"><h4>Free Monologue</h4><p>Get a topic, speak freely, get scored on fluency and grammar.</p></div></div>
-      <div class="feat"><div class="f-icon">📖</div><div class="f-txt"><h4>Read Aloud</h4><p>Passages and tongue twisters with pronunciation feedback.</p></div></div>
-      <div class="feat"><div class="f-icon">🖼️</div><div class="f-txt"><h4>Picture Description</h4><p>Describe scenes and charts in detail — great for IELTS.</p></div></div>
+      <div class="feat"><div class="f-icon">🎙️</div><div class="f-txt"><h4>Free Monologue</h4><p>Speak freely on any topic.</p></div></div>
+      <div class="feat"><div class="f-icon">🖼️</div><div class="f-txt"><h4>Picture Description</h4><p>Analyze charts and scenes.</p></div></div>
     </div>
     
     <div class="auth-right">
@@ -101,19 +92,19 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
       </div>
 
       <div id="form-login">
-        <form onsubmit="event.preventDefault(); startApp();">
-          <div class="f-group"><label class="f-label">Username</label><input type="text" class="f-input" placeholder="Your username" required></div>
-          <div class="f-group"><label class="f-label">Password</label><input type="password" class="f-input" placeholder="••••••••" required></div>
+        <form onsubmit="handleLogin(event)">
+          <div class="f-group"><label class="f-label">Username</label><input type="text" id="li-user" class="f-input" placeholder="Your username" required></div>
+          <div class="f-group"><label class="f-label">Password</label><input type="password" id="li-pass" class="f-input" placeholder="••••••••" required></div>
           <button type="submit" class="btn-submit">Sign in →</button>
-          <p style="text-align:center; margin-top:25px;"><a href="#" onclick="alert('Reset link sent to your email.')" style="color:var(--g); font-size:13px; font-weight:700; text-decoration:none;">Forgot password?</a></p>
+          <p style="text-align:center; margin-top:25px;"><a href="#" onclick="alert('Reset link sent!')" style="color:var(--g); font-size:13px; font-weight:700; text-decoration:none;">Forgot password?</a></p>
         </form>
       </div>
 
       <div id="form-signup" style="display:none;">
-        <form onsubmit="event.preventDefault(); startApp();">
-          <div class="f-group"><label class="f-label">Full Name</label><input type="text" class="f-input" placeholder="Enter your name" required></div>
-          <div class="f-group"><label class="f-label">Email</label><input type="email" class="f-input" placeholder="email@example.com" required></div>
-          <div class="f-group"><label class="f-label">Password</label><input type="password" class="f-input" placeholder="Create password" required></div>
+        <form onsubmit="handleSignup(event)">
+          <div class="f-group"><label class="f-label">Full Name</label><input type="text" class="f-input" placeholder="Your name" required></div>
+          <div class="f-group"><label class="f-label">Username</label><input type="text" id="su-user" class="f-input" placeholder="Pick a username" required></div>
+          <div class="f-group"><label class="f-label">Password</label><input type="password" id="su-pass" class="f-input" placeholder="Create a password" required></div>
           <button type="submit" class="btn-submit">Create account →</button>
         </form>
       </div>
@@ -133,47 +124,24 @@ body{background:var(--p); color:var(--ink); min-height:100vh; overflow-x:hidden;
 
 <div id="home" class="screen">
   <div class="content-area" style="text-align:center;">
-    <h1 style="font-family:'Playfair Display'; font-size:42px; margin-bottom:10px;">Progress Dashboard</h1>
-    <p>Current CEFR Mastery: <strong id="user-lvl-display" style="color:var(--g);">--</strong></p>
-    
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:15px; margin-top:40px;">
-      <button class="btn-submit" onclick="runAI('Academic')">Academic Mode</button>
-      <button class="btn-submit" onclick="runAI('Professional')">Business Pitch</button>
-      <button class="btn-submit" onclick="runAI('Casual')">Casual Chat</button>
-    </div>
-
-    <div id="ai-feedback" class="fb-card">
-      <div class="fb-head"><div class="fb-score" id="res-score">0</div><div><div id="res-intro" style="font-weight:700;"></div><div style="font-size:12px; opacity:0.6;">Warm AI Assessment</div></div></div>
-      <div style="padding:24px; text-align:left;"><p id="res-detail" style="line-height:1.6; font-size:14px;"></p></div>
-    </div>
+    <h1 style="font-family:'Playfair Display'; font-size:42px;">Welcome back, <span id="display-name">Learner</span></h1>
+    <p style="margin-top:20px;">Current Level: <strong id="user-lvl-display">--</strong></p>
+    <button class="btn-submit" style="margin-top:30px;" onclick="showPage('map')">Go to Map</button>
   </div>
 </div>
 
 <div id="map" class="screen">
   <div class="content-area">
-    <h2 style="font-family:'Playfair Display'; margin-bottom:40px; font-size:32px;">Learning Path</h2>
-    <div class="map-track" id="map-render"></div>
+    <h2 style="font-family:'Playfair Display'; margin-bottom:40px;">Your Path</h2>
+    <div id="map-render" class="map-track"></div>
   </div>
 </div>
 
 <script>
+// Logic to handle "Database" simulation
+let users = { "admin": "password123" }; 
+let currentUser = "";
 let userLevel = "A1";
-let score = 0;
-let qIdx = 0;
-const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
-
-const QUESTIONS = [
-  {c:"Grammar", q:"By next year, I ___ my degree.", o:["finish","will have finished","finished"], a:1, v:4},
-  {c:"Vocab", q:"To 'shelve' a project means to:", o:["Start it","Delay/Postpone it","Finish it"], a:1, v:3},
-  {c:"Pro English", q:"Most appropriate email sign-off:", o:["Later!","Sincerely,","Thanks a lot"], a:1, v:2},
-  {c:"Logic", q:"If the results are 'ambiguous', they are:", o:["Clear","Uncertain","Incorrect"], a:1, v:4},
-  {c:"Grammar", q:"If I ___ you, I would take the job.", o:["am","was","were"], a:2, v:3},
-  {c:"Vocab", q:"A 'meticulous' person is:", o:["Careless","Very careful","Fast"], a:1, v:3},
-  {c:"Pro English", q:"Correct way to ask for a meeting:", o:["I want meeting.","I would like to schedule a meeting.","Meeting now?"], a:1, v:2},
-  {c:"Grammar", q:"She ___ here for five years.", o:["work","works","has worked"], a:2, v:2},
-  {c:"Logic", q:"'Inevitable' means something is:", o:["Impossible","Unavoidable","Rare"], a:1, v:4},
-  {c:"Vocab", q:"Synonym for 'Robust':", o:["Weak","Strong/Durable","Small"], a:1, v:3}
-];
 
 function setAuthMode(m) {
   document.getElementById('form-login').style.display = m === 'login' ? 'block' : 'none';
@@ -182,67 +150,65 @@ function setAuthMode(m) {
   document.getElementById('tab-s').className = 'tab-btn' + (m === 'signup' ? ' active' : '');
 }
 
-function startApp() {
-  showPage('quiz');
-  loadQuestion();
+function handleSignup(e) {
+  e.preventDefault();
+  const u = document.getElementById('su-user').value;
+  const p = document.getElementById('su-pass').value;
+  users[u] = p; // "Save" to our temporary object
+  alert("Account created! Please sign in.");
+  setAuthMode('login');
 }
 
-function loadQuestion() {
+function handleLogin(e) {
+  e.preventDefault();
+  const u = document.getElementById('li-user').value;
+  const p = document.getElementById('li-pass').value;
+  
+  if (users[u] && users[u] === p) {
+    currentUser = u;
+    document.getElementById('display-name').innerText = u;
+    startQuiz();
+  } else {
+    alert("Invalid credentials. Use admin / password123 if you haven't signed up.");
+  }
+}
+
+// Quiz & Level Logic
+let qIdx = 0; let score = 0;
+const QUESTIONS = [
+  {q:"By 2030, we ___ the project.", o:["finish","will have finished","finished"], a:1},
+  {q:"'Shelve' means:", o:["Start","Delay","Finish"], a:1},
+  {q:"Formal closing:", o:["Bye","Sincerely","Best"], a:1}
+];
+
+function startQuiz() {
+  qIdx = 0; score = 0;
+  showPage('quiz');
+  renderQ();
+}
+
+function renderQ() {
   const q = QUESTIONS[qIdx];
-  document.getElementById('q-category').innerText = `Step ${qIdx+1} • ${q.c}`;
   document.getElementById('q-text').innerText = q.q;
   const wrap = document.getElementById('q-options');
   wrap.innerHTML = '';
   q.o.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.innerText = opt;
-    btn.onclick = () => { if(i === q.a) score += q.v; next(); };
-    wrap.appendChild(btn);
+    const b = document.createElement('button');
+    b.className = 'opt-btn'; b.innerText = opt;
+    b.onclick = () => { if(i === q.a) score++; nextQ(); };
+    wrap.appendChild(b);
   });
 }
 
-function next() {
+function nextQ() {
   qIdx++;
-  if(qIdx < QUESTIONS.length) loadQuestion();
-  else calcLevel();
-}
-
-function calcLevel() {
-  if(score > 25) userLevel = "C1";
-  else if(score > 18) userLevel = "B2";
-  else if(score > 10) userLevel = "B1";
-  else if(score > 5) userLevel = "A2";
-  else userLevel = "A1";
-
-  document.getElementById('user-lvl-display').innerText = userLevel;
-  document.getElementById('nav').style.display = 'flex';
-  showPage('home');
-}
-
-function renderMap() {
-  const wrap = document.getElementById('map-render');
-  wrap.innerHTML = '';
-  const currentIdx = LEVELS.indexOf(userLevel);
-  LEVELS.forEach((lvl, i) => {
-    const unlocked = i <= currentIdx;
-    const node = document.createElement('div');
-    node.className = `node ${unlocked ? 'unlocked' : 'locked'}`;
-    node.innerHTML = `
-      <div class="node-circle">${unlocked ? lvl : '🔒'}</div>
-      <div><strong style="display:block;">${lvl} Mastery</strong>
-      <span style="font-size:12px; opacity:0.6;">${unlocked ? 'Unlocked & Ready' : 'Soft-Locked'}</span></div>
-    `;
-    wrap.appendChild(node);
-  });
-}
-
-function runAI(mode) {
-  const card = document.getElementById('ai-feedback');
-  card.style.display = 'block';
-  document.getElementById('res-score').innerText = userLevel === "A1" ? "68" : "92";
-  document.getElementById('res-intro').innerText = userLevel.startsWith('A') ? "Fantastic courage!" : "Expert articulation!";
-  document.getElementById('res-detail').innerText = `Your ${mode} performance was analyzed. Focus on ${userLevel.startsWith('A') ? 'basic sentence rhythm' : 'sophisticated lexical variety'}.`;
+  if(qIdx < QUESTIONS.length) renderQ();
+  else {
+    userLevel = score === 3 ? "B2" : "A1";
+    document.getElementById('user-lvl-display').innerText = userLevel;
+    document.getElementById('nav').style.display = 'flex';
+    showPage('home');
+  }
 }
 
 function showPage(id) {
@@ -251,11 +217,13 @@ function showPage(id) {
   if(id === 'map') renderMap();
 }
 
-function logout() {
-  document.getElementById('nav').style.display = 'none';
-  qIdx = 0; score = 0;
-  showPage('auth');
+function renderMap() {
+  const wrap = document.getElementById('map-render');
+  wrap.innerHTML = `<div class="node unlocked"><div class="node-circle">A1</div><div>Unlocked</div></div>
+                    <div class="node ${userLevel === 'B2' ? 'unlocked' : 'locked'}"><div class="node-circle">B2</div><div>${userLevel === 'B2' ? 'Unlocked' : 'Locked'}</div></div>`;
 }
+
+function logout() { location.reload(); }
 </script>
 </body>
 </html>
